@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookLib</string>
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Close</string>
 </resources>

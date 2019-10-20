@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/addBook"
+        android:title="Add Book"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_input_add"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_item_sync_now"
+        app:showAsAction="never"
+        android:title="Đồng bộ ngay">
+    </item>
+
+    <item
+        android:id="@+id/menu_item_settings"
+        app:showAsAction="never"
+        android:title="Cài đặt">
+    </item>
+
+    <item
+        android:id="@+id/menu_item_about"
+        app:showAsAction="never"
+        android:title="Giới thiệu">
+    </item>
+
+</menu>

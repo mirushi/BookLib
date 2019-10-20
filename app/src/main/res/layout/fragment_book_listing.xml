@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_book_listing_layout">
+
+
+    <TextView
+        android:id="@+id/fragment_book_listing_txtView_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Khởi đầu"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="@+id/fragment_book_listing_layout"
+        app:layout_constraintLeft_toLeftOf="@+id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_book_listing_rcv_new_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_start"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:scrollbars="horizontal"/>
+
+    <TextView
+        android:id="@+id/fragment_book_listing_txtView_reading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đang đọc"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_book_listing_rcv_new_book"
+        app:layout_constraintLeft_toLeftOf="@+id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_book_listing_rcv_reading_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_reading"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:scrollbars="horizontal"/>
+
+    <TextView
+        android:id="@+id/fragment_book_listing_txtView_finished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hoàn thành"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_book_listing_rcv_reading_book"
+        app:layout_constraintLeft_toLeftOf="@+id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_book_listing_rcv_finished_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_finished"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_book_listing_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:scrollbars="horizontal"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
