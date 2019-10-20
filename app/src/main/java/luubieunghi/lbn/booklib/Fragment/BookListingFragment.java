@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib;
+package luubieunghi.lbn.booklib.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import luubieunghi.lbn.booklib.BookFilterType;
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BookRecyclerViewAdapter;
 import luubieunghi.lbn.booklib.model.Book;
 

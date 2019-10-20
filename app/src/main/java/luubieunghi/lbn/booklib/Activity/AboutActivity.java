@@ -1,10 +1,12 @@
-package luubieunghi.lbn.booklib;
+package luubieunghi.lbn.booklib.Activity;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import luubieunghi.lbn.booklib.R;
 
 public class AboutActivity extends AppCompatActivity {
     @Override

@@ -1,8 +1,7 @@
-package luubieunghi.lbn.booklib;
+package luubieunghi.lbn.booklib.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import luubieunghi.lbn.booklib.model.MyService;
+import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.service.MyService;
 
 public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GestureDetector.OnGestureListener {
+
     private DrawerLayout drawer;
     private ImageView img;
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
@@ -31,18 +33,15 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     private FloatingActionButton btn_img_Play;
     private NavigationView nav_menu;
 
-
+    // các biến dùng cho lấy hướng vuốt
     private final float max_Distance_X=100;
     private GestureDetector gestureDetector;
-
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_play_music);
 
         addControls();
         addEvents();
@@ -52,14 +51,46 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     private void addEvents() {
         //block swipe navigationbar
         //drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,GravityCompat.END);
-        //open navigationbar-->menu setting
+        //gán context cho navigation
         nav_menu.setNavigationItemSelectedListener(this);
+
+        //open navigationbar-->menu setting
         btn_img_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.END);
+                // show navigation
+                //drawer.openDrawer(GravityCompat.END);
+
+                //tạo và hiển thị một menu
+                PopupMenu popupMenu=new PopupMenu(PlayMusic.this,btn_img_Menu);
+                popupMenu.getMenuInflater().inflate(R.menu.play_music_menu,popupMenu.getMenu());
+
+                //bắt sự kiện một item đucợ click
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.nav_email:{
+                                sendMail();
+                                break;
+                            }
+                            case R.id.nav_share: {
+                                share();
+                                break;
+                            }
+                            case R.id.nav_setting:{
+
+                            }
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
             }
         });
+
         //notification and play under background
         btn_img_Play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +100,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
                 startService(intent);
             }
         });
-        //degug
+        //degug mở list song do chưa vuốt được
         btn_img_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +109,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         });
     }
 
+    //tìm id của các control
     private void addControls() {
         //show only
         img=findViewById(R.id.img_disc);
@@ -100,29 +132,17 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         gestureDetector = new GestureDetector(PlayMusic.this);
     }
 
+    //lấy chiều vuốt để hiển thị list song
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
 
-    @Override
-    protected void onStart() {
-
-        super.onStart();
-    }
-
-
     //check what item selected in menu
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-
         switch (menuItem.getItemId()){
-            case R.id.nav_close:{
-                drawer.closeDrawer(GravityCompat.END);
-                break;
-            }
             case R.id.nav_email:{
                 sendMail();
                 break;
@@ -140,7 +160,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
 
-
     //gửi mail về booklib devteam
     public void sendMail(){
         Intent i = new Intent(Intent.ACTION_SEND);
@@ -154,6 +173,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
             Toast.makeText(PlayMusic.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
     }
+
     //share post lên fackbook cá nhân
     private void share(){
 
@@ -168,8 +188,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
             Toast.makeText(PlayMusic.this,"Thear are no app suitable for sharing",Toast.LENGTH_LONG).show();
         }
     }
-
-
 
     public void startListSongIntent(){
         Intent intent=new Intent(PlayMusic.this, openListSong.class);
@@ -214,13 +232,4 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         return result;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 }

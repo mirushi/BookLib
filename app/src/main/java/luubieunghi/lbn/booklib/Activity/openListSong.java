@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib;
+package luubieunghi.lbn.booklib.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BaiHatAdapter;
 import luubieunghi.lbn.booklib.model.BaiHat;
 
@@ -23,9 +24,8 @@ public class openListSong extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_list_song);
+        initListView();
 
-
-       initListView();
     }
 
     private void initListView() {

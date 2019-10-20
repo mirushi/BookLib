@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_settings_black_24dp"
@@ -22,10 +22,6 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share_black_24dp"
             android:title="Share">
-        </item>
-        <item android:id="@+id/nav_close"
-            android:icon="@drawable/ic_close_black_24dp"
-            android:title="Close">
         </item>
     </group>
 

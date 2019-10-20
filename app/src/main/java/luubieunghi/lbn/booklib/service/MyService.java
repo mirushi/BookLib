@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.model;
+package luubieunghi.lbn.booklib.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.openListSong;
+import luubieunghi.lbn.booklib.Activity.openListSong;
 
 public class MyService extends Service {
 
@@ -30,6 +30,7 @@ public class MyService extends Service {
         return null;
     }
 
+    //tạo một mediaplayer trong đây
     @Override
     public void onCreate() {
         mediaPlayer=new MediaPlayer();
@@ -42,7 +43,9 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        //lấy action của intent để xử lí
         String action=intent.getAction();
+
         if(action!=null){
             if(action.equals("Action_Stop")){
                 stop_MyService(intent);
@@ -54,10 +57,13 @@ public class MyService extends Service {
                 }
             }
         }
+
         return START_STICKY;
     }
 
+    // bắt đầu phát nhạc
     private void play_MediaPlayer(Intent intent) {
+
         if(mediaPlayer!=null){
             if(mediaPlayer.isPlaying()){
                 mediaPlayer.pause();
@@ -74,22 +80,26 @@ public class MyService extends Service {
 
     }
 
+    // xóa thông báo và dừng mediaplayer
     private void stop_MyService(Intent intent) {
+        //đóng notification
         NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(1);
+
         if(mediaPlayer.isPlaying()){
             mediaPlayer.stop();
-            mediaPlayer=null;
         }
+
     }
 
+    //tạo intent sync giữa notification và activity
     private PendingIntent onButtonNotificationClick(@IdRes int id) {
-        Intent intent = new Intent(this,NotificationReciever.class);
+        Intent intent = new Intent(this, NotificationReciever.class);
         intent.putExtra("control_id",id);
         return PendingIntent.getBroadcast(this, id, intent, 0);
     }
 
-
+    //tạo chanel cho notification
     private void createNotificationChanel(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel=new NotificationChannel(chanel_ID,chanel_Name, NotificationManager.IMPORTANCE_HIGH);
@@ -99,7 +109,7 @@ public class MyService extends Service {
         }
     }
 
-
+    // hiển thị notification
     private void showNotification() {
         createNotificationChanel();
 
@@ -131,6 +141,5 @@ public class MyService extends Service {
         NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1,customeNotification);
     }
-
 
 }

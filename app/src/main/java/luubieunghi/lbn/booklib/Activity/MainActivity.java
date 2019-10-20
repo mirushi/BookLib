@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib;
+package luubieunghi.lbn.booklib.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BookListingPagerAdapter;
 
 import android.content.Intent;

@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PlayMusic"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.PlayMusic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.MainActivity">
+        </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".Activity.AboutActivity"
             android:label="About" />
-        <activity android:name=".openListSong" />
-        <receiver android:name=".model.NotificationReciever"></receiver>
-        <service android:name=".model.MyService" />
+        <activity android:name=".Activity.openListSong"/>
+        <receiver android:name=".service.NotificationReciever"></receiver>
+        <service android:name=".service.MyService" />
     </application>
 
 </manifest>

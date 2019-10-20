@@ -2,7 +2,10 @@ package luubieunghi.lbn.booklib.model;
 
 import java.io.Serializable;
 
+//dùng để test cho list view của activity list song
+
 public class BaiHat implements Serializable {
+
     private String tenBaiHat;
     private String tenCaSi;
     private String hinh;
