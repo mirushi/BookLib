@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     <activity android:label="About" android:name="AboutActivity"/>
+        <activity
+            android:name=".AboutActivity"
+        <activity android:name=".openListSong" />
+        <service android:name=".model.MyService" />
     </application>
+
 </manifest>
