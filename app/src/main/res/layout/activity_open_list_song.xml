@@ -4,14 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.openListSong">
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_danhSachBaiHat"
-        android:theme="@style/Platform.MaterialComponents.Light"
-        tools:listheader="@layout/nav_header"
-        >
-    </ListView>
+    tools:context=".Activity.openListSong"
+    android:orientation="vertical">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1">
+      <androidx.appcompat.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/toolbar_listsong"
+          app:title=""
+          android:background="@color/colorPrimary">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+              <ImageButton
+                  android:background="@null"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:src="@drawable/ic_search_black_24dp"
+                  android:layout_marginRight="15dp"
+                  android:layout_weight="1">
+              </ImageButton>
+              <EditText
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textColorHint="#000000"
+                  android:hint="song or singer"
+                  android:singleLine="true"
+                  android:layout_weight="6"
+                  android:layout_marginRight="10dp"
+                  android:backgroundTint="#000000"
+                  android:textCursorDrawable="@xml/cusor_color"
+                  >
+              </EditText>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:src="@drawable/ic_more_vert_black_24dp"
+                  android:layout_marginRight="5dp"
+                  android:background="@null"
+                  android:layout_marginLeft="0dp"                  android:layout_weight="1"
+                  >
+              </ImageButton>
+          </LinearLayout>
+      </androidx.appcompat.widget.Toolbar>
+  </LinearLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tablayout_listsong_type"
+        android:layout_weight="1">
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:id="@+id/viewpager_listsong">
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>
