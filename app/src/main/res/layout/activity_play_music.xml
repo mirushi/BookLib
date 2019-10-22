@@ -206,7 +206,7 @@
                 xlmns:layout_width="wrap_content"
                 xlmns:layout_height="wrap_content"
                 xlmns:layout_weight="1"
-                xlmns:src="@drawable/ic_pause_circle_outline_black_24dp"
+                xlmns:src="@drawable/ic_play_arrow_black_24dp"
                 app:backgroundTint="#80b7cf"
                 />
 

@@ -8,15 +8,26 @@ public class BaiHat implements Serializable {
 
     private String tenBaiHat;
     private String tenCaSi;
-    private String hinh;
+    private int hinh;
+    private int resSourceId;
+
+
+    public int getResSourceId() {
+        return resSourceId;
+    }
+
+    public void setResSourceId(int resSourceId) {
+        this.resSourceId = resSourceId;
+    }
 
     public BaiHat() {
     }
 
-    public BaiHat(String tenBaiHat, String tenCaSi, String hinh) {
+    public BaiHat(String tenBaiHat, String tenCaSi, int hinh, int id) {
         this.tenBaiHat = tenBaiHat;
         this.tenCaSi = tenCaSi;
         this.hinh = hinh;
+        this.resSourceId=id;
     }
 
     public String getTenBaiHat() {
@@ -35,11 +46,11 @@ public class BaiHat implements Serializable {
         this.tenCaSi = tenCaSi;
     }
 
-    public String getHinh() {
+    public int getHinh() {
         return hinh;
     }
 
-    public void setHinh(String hinh) {
+    public void setHinh(int hinh) {
         this.hinh = hinh;
     }
 }

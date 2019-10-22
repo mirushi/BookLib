@@ -14,38 +14,39 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Activity.MainActivity;
+import luubieunghi.lbn.booklib.Activity.OpenAlbum;
 import luubieunghi.lbn.booklib.Activity.PlayMusic;
-import luubieunghi.lbn.booklib.Activity.openListSong;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.adapter.AlbumAdapter;
 import luubieunghi.lbn.booklib.adapter.BaiHatAdapter;
+import luubieunghi.lbn.booklib.model.Album;
 import luubieunghi.lbn.booklib.model.BaiHat;
 
-public class Listsong_Fragment extends Fragment implements AdapterView.OnItemClickListener {
+public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     View view;
-    private ListView lv_DanhSachBaiHat;
-    private ArrayList<BaiHat> arrayList;
-    private BaiHatAdapter adapter;
+    private ListView lv_DanhSachAlbum;
+    private ArrayList<Album> dsAlbum;
+    private AlbumAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragment_listsong,container,false);
-        lv_DanhSachBaiHat=view.findViewById(R.id.lv_danhSachBaiHat);
-        arrayList=new ArrayList<>();
+        view=inflater.inflate(R.layout.fragment_album,container,false);
+        lv_DanhSachAlbum=view.findViewById(R.id.lv_danhSachAlbum);
+        dsAlbum=new ArrayList<>();
         for(int i=0;i<50;i++){
-            arrayList.add(new BaiHat("Hình "+i,"Bài hát "+i,"Ca sĩ "+i));
+            dsAlbum.add(new Album("Album"+i,new ArrayList<BaiHat>()));
         }
-        adapter=new BaiHatAdapter(getActivity(),R.layout.item_song,arrayList);
-        lv_DanhSachBaiHat.setAdapter(adapter);
-        lv_DanhSachBaiHat.setOnItemClickListener(this);
+        adapter=new AlbumAdapter(getActivity(),R.layout.item_album,dsAlbum);
+        lv_DanhSachAlbum.setAdapter(adapter);
+        lv_DanhSachAlbum.setOnItemClickListener(this);
         return view;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent=new Intent(getActivity(), PlayMusic.class);
+        Intent intent=new Intent(getActivity(), OpenAlbum.class);
         startActivity(intent);
     }
 }

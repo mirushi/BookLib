@@ -1,5 +1,6 @@
 package luubieunghi.lbn.booklib.service;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,12 +9,16 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.view.LayoutInflater;
+import android.widget.ImageButton;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import luubieunghi.lbn.booklib.Activity.PlayMusic;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Activity.openListSong;
 
@@ -21,8 +26,8 @@ public class MyService extends Service {
 
     private static final String chanel_ID="MUSIC";
     private static final String chanel_Name="PLAY MUSIC";
-
-    private MediaPlayer mediaPlayer;
+    public static  MediaPlayer mediaPlayer=new MediaPlayer();
+    public static  RemoteViews notificationLayout;
 
     @Nullable
     @Override
@@ -33,12 +38,10 @@ public class MyService extends Service {
     //tạo một mediaplayer trong đây
     @Override
     public void onCreate() {
-        mediaPlayer=new MediaPlayer();
-        mediaPlayer= MediaPlayer.create(getBaseContext(), R.raw.van_su_tuy_duyen);
         super.onCreate();
-
+        mediaPlayer= MediaPlayer.create(getBaseContext(), R.raw.van_su_tuy_duyen);
+        notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
     }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -55,29 +58,46 @@ public class MyService extends Service {
                 if(action.equals("Action_Play")){
                     play_MediaPlayer(intent);
                 }
+                if(action.equals("Action_Next")){
+                    next_MediaPlayer(intent);
+                }
+                if(action.equals("Action_Previous")){
+                    previous_MediaPlayer(intent);
+                }
+                if(action.equals("Action_Shuffle")){
+                    shuffle_MediaPlayer(intent);
+                }
+                if(action.equals("Action_Repeat")){
+                    repeat_MediaPlayer(intent);
+                }
             }
         }
 
         return START_STICKY;
     }
 
+    private void repeat_MediaPlayer(Intent intent) {
+    }
+
+    private void shuffle_MediaPlayer(Intent intent) {
+    }
+
+    private void previous_MediaPlayer(Intent intent) {
+    }
+
+    private void next_MediaPlayer(Intent intent) {
+
+    }
+
     // bắt đầu phát nhạc
     private void play_MediaPlayer(Intent intent) {
-
-        if(mediaPlayer!=null){
-            if(mediaPlayer.isPlaying()){
-                mediaPlayer.pause();
-            }
-            else {
-                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
-                mediaPlayer.start();
-            }
+        dongBoImageResource();
+        if(mediaPlayer.isPlaying())
+           mediaPlayer.pause();
+        else {
+           mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+           mediaPlayer.start();
         }
-        else{
-            mediaPlayer=new MediaPlayer();
-            mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
-        }
-
     }
 
     // xóa thông báo và dừng mediaplayer
@@ -85,18 +105,31 @@ public class MyService extends Service {
         //đóng notification
         NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(1);
-
+        //tắt nhạc
         if(mediaPlayer.isPlaying()){
-            mediaPlayer.stop();
+            mediaPlayer.pause();
+        }
+        // đồng bộ image resource button play
+        PlayMusic.setBtn_PlayResource(true);
+    }
+
+    public void dongBoImageResource(){
+        if(mediaPlayer.isPlaying()){
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
+            PlayMusic.setBtn_PlayResource(true);
+        }
+        else {
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
+            PlayMusic.setBtn_PlayResource(false);
         }
 
     }
 
     //tạo intent sync giữa notification và activity
     private PendingIntent onButtonNotificationClick(@IdRes int id) {
-        Intent intent = new Intent(this, NotificationReciever.class);
+        Intent intent = new Intent(getBaseContext(), NotificationReciever.class);
         intent.putExtra("control_id",id);
-        return PendingIntent.getBroadcast(this, id, intent, 0);
+        return PendingIntent.getBroadcast(getBaseContext(), id, intent, 0);
     }
 
     //tạo chanel cho notification
@@ -111,13 +144,24 @@ public class MyService extends Service {
 
     // hiển thị notification
     private void showNotification() {
+
         createNotificationChanel();
-
-        Intent intent=new Intent(this, openListSong.class);
-        PendingIntent pendingIntent= PendingIntent.getActivity(this,0,intent,0);
-
-        RemoteViews notificationLayout =
-                new RemoteViews(getPackageName(), R.layout.custome_notification);
+        Intent intent=new Intent(getBaseContext(), PlayMusic.class);
+        PendingIntent pendingIntent= PendingIntent.getActivity(getBaseContext(),0,intent,0);
+        Notification customNotification= new NotificationCompat.Builder(getBaseContext(),chanel_ID)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(notificationLayout)
+                .setSmallIcon(R.drawable.icon_f)
+                .setPriority(Notification.PRIORITY_MIN)
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .build();
+        if(mediaPlayer.isPlaying()){
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
+        }
+        else{
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
+        }
 
         notificationLayout.setOnClickPendingIntent(R.id.btn_close_notification,
                 onButtonNotificationClick(R.id.btn_close_notification));
@@ -128,18 +172,9 @@ public class MyService extends Service {
         notificationLayout.setOnClickPendingIntent(R.id.btn_next_notification,
                 onButtonNotificationClick(R.id.btn_next_notification));
 
-
-        Notification customeNotification= new NotificationCompat.Builder(getBaseContext(),chanel_ID)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomContentView(notificationLayout)
-                .setSmallIcon(R.drawable.icon_f)
-                .setPriority(Notification.PRIORITY_MIN)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .build();
         //show notification
         NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1,customeNotification);
+        notificationManager.notify(1,customNotification);
     }
 
 }

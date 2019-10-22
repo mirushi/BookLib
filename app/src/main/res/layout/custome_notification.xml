@@ -71,7 +71,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@drawable/ic_pause_circle_outline_black_24dp" />
+            android:src="@drawable/ic_play_arrow_black_24dp" />
 
         <ImageButton
             android:background="@null"

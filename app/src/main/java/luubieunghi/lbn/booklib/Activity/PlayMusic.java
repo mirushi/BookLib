@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,10 @@ import com.google.android.material.navigation.NavigationView;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.service.MyService;
 
+import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
+import static luubieunghi.lbn.booklib.service.MyService.notificationLayout;
+
+
 public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GestureDetector.OnGestureListener {
 
     private DrawerLayout drawer;
@@ -30,7 +35,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
     private SeekBar seekBar_Time;
     private ImageButton btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
-    private FloatingActionButton btn_img_Play;
+    private static FloatingActionButton btn_img_Play;
     private NavigationView nav_menu;
 
     // các biến dùng cho lấy hướng vuốt
@@ -42,7 +47,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
-
         addControls();
         addEvents();
     }
@@ -58,36 +62,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         btn_img_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // show navigation
-                //drawer.openDrawer(GravityCompat.END);
-
-                //tạo và hiển thị một menu
-                PopupMenu popupMenu=new PopupMenu(PlayMusic.this,btn_img_Menu);
-                popupMenu.getMenuInflater().inflate(R.menu.play_music_menu,popupMenu.getMenu());
-
-                //bắt sự kiện một item đucợ click
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
-                            case R.id.nav_email:{
-                                sendMail();
-                                break;
-                            }
-                            case R.id.nav_share: {
-                                share();
-                                break;
-                            }
-                            case R.id.nav_setting:{
-
-                            }
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
+                setBtn_img_Menu_Clicked(v);
             }
         });
 
@@ -95,9 +70,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         btn_img_Play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PlayMusic.this, MyService.class);
-                intent.setAction("Action_Play");
-                startService(intent);
+                setBtn_img_Play_Clicked(v);
             }
         });
         //degug mở list song do chưa vuốt được
@@ -109,55 +82,55 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         });
     }
 
-    //tìm id của các control
-    private void addControls() {
-        //show only
-        img=findViewById(R.id.img_disc);
-        txt_TenBaiHat=findViewById(R.id.txt_TenBaiHat);
-        txt_TenCaSi=findViewById(R.id.txt_TenCaSi);
-        //SeekBar
-        seekBar_Time=findViewById(R.id.seekBar_Time);
-        txt_CurrentTime=findViewById(R.id.txt_CurrentTime);
-        txt_ToTalTime=findViewById(R.id.txt_ToTalTime);
-        //Navigation
-        drawer=findViewById(R.id.drawer);
-        btn_img_Menu=findViewById(R.id.btn_img_menu);
-        nav_menu=findViewById(R.id.nav_menu);
-        //Control Music
-        btn_img_Play=findViewById(R.id.btn_img_play);
-        btn_img_Next=findViewById(R.id.btn_img_next);
-        btn_img_Previous=findViewById(R.id.btn_img_previous);
-        btn_img_Repeat=findViewById(R.id.btn_img_repeat);
-        btn_img_Shuffle=findViewById(R.id.btn_img_shuffle);
-        gestureDetector = new GestureDetector(PlayMusic.this);
+    private void setBtn_img_Next_Clicked(View v){
+
     }
 
-    //lấy chiều vuốt để hiển thị list song
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
+    //hàm Onclick của btn_img_menu
+    private void setBtn_img_Menu_Clicked(View v){
+        // show navigation
+        //drawer.openDrawer(GravityCompat.END);
+
+        //tạo và hiển thị một menu
+        PopupMenu popupMenu=new PopupMenu(PlayMusic.this,btn_img_Menu);
+        popupMenu.getMenuInflater().inflate(R.menu.play_music_menu,popupMenu.getMenu());
+
+        //bắt sự kiện một item đucợ click
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.nav_email:{
+                        sendMail();
+                        break;
+                    }
+                    case R.id.nav_share: {
+                        share();
+                        break;
+                    }
+                    case R.id.nav_setting:{
+
+                    }
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
     }
 
-    //check what item selected in menu
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-            case R.id.nav_email:{
-                sendMail();
-                break;
-            }
-            case R.id.nav_share: {
-                share();
-                break;
-            }
-            case R.id.nav_setting:{
-
-            }
-            default:
-                break;
+    //hàm Onclick của btn_img_Play
+    private void setBtn_img_Play_Clicked(View v){
+        if(mediaPlayer.isPlaying()){
+            btn_img_Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         }
-        return true;
+        else {
+            btn_img_Play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+        }
+        Intent intent=new Intent(PlayMusic.this, MyService.class);
+        intent.setAction("Action_Play");
+        startService(intent);
     }
 
     //gửi mail về booklib devteam
@@ -192,6 +165,58 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     public void startListSongIntent(){
         Intent intent=new Intent(PlayMusic.this, openListSong.class);
         startActivity(intent);
+    }
+
+    //tìm id của các control
+    private void addControls() {
+        //show only
+        img=findViewById(R.id.img_disc);
+        txt_TenBaiHat=findViewById(R.id.txt_TenBaiHat);
+        txt_TenCaSi=findViewById(R.id.txt_TenCaSi);
+        //SeekBar
+        seekBar_Time=findViewById(R.id.seekBar_Time);
+        txt_CurrentTime=findViewById(R.id.txt_CurrentTime);
+        txt_ToTalTime=findViewById(R.id.txt_ToTalTime);
+        //Navigation
+        drawer=findViewById(R.id.drawer);
+        btn_img_Menu=findViewById(R.id.btn_img_menu);
+        nav_menu=findViewById(R.id.nav_menu);
+        //Control Music
+        btn_img_Play=findViewById(R.id.btn_img_play);
+        btn_img_Next=findViewById(R.id.btn_img_next);
+        btn_img_Previous=findViewById(R.id.btn_img_previous);
+        btn_img_Repeat=findViewById(R.id.btn_img_repeat);
+        btn_img_Shuffle=findViewById(R.id.btn_img_shuffle);
+        gestureDetector = new GestureDetector(PlayMusic.this);
+    }
+
+
+    //lấy chiều vuốt để hiển thị list song
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    //check what item selected in menu
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_email:{
+                sendMail();
+                break;
+            }
+            case R.id.nav_share: {
+                share();
+                break;
+            }
+            case R.id.nav_setting:{
+
+            }
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -232,4 +257,10 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         return result;
     }
 
+    public static void setBtn_PlayResource(boolean play){
+        if(play==true&&btn_img_Play!=null)
+            btn_img_Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        if (play==false&&btn_img_Play!=null)
+            btn_img_Play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+    }
 }

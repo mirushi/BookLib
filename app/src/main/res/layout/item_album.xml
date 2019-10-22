@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/img_hinhbaihat_item_song"
+        android:id="@+id/img_hinhalbum_item_album"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
@@ -24,22 +24,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txt_tenbaihat_item_song"
+            android:id="@+id/txt_tenalbbum_item_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="Bài hát"
+            android:text="Tên Album"
             android:textSize="16sp"
             style="@style/TextAppearance.AppCompat.Title">
         </TextView>
-        <TextView
-            android:id="@+id/txt_tencasi_item_song"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp"
-            android:singleLine="true"
-            android:text="Ca sĩ"
-            style="@style/TextAppearance.AppCompat.Body2"/>
+
 
     </LinearLayout>
 

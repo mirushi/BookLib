@@ -1,11 +1,7 @@
 package luubieunghi.lbn.booklib.Activity;
 
-import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,16 +10,18 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 
-import luubieunghi.lbn.booklib.Fragment.Listsong_Fragment;
+import luubieunghi.lbn.booklib.Fragment.AlbumFragment;
+import luubieunghi.lbn.booklib.Fragment.BaihatFragment;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.adapter.AlbumAdapter;
 import luubieunghi.lbn.booklib.adapter.ListSongAdapter;
 
 public class openListSong extends AppCompatActivity {
 
-    Toolbar toolbar_listsong;
-    TabLayout tabLayout_ListSong;
-    ViewPager viewPager_ListSong;
-    ListSongAdapter adapter;
+    private Toolbar toolbar_listsong;
+    private TabLayout tabLayout_ListSong;
+    private ViewPager viewPager_ListSong;
+    private ListSongAdapter listSongAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +34,10 @@ public class openListSong extends AppCompatActivity {
 
     private void setUp() {
         setSupportActionBar(toolbar_listsong);
-        adapter=new ListSongAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Listsong_Fragment(),"Album");
-        adapter.addFragment(new Listsong_Fragment(),"Singer");
-        viewPager_ListSong.setAdapter(adapter);
+        listSongAdapter=new ListSongAdapter(getSupportFragmentManager());
+        listSongAdapter.addFragment(new BaihatFragment(),"Song");
+        listSongAdapter.addFragment(new AlbumFragment(),"Album");
+        viewPager_ListSong.setAdapter(listSongAdapter);
         tabLayout_ListSong.setupWithViewPager(viewPager_ListSong);
     }
 
