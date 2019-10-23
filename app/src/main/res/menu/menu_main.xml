@@ -9,6 +9,13 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/menu_main_item_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <item
         android:id="@+id/menu_item_sync_now"
         app:showAsAction="never"
         android:title="Đồng bộ ngay">
