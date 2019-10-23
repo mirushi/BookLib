@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:title=""
+        android:id="@+id/custom_one"
+        android:icon="@drawable/ic_action_library_add"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/custom_two"
+        android:title=""
+        android:icon="@drawable/ic_action_file_copy"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/custom_three"
+        android:title=""
+        android:icon="@drawable/ic_action_g_translate"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/custom_four"
+        android:title=""
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/custom_five"
+        app:actionLayout="@android:layout/two_line_list_item"
+        android:icon="@drawable/ic_action_fiber_manual_red"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/custom_six"
+        app:actionLayout="@android:layout/two_line_list_item"
+        android:icon="@drawable/ic_action_fiber_manual_yellow"
+        android:title=""
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/custom_seven"
+        app:actionLayout="@android:layout/two_line_list_item"
+        android:icon="@drawable/ic_action_fiber_manual_green"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/custom_eight"
+        app:actionLayout="@android:layout/two_line_list_item"
+        android:icon="@drawable/ic_action_fiber_manual_blue"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+</menu>

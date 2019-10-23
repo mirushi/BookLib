@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frm_layout_1"
+    tools:context=".Frm_1"
+   >
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:textSize="30sp"
+        android:id="@+id/frm_1_tw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/content"
+        android:textIsSelectable="true"
+      />
+
+</FrameLayout>
