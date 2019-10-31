@@ -1,14 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:id="@+id/activity_about_layout">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_app_title"
+        app:layout_constraintTop_toTopOf="@+id/activity_about_layout"
         android:textSize="30sp"
         android:layout_marginTop="40dp"
         android:text="BookLib"
         android:gravity="center_horizontal"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_app_version"
+        app:layout_constraintTop_toBottomOf="@+id/activity_about_txtView_app_title"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:text="@string/app_version_no"
+        android:gravity="center_horizontal"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_app_used_technology_description"
+        app:layout_constraintTop_toBottomOf="@+id/activity_about_txtView_app_version"
+        android:layout_marginTop="40dp"
+        android:textSize="20sp"
+        android:text="@string/app_used_technology"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/activity_about_edt_app_used_technology_list"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_app_used_technology_description"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/custom_text_view_with_rounded_rectangle_border"
+        android:text="@string/app_used_technology_listing"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_license"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_edt_app_used_technology_list"
+        android:layout_marginTop="20dp"
+        android:text="Giấy phép"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_term_of_use"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_license"
+        android:layout_marginTop="20dp"
+        android:text="Chính sách sử dụng"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_rating_description"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_term_of_use"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="Bạn thích BookLib ? \n Hãy để lại đánh giá bên dưới cho chúng mình nhé :) !"/>
+    
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/activity_about_imgButton_star_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_rating_description"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_star_border_black_24dp"/>
+
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/activity_about_imgButton_star_2"
+        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"
+        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_3"
+        android:background="@drawable/ic_star_border_black_24dp" />
+
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/activity_about_imgButton_star_1"
+        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_2"
+        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_2"
+        android:background="@drawable/ic_star_border_black_24dp"
+        />
+
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/activity_about_imgButton_star_4"
+        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"
+        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_3"
+        android:background="@drawable/ic_star_border_black_24dp"/>
+
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/activity_about_imgBUtton_star_5"
+        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_4"
+        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_4"
+        android:background="@drawable/ic_star_border_black_24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_about_txtView_author"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_imgButton_star_3"
+        android:layout_marginTop="16dp"
+        android:text="BookLib Dev Team"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
