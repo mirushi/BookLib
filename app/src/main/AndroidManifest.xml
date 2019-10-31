@@ -9,25 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ReadBookActivity"></activity>
-        <activity android:name=".Activity.OpenAlbum"></activity>
-
-        <activity android:name=".Activity.PlayMusic">
+        <activity android:name=".Activity.BookPageManagement">
+        </activity>
+        <activity android:name=".Activity.PlayAudio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.ReadBookActivity" />
+        <activity android:name=".Activity.OpenAlbum" />
+        <activity android:name=".Activity.PlayMusic">
+        </activity>
+        <activity android:name=".Activity.MainActivity" />
         <activity
             android:name=".Activity.AboutActivity"
-            android:label="About"></activity>
-        <activity android:name=".Activity.openListSong"></activity>
+            android:label="About" />
+        <activity android:name=".Activity.openListSong">
+        </activity>
 
-        <service android:name=".service.MyService"></service>
+        <service android:name=".service.MyService" />
 
-        <receiver android:name=".service.NotificationReciever"></receiver>
+        <receiver android:name=".service.NotificationReciever" />
     </application>
 
 </manifest>

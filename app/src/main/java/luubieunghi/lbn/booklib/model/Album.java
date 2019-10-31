@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Album implements Serializable {
     private String tenAlbum;
     private ArrayList<BaiHat> dsBaiHat=new ArrayList<>();
+
     private void themBaiHat(BaiHat baihat){
         dsBaiHat.add(baihat);
     }

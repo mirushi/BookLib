@@ -2,18 +2,23 @@ package luubieunghi.lbn.booklib.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +26,13 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.service.MyService;
 
 import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
-import static luubieunghi.lbn.booklib.service.MyService.notificationLayout;
 
 
 public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GestureDetector.OnGestureListener {
@@ -42,6 +49,12 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     private final float max_Distance_X=100;
     private GestureDetector gestureDetector;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.play_music_menu,menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +64,11 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         addEvents();
     }
 
-
     private void addEvents() {
         //block swipe navigationbar
         //drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,GravityCompat.END);
         //gán context cho navigation
-        nav_menu.setNavigationItemSelectedListener(this);
+        //nav_menu.setNavigationItemSelectedListener(this);
 
         //open navigationbar-->menu setting
         btn_img_Menu.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +92,14 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
                 startListSongIntent();
             }
         });
+
+        drawer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                onTouchEvent(event);
+                return false;
+            }
+        });
     }
 
     private void setBtn_img_Next_Clicked(View v){
@@ -87,6 +107,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     }
 
     //hàm Onclick của btn_img_menu
+    @SuppressLint("RestrictedApi")
     private void setBtn_img_Menu_Clicked(View v){
         // show navigation
         //drawer.openDrawer(GravityCompat.END);
@@ -94,7 +115,21 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         //tạo và hiển thị một menu
         PopupMenu popupMenu=new PopupMenu(PlayMusic.this,btn_img_Menu);
         popupMenu.getMenuInflater().inflate(R.menu.play_music_menu,popupMenu.getMenu());
-
+//        try {
+//            Field[] fields = popupMenu.getClass().getDeclaredFields();
+//            for (Field field : fields) {
+//                if ("mPopup".equals(field.getName())) {
+//                    field.setAccessible(true);
+//                    Object menuPopupHelper = field.get(popupMenu);
+//                    Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
+//                    Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
+//                    setForceIcons.invoke(menuPopupHelper, true);
+//                    break;
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         //bắt sự kiện một item đucợ click
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -180,7 +215,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         //Navigation
         drawer=findViewById(R.id.drawer);
         btn_img_Menu=findViewById(R.id.btn_img_menu);
-        nav_menu=findViewById(R.id.nav_menu);
+        //nav_menu=findViewById(R.id.nav_menu);
         //Control Music
         btn_img_Play=findViewById(R.id.btn_img_play);
         btn_img_Next=findViewById(R.id.btn_img_next);
@@ -190,12 +225,11 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         gestureDetector = new GestureDetector(PlayMusic.this);
     }
 
-
     //lấy chiều vuốt để hiển thị list song
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
+        //return super.onTouchEvent(event);
     }
 
     //check what item selected in menu
