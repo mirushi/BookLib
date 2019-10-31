@@ -11,11 +11,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BookListingPagerAdapter;
+import luubieunghi.lbn.booklib.service.AppWideGesturesListener;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
         ConfigToolbar();
         ConfigViewPager();
         ConfigDrawerLayout();
+        ConfigGesturesListener();
+    }
+
+    private void ConfigGesturesListener()
+    {
+        viewPager.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
+            @Override
+            public void SwipeUpFromBottom()
+            {
+                 Intent intent = new Intent(MainActivity.this, PlayMusic.class);
+                 startActivity(intent);
+                 overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+            }
+        });
     }
 
     @Override
@@ -74,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle("Ứng dụng hỗ trợ quản lý ebook toàn diện");
         toolbar.inflateMenu(R.menu.menu_main);
 
+        //Đi đến Activities giới thiệu sản phẩm.
         toolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
@@ -22,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.service.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.service.MyService;
 
 import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
@@ -42,6 +44,8 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     private final float max_Distance_X=100;
     private GestureDetector gestureDetector;
 
+    //Nghị thêm vào test.
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,23 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_play_music);
         addControls();
         addEvents();
+        //Nghị thêm vào test.
+        ConfigGesturesListener();
     }
 
+    //Nghị thêm vào test.
+    private void ConfigGesturesListener()
+    {
+        linearLayout.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
+            @Override
+            public void SwipeDownFromTop()
+            {
+                Intent intent = new Intent(PlayMusic.this, PlayMusic.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
+            }
+        });
+    }
 
     private void addEvents() {
         //block swipe navigationbar
@@ -188,6 +207,8 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         btn_img_Repeat=findViewById(R.id.btn_img_repeat);
         btn_img_Shuffle=findViewById(R.id.btn_img_shuffle);
         gestureDetector = new GestureDetector(PlayMusic.this);
+        //Nghị thêm vào test.
+        linearLayout = findViewById(R.id.activity_play_music_linear_layout);
     }
 
 

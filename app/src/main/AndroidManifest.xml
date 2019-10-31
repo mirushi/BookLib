@@ -13,13 +13,15 @@
         <activity android:name=".Activity.OpenAlbum"></activity>
 
         <activity android:name=".Activity.PlayMusic">
+
+        </activity>
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"></activity>
         <activity
             android:name=".Activity.AboutActivity"
             android:label="About"></activity>
