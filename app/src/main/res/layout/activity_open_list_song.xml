@@ -26,7 +26,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="7"
                 app:closeIcon="@drawable/ic_close_black_24dp"
-                app:searchIcon="@drawable/ic_action_search"></androidx.appcompat.widget.SearchView>
+                app:searchIcon="@drawable/ic_action_search"
+                android:layoutDirection="rtl">
+            </androidx.appcompat.widget.SearchView>
             <!--              <EditText-->
             <!--                  android:layout_width="match_parent"-->
             <!--                  android:layout_height="match_parent"-->

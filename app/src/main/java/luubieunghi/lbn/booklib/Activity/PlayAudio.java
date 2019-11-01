@@ -5,21 +5,18 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+
 
 import luubieunghi.lbn.booklib.R;
 
 public class PlayAudio extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ImageButton btn_Img_Menu_Play_Audio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,65 +28,32 @@ public class PlayAudio extends AppCompatActivity {
         
     }
 
-    private void addEvents() {
-
-        btn_Img_Menu_Play_Audio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setBtn_Img_Menu_Play_AudioClicked();
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.play_music_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void setBtn_Img_Menu_Play_AudioClicked() {
-        PopupMenu popupMenu=new PopupMenu(PlayAudio.this,btn_Img_Menu_Play_Audio);
-        popupMenu.getMenuInflater().inflate(R.menu.play_music_menu,popupMenu.getMenu());
-//        try {
-//            Field[] fields = popupMenu.getClass().getDeclaredFields();
-//            for (Field field : fields) {
-//                if ("mPopup".equals(field.getName())) {
-//                    field.setAccessible(true);
-//                    Object menuPopupHelper = field.get(popupMenu);
-//                    Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
-//                    Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
-//                    setForceIcons.invoke(menuPopupHelper, true);
-//                    break;
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        //bắt sự kiện một item đucợ click
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.nav_email:{
-                        sendMail();
-                        break;
-                    }
-                    case R.id.nav_share: {
-                        share();
-                        break;
-                    }
-                    case R.id.nav_setting:{
+    private void addEvents() {
 
-                    }
-                    default:
-                        break;
-                }
-                return true;
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
             }
         });
-        popupMenu.show();
+
     }
 
     private void init() {
+
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.play_music_menu);
     }
 
     private void addControls() {
         toolbar=findViewById(R.id.toolbar_listaudio);
-        btn_Img_Menu_Play_Audio=findViewById(R.id.btn_img_menu_right_play_audio);
     }
 
     //gửi mail về booklib devteam

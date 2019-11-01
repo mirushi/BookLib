@@ -1,11 +1,15 @@
 package luubieunghi.lbn.booklib.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -23,21 +27,72 @@ public class BookPageManagement extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<String> dsForm;
     private BookPageManagementAdapter adapter;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_page_management);
-        recyclerView=findViewById(R.id.recyclerview_book_page_management);
+        addControls();
+        addEvents();
+        setUp();
+
+    }
+
+    private void setUp() {
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.book_page_management_menu);
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
         dsForm=new ArrayList<>();
         for(int i=0;i<10;i++)
         {
-            dsForm.add("Page "+(i+1));
+            //dsForm.add("Page "+(i+1));
+            dsForm.add(getResources().getString(R.string.content)+getResources().getString(R.string.content));
         }
         adapter=new BookPageManagementAdapter(BookPageManagement.this,dsForm);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void addEvents() {
+
+        //bắt sự kiện theo từng item menu clicked
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_item_text_format_book_page_management:
+                    {
+                        break;
+                    }
+                    case R.id.menu_item_share_book_page_management:{
+                        break;
+                    }
+                    case R.id.menu_item_feedback_book_page_management:{
+                        break;
+                    }
+                    case R.id.menu_item_setting_book_page_management:{
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void addControls() {
+        recyclerView=findViewById(R.id.recyclerview_book_page_management);
+        toolbar=findViewById(R.id.toolbar_book_page_management);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.book_page_management_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

@@ -5,13 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp">
     <TextView
-        android:fitsSystemWindows="true"
-        android:layout_gravity="center"
-        android:textAlignment="center"
+        android:textSize="15dp"
         android:id="@+id/txt_content_book_page_management"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="#000000"
-        android:overScrollMode="never">
+        android:maxLines="26"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@xml/custom_textview"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        >
     </TextView>
 </FrameLayout>

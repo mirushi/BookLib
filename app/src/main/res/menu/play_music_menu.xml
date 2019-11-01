@@ -10,7 +10,7 @@
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="Setting"
-            app:showAsAction="ifRoom"
+            app:showAsAction="never"
             >
         </item>
 
@@ -18,14 +18,14 @@
             android:id="@+id/nav_email"
             android:icon="@drawable/ic_email_black_24dp"
             android:title="Email"
-            app:showAsAction="ifRoom">
+            app:showAsAction="never">
         </item>
 
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share_black_24dp"
             android:title="Share"
-            app:showAsAction="ifRoom">
+            app:showAsAction="never">
         </item>
     </group>
 

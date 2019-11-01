@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -35,9 +36,9 @@ import luubieunghi.lbn.booklib.service.MyService;
 import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
 
 
-public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GestureDetector.OnGestureListener {
+public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,GestureDetector.OnGestureListener {
 
-    private DrawerLayout drawer;
+    LinearLayout layout_Play_Music;
     private ImageView img;
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
     private SeekBar seekBar_Time;
@@ -93,13 +94,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
-        drawer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                onTouchEvent(event);
-                return false;
-            }
-        });
     }
 
     private void setBtn_img_Next_Clicked(View v){
@@ -213,7 +207,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         txt_CurrentTime=findViewById(R.id.txt_CurrentTime);
         txt_ToTalTime=findViewById(R.id.txt_ToTalTime);
         //Navigation
-        drawer=findViewById(R.id.drawer);
+        //drawer=findViewById(R.id.drawer);
         btn_img_Menu=findViewById(R.id.btn_img_menu);
         //nav_menu=findViewById(R.id.nav_menu);
         //Control Music
@@ -222,14 +216,15 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         btn_img_Previous=findViewById(R.id.btn_img_previous);
         btn_img_Repeat=findViewById(R.id.btn_img_repeat);
         btn_img_Shuffle=findViewById(R.id.btn_img_shuffle);
-        gestureDetector = new GestureDetector(PlayMusic.this);
+
+        gestureDetector = new GestureDetector(PlayMusic.this,PlayMusic.this);
     }
 
     //lấy chiều vuốt để hiển thị list song
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
-        //return super.onTouchEvent(event);
+        gestureDetector.onTouchEvent(event);
+        return true;
     }
 
     //check what item selected in menu

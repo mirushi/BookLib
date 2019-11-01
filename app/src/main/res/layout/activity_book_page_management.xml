@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.BookPageManagement"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="7">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,86 +29,81 @@
                android:layout_width="wrap_content"
                android:layout_height="match_parent"
                app:searchIcon="@drawable/ic_action_search"
-               app:closeIcon="@null"
+               app:closeIcon="@drawable/ic_close_black_24dp"
                android:id="@+id/search_bar_book_page_management">
            </androidx.appcompat.widget.SearchView>
-           <ImageButton
-               android:id="@+id/btn_img_text_font_book_page_management"
-               android:layout_width="wrap_content"
-               android:layout_height="match_parent"
-               android:src="@drawable/ic_text_format_black_24dp"
-               android:background="@null"
-               android:layout_weight="1">
-           </ImageButton>
-           <ImageButton
-               android:id="@+id/btn_img_menu_top_book_page_management"
-               android:layout_width="wrap_content"
-               android:layout_height="match_parent"
-               android:src="@drawable/ic_more_vert_black_24dp"
-               android:layout_weight="1"
-               android:background="@null">
-           </ImageButton>
        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="6"
-      >
-      <androidx.recyclerview.widget.RecyclerView
-          android:clickable="true"
-          android:orientation="horizontal"
-          android:id="@+id/recyclerview_book_page_management"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          >
-      </androidx.recyclerview.widget.RecyclerView>
-
-  </LinearLayout>
-
-    <TextView
-        android:textAlignment="center"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="4"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:id="@+id/recyclerview_book_page_management"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="10 pages left in chapter"
-        android:textColor="#000000">
-    </TextView>
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="10dp"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
-        <ImageButton
-            android:id="@+id/btn_img_menu_bottom_book_page_management"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_black_24dp"
-            android:background="@null"
-            android:layout_weight="1">
-        </ImageButton>
-        <SeekBar
-            android:id="@+id/seekbar_book_page_management"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:thumb="@xml/custome_thumb"
-            android:progressDrawable="@xml/seekbar_custome"
-            android:layout_weight="6">
-        </SeekBar>
+        android:layout_weight="1">
         <TextView
-            android:id="@+id/txt_time_book_page_management"
+            android:layout_gravity="center|top"
             android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="10/100"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="10 pages left in chapter"
             android:textColor="#000000">
         </TextView>
     </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="2"
+       android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1">
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:orientation="horizontal"
+           android:gravity="center_horizontal">
+           <ImageButton
+               android:id="@+id/btn_img_menu_bottom_book_page_management"
+               android:layout_gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_menu_black_24dp"
+               android:background="@null"
+               android:layout_weight="1">
+           </ImageButton>
+           <SeekBar
+               android:id="@+id/seekbar_book_page_management"
+               android:layout_gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:thumb="@xml/custome_thumb"
+               android:progressDrawable="@xml/seekbar_custome"
+               android:layout_weight="6">
+           </SeekBar>
+           <TextView
+               android:id="@+id/txt_time_book_page_management"
+               android:textAlignment="center"
+               android:layout_gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="10/100"
+               android:textColor="#000000">
+           </TextView>
+       </LinearLayout>
+   </LinearLayout>
 
 </LinearLayout>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<LinearLayout
     xmlns:xlmns="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xlmns:layout_width="match_parent"
     xlmns:layout_height="match_parent"
-    xlmns:id="@+id/drawer"
+    xlmns:id="@+id/layout_play_music"
     tools:openDrawer="start"
     tools:context=".Activity.PlayMusic"
     xlmns:clickable="true"
     xlmns:longClickable="true"
-    >
+    xlmns:orientation="vertical">
 
     <LinearLayout
         xlmns:layout_width="match_parent"
@@ -247,4 +247,4 @@
         app:menu="@menu/play_music_menu"
         android:backgroundTint="#9dbdb8"/>
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>
