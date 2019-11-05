@@ -168,6 +168,7 @@
             android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
             android:background="@null"
             android:text="1 m"
+            android:textAllCaps="false"
             android:layout_weight="1"
             android:layout_gravity="center">
         </Button>
@@ -176,11 +177,13 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
             android:background="@null"
+            android:textAllCaps="false"
             android:text="10 s"
             android:layout_weight="1"
             android:layout_gravity="center">
         </Button>
         <Button
+            android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_fast_forward_black_48dp"
@@ -190,6 +193,7 @@
             android:layout_gravity="center">
         </Button>
         <Button
+            android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_fast_forward_black_48dp"

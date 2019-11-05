@@ -47,6 +47,7 @@ public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(getActivity(), OpenAlbum.class);
+        getActivity().finish();
         startActivity(intent);
     }
 }

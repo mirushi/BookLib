@@ -192,7 +192,9 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
     }
 
     public void startListSongIntent(){
+
         Intent intent=new Intent(PlayMusic.this, openListSong.class);
+        finish();
         startActivity(intent);
     }
 

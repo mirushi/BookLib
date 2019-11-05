@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class BookPageManagement extends AppCompatActivity {
     private ArrayList<String> dsForm;
     private BookPageManagementAdapter adapter;
     private Toolbar toolbar;
+
+    ImageButton btn_img_Back_Main_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +85,25 @@ public class BookPageManagement extends AppCompatActivity {
                 return false;
             }
         });
+
+        btn_img_Back_Main_Activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BookPageManagement.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
     private void addControls() {
-        recyclerView=findViewById(R.id.recyclerview_book_page_management);
         toolbar=findViewById(R.id.toolbar_book_page_management);
+        recyclerView=findViewById(R.id.recyclerview_book_page_management);
+
+        btn_img_Back_Main_Activity=findViewById(R.id.btn_img_back_book_page_management);
     }
 
     @Override

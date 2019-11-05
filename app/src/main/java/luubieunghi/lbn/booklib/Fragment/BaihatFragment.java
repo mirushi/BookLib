@@ -44,6 +44,7 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(getActivity(), PlayMusic.class);
+        getActivity().finish();
         startActivity(intent);
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.BookPageManagement"
     android:orientation="vertical"
-    android:weightSum="7">
+    android:weightSum="8">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,29 +36,29 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_weight="4"
-        android:clickable="true"
-        android:orientation="horizontal"
         android:id="@+id/recyclerview_book_page_management"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="412dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="4"
+        android:clickable="true"
         android:fitsSystemWindows="true"
-        android:layout_marginBottom="10dp"
-        >
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
-    <LinearLayout
+    <TextView
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
-        <TextView
-            android:layout_gravity="center|top"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="10 pages left in chapter"
-            android:textColor="#000000">
-        </TextView>
-    </LinearLayout>
+        android:text="10 pages left in chapter"
+        android:textColor="#000000">
+    </TextView>
+    <ImageView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ImageView>
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -67,14 +67,10 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_weight="1">
-       </LinearLayout>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
            android:layout_weight="1"
            android:orientation="horizontal"
-           android:gravity="center_horizontal">
+           android:gravity="center_horizontal"
+           android:layout_marginBottom="10dp">
            <ImageButton
                android:id="@+id/btn_img_menu_bottom_book_page_management"
                android:layout_gravity="center"
