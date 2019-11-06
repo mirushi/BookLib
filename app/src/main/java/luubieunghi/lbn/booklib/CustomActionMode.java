@@ -21,6 +21,8 @@ public class CustomActionMode implements ActionMode.Callback {
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+
+
         return false;
     }
 

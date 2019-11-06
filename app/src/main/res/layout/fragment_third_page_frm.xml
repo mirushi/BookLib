@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frm_layout_1"
-    tools:context=".Frm_1"
+    android:id="@+id/third_page_layout"
+    tools:context=".Fragment.BookReadingThirdPageFrm"
    >
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:textSize="30sp"
-        android:id="@+id/frm_1_tw"
+        android:id="@+id/frm_3_tw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/content"

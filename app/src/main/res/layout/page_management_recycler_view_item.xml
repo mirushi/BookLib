@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:layout_gravity="center"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <ImageView
+        android:id="@+id/recycler_view_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_replace" />
+
+    <TextView
+        android:textSize="30sp"
+        android:id="@+id/recycler_view_item_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Now!" />
+
+</FrameLayout>
