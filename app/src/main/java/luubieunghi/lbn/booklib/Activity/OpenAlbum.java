@@ -54,6 +54,7 @@ public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(OpenAlbum.this,PlayMusic.class);
+        finish();
         startActivity(intent);
     }
 }

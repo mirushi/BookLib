@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.BookPageManagement">
+        </activity>
+        <activity android:name=".Activity.PlayAudio"/>
         <activity android:name=".Activity.ReadBookSettingActivity"></activity>
         <activity android:name=".Activity.PageManagementActivity"></activity>
         <activity android:name=".Activity.ReadBookActivity">

@@ -35,12 +35,13 @@
         </TextView>
         <TextView
             android:textSize="18dp"
-            android:textColor="#000000"
+            android:textColor="#c99b1a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Booklib_Album"
             android:gravity="center_horizontal"
             android:textAlignment="center"
+            android:background="@null"
             android:layout_marginTop="10dp">
         </TextView>
     </LinearLayout>
@@ -48,6 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:id="@+id/lv_danhsachbaihat_album">
+        android:id="@+id/lv_danhsachbaihat_album"
+        android:divider="@null"
+        >
     </ListView>
 </LinearLayout>

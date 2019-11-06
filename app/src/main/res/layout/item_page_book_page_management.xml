@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp">
+    <TextView
+        android:textAlignment="viewStart"
+        android:textSize="15dp"
+        android:id="@+id/txt_content_book_page_management"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:textColor="#000000"
+        android:maxLines="28"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@xml/custom_textview"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        >
+    </TextView>
+</FrameLayout>

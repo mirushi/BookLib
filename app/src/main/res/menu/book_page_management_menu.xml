@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="text_format"
+        android:icon="@drawable/ic_text_format_black_24dp"
+        android:id="@+id/menu_item_text_format_book_page_management"
+        app:showAsAction="ifRoom|collapseActionView">
+    </item>
+    <item android:title="Share"
+        android:id="@+id/menu_item_share_book_page_management"
+        app:showAsAction="never">
+    </item>
+
+    <item android:title="Setting"
+        android:id="@+id/menu_item_setting_book_page_management"
+        app:showAsAction="never">
+    </item>
+
+    <item android:title="Feedback"
+        android:id="@+id/menu_item_feedback_book_page_management"
+        app:showAsAction="never">
+    </item>
+</menu>

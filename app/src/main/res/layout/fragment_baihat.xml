@@ -10,6 +10,7 @@
         android:id="@+id/lv_danhSachBaiHat"
         android:theme="@style/Platform.MaterialComponents.Light"
         tools:listheader="@layout/nav_header"
+        android:divider="@null"
         >
     </ListView>
 
