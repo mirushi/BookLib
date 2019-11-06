@@ -49,7 +49,7 @@ public class BookPageManagementAdapter extends RecyclerView.Adapter<BookPageMana
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.item_page_book_page_management,parent, false);
-        MyViewHolder holder=new MyViewHolder(view);
+        final MyViewHolder holder=new MyViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

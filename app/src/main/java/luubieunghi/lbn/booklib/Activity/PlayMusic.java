@@ -36,7 +36,7 @@ import luubieunghi.lbn.booklib.service.MyService;
 import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
 
 
-public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,GestureDetector.OnGestureListener {
+public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     LinearLayout layout_Play_Music;
     private ImageView img;
@@ -93,6 +93,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
                 startListSongIntent();
             }
         });
+        //gestureDetector.setContextClickListener();
 
     }
 
@@ -219,7 +220,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         btn_img_Repeat=findViewById(R.id.btn_img_repeat);
         btn_img_Shuffle=findViewById(R.id.btn_img_shuffle);
 
-        gestureDetector = new GestureDetector(PlayMusic.this,PlayMusic.this);
+        //gestureDetector = new GestureDetector(PlayMusic.this,PlayMusic.this);
     }
 
     //lấy chiều vuốt để hiển thị list song
@@ -250,43 +251,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        float distanceX=e1.getX()-e2.getX();
-
-        boolean result=false;
-
-        if(Math.abs(distanceX)>max_Distance_X){
-            startListSongIntent();
-            result=true;
-        }
-        return result;
-    }
 
     public static void setBtn_PlayResource(boolean play){
         if(play==true&&btn_img_Play!=null)
