@@ -90,7 +90,7 @@ public class AppWideGesturesListener implements View.OnTouchListener {
                 }
             }
             //Điểm bắt đầu trên cùng màn hình (xử lý việc vuốt từ trên xuống).
-            else if (inRange(firstY, 0, 50))
+            else if (inRange(firstY, 0, 200))
             {
                 //Velocity dương tứ là vuốt từ trên xuống.
                 if (velocityY > swingVelocity)

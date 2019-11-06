@@ -5,14 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xlmns:layout_width="match_parent"
     xlmns:layout_height="match_parent"
-    xlmns:id="@+id/layout_play_music"
     tools:openDrawer="start"
     tools:context=".Activity.PlayMusic"
     xlmns:clickable="true"
     xlmns:longClickable="true"
+    xlmns:id="@+id/test"
     xlmns:orientation="vertical">
 
     <LinearLayout
+        xlmns:id="@+id/layout_play_music"
         xlmns:layout_width="match_parent"
         xlmns:layout_height="match_parent"
         xlmns:orientation="vertical"
