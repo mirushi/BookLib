@@ -1,24 +1,26 @@
 package luubieunghi.lbn.booklib.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.model.Book;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 
     private List<Book> bookList;
+    private Context context;
 
-    public BookRecyclerViewAdapter(List<Book> bookList)
-    {
+    public BookRecyclerViewAdapter(List<Book> bookList) {
         this.bookList = bookList;
     }
 
@@ -41,16 +43,15 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         return bookList.size();
     }
 
-    public class BookRecyclerViewHolder extends RecyclerView.ViewHolder{
+    public class BookRecyclerViewHolder extends RecyclerView.ViewHolder {
 
         ImageView bookImage;
         TextView bookTitle;
 
-        public BookRecyclerViewHolder(View view)
-        {
+        public BookRecyclerViewHolder(View view) {
             super(view);
-            bookImage = (ImageView)view.findViewById(R.id.item_book_iv_book_image);
-            bookTitle = (TextView)view.findViewById(R.id.item_book_txtView_book_name);
+            bookImage = (ImageView) view.findViewById(R.id.item_book_iv_book_image);
+            bookTitle = (TextView) view.findViewById(R.id.item_book_txtView_book_name);
         }
     }
 }

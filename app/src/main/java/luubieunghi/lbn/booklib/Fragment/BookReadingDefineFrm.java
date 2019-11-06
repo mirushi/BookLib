@@ -9,15 +9,26 @@ import androidx.fragment.app.Fragment;
 
 import luubieunghi.lbn.booklib.R;
 
-public class HighlightNoteFrm extends Fragment {
+public class BookReadingDefineFrm extends Fragment {
 
-    public HighlightNoteFrm() {
+    public BookReadingDefineFrm() {
         // Required empty public constructor
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_highlight_note, container, false);
+        return inflater.inflate(R.layout.fragment_define_frm, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

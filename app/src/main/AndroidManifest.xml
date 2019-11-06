@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ReadBookActivity"></activity>
-        <activity android:name=".Activity.OpenAlbum"></activity>
-
-        <activity android:name=".Activity.PlayMusic">
-
+        <activity android:name=".Activity.ReadBookSettingActivity"></activity>
+        <activity android:name=".Activity.PageManagementActivity"></activity>
+        <activity android:name=".Activity.ReadBookActivity">
         </activity>
+        <activity android:name=".Activity.OpenAlbum" />
+        <activity android:name=".Activity.PlayMusic" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,12 @@
         </activity>
         <activity
             android:name=".Activity.AboutActivity"
-            android:label="About"></activity>
-        <activity android:name=".Activity.openListSong"></activity>
+            android:label="About" />
+        <activity android:name=".Activity.openListSong" />
 
-        <service android:name=".service.MyService"></service>
+        <service android:name=".service.MyService" />
 
-        <receiver android:name=".service.NotificationReciever"></receiver>
+        <receiver android:name=".service.NotificationReciever" />
     </application>
 
 </manifest>

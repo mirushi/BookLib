@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/first_page_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    tools:context=".Fragment.BookReadingFirstPageFrm">
+
+    <ImageView
+        android:id="@+id/frm_1_imgview"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_replace" />
+
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/frm_1_read_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/content"
+        android:textIsSelectable="true"
+        android:textSize="30sp" />
+
+</FrameLayout>
