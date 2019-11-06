@@ -31,10 +31,13 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     @NonNull
     @Override
     public BookRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         context = parent.getContext();
+
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_book, parent, false);
+
         final BookRecyclerViewHolder holder = new BookRecyclerViewHolder(view);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +45,14 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
                 Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ReadBookActivity.class);
                 context.startActivity(intent);
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Integer position = holder.getAdapterPosition();
+                Toast.makeText(context, "Long clicked : " + position.toString(), Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
         return holder;
