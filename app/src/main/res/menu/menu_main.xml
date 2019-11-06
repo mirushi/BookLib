@@ -5,7 +5,7 @@
     <item android:id="@+id/addBook"
         android:title="Add Book"
         android:orderInCategory="100"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"/>
 
     <item
