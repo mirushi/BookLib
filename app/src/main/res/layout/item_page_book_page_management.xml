@@ -15,7 +15,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@xml/custom_textview"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
