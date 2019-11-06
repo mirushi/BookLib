@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Fragment.Frm_1;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BookPageManagementAdapter;
 import luubieunghi.lbn.booklib.adapter.ViewPagerAdapter;
