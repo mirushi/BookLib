@@ -31,6 +31,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.service.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.service.MyService;
 
 import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
@@ -64,7 +65,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         addControls();
         addEvents();
     }
-
     private void addEvents() {
         //block swipe navigationbar
         //drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,GravityCompat.END);

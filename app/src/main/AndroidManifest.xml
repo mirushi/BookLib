@@ -11,23 +11,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.BookPageManagement">
         </activity>
-        <activity android:name=".Activity.PlayAudio">
+        <activity android:name=".Activity.PlayAudio"/>
+        <activity android:name=".Activity.ReadBookSettingActivity"></activity>
+        <activity android:name=".Activity.PageManagementActivity"></activity>
+        <activity android:name=".Activity.ReadBookActivity">
+        </activity>
+        <activity android:name=".Activity.OpenAlbum" />
+        <activity android:name=".Activity.PlayMusic" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.ReadBookActivity" />
-        <activity android:name=".Activity.OpenAlbum" />
-        <activity android:name=".Activity.PlayMusic">
-        </activity>
-        <activity android:name=".Activity.MainActivity" />
         <activity
             android:name=".Activity.AboutActivity"
             android:label="About" />
-        <activity android:name=".Activity.openListSong">
-        </activity>
+        <activity android:name=".Activity.openListSong" />
 
         <service android:name=".service.MyService" />
 

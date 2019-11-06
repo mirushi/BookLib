@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/translate_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
-    tools:context=".MainActivity"
-    android:id="@+id/define_layout"
-    android:layout_gravity="bottom">
+    android:layout_gravity="bottom"
+    android:layout_margin="5dp"
+    tools:context=".Activity.ReadBookActivity">
 
     <ImageView
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:outlineAmbientShadowColor="@color/cardview_dark_background"
-        android:outlineSpotShadowColor="@color/cardview_dark_background"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_replace" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
         android:src="@drawable/define_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -28,20 +34,52 @@
             android:layout_marginLeft="5sp"
             android:layout_marginTop="5sp"
             android:layout_marginBottom="5sp"
-            android:text="Key Word"
+            android:text="Translate"
+
             android:textSize="20sp" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/source_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/to_translated_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </FrameLayout>
+
+
         <TextView
-            android:id="@+id/spell"
+            android:id="@+id/word_to_translate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5sp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="15sp"
-            android:text="spell"
+            android:text="Word"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/type"
+            android:id="@+id/translate_word_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5sp"
@@ -49,7 +87,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/mean"
+            android:id="@+id/translate_word_mean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5sp"

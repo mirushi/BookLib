@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/page_management_about_item"
+        android:title="About thi book" />
+
+    <item
+        android:id="@+id/page_management_bookmark"
+        android:title="Add a bookmark" />
+
+    <item
+        android:id="@+id/page_management_read_alound"
+        android:title="Read Aloud" />
+
+    <item
+        android:id="@+id/page_management_setting"
+        android:title="Setting" />
+
+    <item
+        android:id="@+id/page_management_help"
+        android:title="Help" />
+    <item
+        android:id="@+id/page_management_feedback"
+        android:title="Feed back" />
+
+
+</menu>

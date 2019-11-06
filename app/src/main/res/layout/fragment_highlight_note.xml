@@ -2,21 +2,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="220dp"
     android:layout_gravity="bottom"
-    android:layout_margin="20dp"
-    tools:context=".HighlightNoteFrm">
+    android:layout_margin="10dp"
+    tools:context=".Activity.ReadBookActivity">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_replace" />
 
-        android:outlineSpotShadowColor="#000"
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/define_image" />
 
     <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -65,7 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="start"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@null"
             android:gravity="start"
             android:hint="Input your note here!"
@@ -77,30 +85,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-          android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/note_delete_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/delete_btn_background"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:layout_marginRight="4dp"
+                android:background="@drawable/delete_btn_background"
                 android:text="Delete"
                 android:textColor="#888"
 
                 />
-<!--           -->
-<!--           -->
+            <!--           -->
+            <!--           -->
             <Button
                 android:id="@+id/note_save_btn"
-                android:layout_marginLeft="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/save_btn_background"
                 android:text="Save"

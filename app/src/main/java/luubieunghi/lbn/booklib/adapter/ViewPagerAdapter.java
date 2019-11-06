@@ -9,11 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Fragment.Frm_1;
-
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    public ArrayList<Frm_1> fragmentList = new ArrayList<Frm_1>();
+    public ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
     public ArrayList<String> fragmentTitle = new ArrayList<String>();
     public ArrayList<TextView> fragmentTextView = new ArrayList<>();
 
@@ -38,7 +36,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return fragmentTitle.get(position);
     }
 
-    public void addFragment(Frm_1 frm, String title) {
+    public void addFragment(Fragment frm, String title) {
         fragmentList.add(frm);
         fragmentTitle.add(title);
     }
