@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/addBook"
+    <item android:id="@+id/menu_main_item_add_book"
         android:title="Add Book"
         android:orderInCategory="100"
         android:icon="@drawable/ic_add_black_24dp"

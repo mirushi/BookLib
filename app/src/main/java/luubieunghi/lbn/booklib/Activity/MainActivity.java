@@ -98,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                     startActivity(intent);
                 }
+                else if (item.getItemId() == R.id.menu_main_item_add_book)
+                {
+                    Intent intent = new Intent(MainActivity.this, AddNewBookActivity.class);
+                    startActivity(intent);
+                }
                 return false;
             }
         });

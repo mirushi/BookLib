@@ -28,6 +28,8 @@
         <activity
             android:name=".Activity.AboutActivity"
             android:label="About" />
+        <activity android:name=".Activity.AddNewBookActivity" />
+
         <activity android:name=".Activity.openListSong" />
 
         <service android:name=".service.MyService" />
