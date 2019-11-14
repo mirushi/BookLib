@@ -1,13 +1,18 @@
 package luubieunghi.lbn.booklib.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -17,6 +22,10 @@ import luubieunghi.lbn.booklib.R;
 public class PlayAudio extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private ImageButton btn_equalizer, btn_timer;
+    private Button btn_play_speed;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +53,64 @@ public class PlayAudio extends AppCompatActivity {
             }
         });
 
+        btn_equalizer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog=new AlertDialog.Builder(PlayAudio.this).create();
+
+                View view=getLayoutInflater().inflate(R.layout.equalizer_dialog,null);
+
+                Button btn_OK=view.findViewById(R.id.btn_OK_equalizer_dialog);
+                btn_OK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setView(view);
+                dialog.show();
+            }
+        });
+
+
+        btn_play_speed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog=new AlertDialog.Builder(PlayAudio.this).create();
+
+                View view=getLayoutInflater().inflate(R.layout.playback_speed_dialog,null);
+
+                Button btn_OK=view.findViewById(R.id.btn_OK_playback_speed_dialog);
+                btn_OK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setView(view);
+                dialog.show();
+            }
+        });
+
+        btn_timer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog=new AlertDialog.Builder(PlayAudio.this).create();
+
+                View view=getLayoutInflater().inflate(R.layout.timer_dialog,null);
+
+                Button btn_OK=view.findViewById(R.id.btn_OK_timer_dialog);
+                btn_OK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setView(view);
+                dialog.show();
+            }
+        });
+
     }
 
     private void init() {
@@ -54,6 +121,9 @@ public class PlayAudio extends AppCompatActivity {
 
     private void addControls() {
         toolbar=findViewById(R.id.toolbar_listaudio);
+        btn_equalizer=findViewById(R.id.btn_equalizer_play_audio);
+        btn_play_speed=findViewById(R.id.btn_play_speed_play_audio);
+        btn_timer=findViewById(R.id.btn_timer_play_audio);
     }
 
     //gửi mail về booklib devteam

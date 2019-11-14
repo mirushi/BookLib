@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xlmns:layout_width="match_parent"
     xlmns:layout_height="match_parent"
-    xlmns:id="@+id/layout_play_music"
     tools:openDrawer="start"
     tools:context=".Activity.PlayMusic"
     xlmns:clickable="true"
@@ -13,6 +12,7 @@
     xlmns:orientation="vertical">
 
     <LinearLayout
+        xlmns:id="@+id/layout_play_music"
         xlmns:layout_width="match_parent"
         xlmns:layout_height="match_parent"
         xlmns:orientation="vertical"
@@ -74,6 +74,7 @@
             xlmns:layout_weight="1"/>
 
         <LinearLayout
+            xlmns:id="@+id/lv_img"
             xlmns:longClickable="true"
             xlmns:clickable="true"
             xlmns:layout_width="match_parent"
