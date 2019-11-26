@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/ic_header_background">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/nav_header_main_booklib_icon"
