@@ -2,6 +2,7 @@ package luubieunghi.lbn.booklib.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,14 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
     private List<Book> bookList;
     private Context context;
+
+    //Những hằng số để phân biệt các item trong context menu.
+    private final int startReadingBookID = 1123;
+    private final int loadBookDetailsID = 1124;
+    private final int viewBookmarksID = 1125;
+    private final int viewHighlightsID = 1126;
+    private final int markReadID = 1127;
+    private final int deleteBookID = 1128;
 
     public BookRecyclerViewAdapter(List<Book> bookList) {
         this.bookList = bookList;
@@ -47,14 +56,6 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
                 context.startActivity(intent);
             }
         });
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Integer position = holder.getAdapterPosition();
-                Toast.makeText(context, "Long clicked : " + position.toString(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
         return holder;
     }
 
@@ -69,7 +70,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         return bookList.size();
     }
 
-    public class BookRecyclerViewHolder extends RecyclerView.ViewHolder {
+    public class BookRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         ImageView bookImage;
         TextView bookTitle;
@@ -78,6 +79,19 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             super(view);
             bookImage = (ImageView) view.findViewById(R.id.item_book_iv_book_image);
             bookTitle = (TextView) view.findViewById(R.id.item_book_txtView_book_name);
+            //Set để hiển thị context menu cho recycler view.
+            view.setOnCreateContextMenuListener(this);
+        }
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+            menu.add(this.getAdapterPosition(), startReadingBookID, 0, "Bắt đầu đọc sách");
+            menu.add(this.getAdapterPosition(), loadBookDetailsID, 1, "Xem thông tin sách");
+            menu.add(this.getAdapterPosition(), viewBookmarksID, 2, "Hiển thị dấu trang");
+            menu.add(this.getAdapterPosition(), viewHighlightsID, 3, "Hiển thị highlight");
+            menu.add(this.getAdapterPosition(), markReadID, 4, "Đánh dấu là đã đọc");
+            menu.add(this.getAdapterPosition(), deleteBookID, 5, "Xoá sách");
         }
     }
+
+
 }
