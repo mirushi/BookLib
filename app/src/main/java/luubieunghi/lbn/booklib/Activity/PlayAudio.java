@@ -32,7 +32,7 @@ public class PlayAudio extends AppCompatActivity {
         setContentView(R.layout.activity_play_audio);
         
         addControls();
-        init();
+        setUp();
         addEvents();
         
     }
@@ -111,12 +111,20 @@ public class PlayAudio extends AppCompatActivity {
             }
         });
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
 
-    private void init() {
-
+    private void setUp() {
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.play_music_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
     }
 
     private void addControls() {

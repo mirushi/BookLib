@@ -75,7 +75,7 @@ public class MyService extends Service {
                 }
             }
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void repeat_MediaPlayer(Intent intent) {
@@ -136,17 +136,18 @@ public class MyService extends Service {
     }
 
     //tạo chanel cho notification
-//    private void createNotificationChanel(){
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            NotificationChannel channel=new NotificationChannel(chanel_ID,chanel_Name, NotificationManager.IMPORTANCE_HIGH);
-//            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-//            NotificationManager notificationManager=getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(channel);
-//        }
-//    }
+    private void createNotificationChanel(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel=new NotificationChannel(chanel_ID,chanel_Name, NotificationManager.IMPORTANCE_HIGH);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            NotificationManager notificationManager=getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
     // hiển thị notification
     private void showNotification() {
+        createNotificationChanel();
         Intent intent=new Intent(getBaseContext(), MyService.class);//1
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent= PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);//1
@@ -154,15 +155,15 @@ public class MyService extends Service {
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(notificationLayout)
                 .setSmallIcon(R.drawable.icon_f)
-                .setPriority(Notification.PRIORITY_MIN)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .build();
         if(mediaPlayer.isPlaying()){
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_white_24dp);
         }
         else{
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_white_24dp);
         }
 
         notificationLayout.setOnClickPendingIntent(R.id.btn_close_notification,

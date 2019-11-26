@@ -97,6 +97,10 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         });
         //gestureDetector.setContextClickListener();
 
+        if(mediaPlayer!=null&&mediaPlayer.isPlaying())
+            PlayMusic.setBtn_PlayResource(false);
+        else
+            PlayMusic.setBtn_PlayResource(true);
     }
 
     private void setBtn_img_Next_Clicked(View v){
@@ -106,7 +110,7 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
 
     private void ConfigGesturesListener()
     {
-        layout_Play_Music.setOnTouchListener(new AppWideGesturesListener(this){
+        layout_Play_Music.setOnTouchListener(new AppWideGesturesListener(PlayMusic.this){
             @Override
             public void SwipeDownFromTop()
             {
