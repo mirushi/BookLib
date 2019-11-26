@@ -25,7 +25,7 @@ public class AddNewBookActivity extends AppCompatActivity {
     MaterialButton mbDateSelectionButton;
     TextInputEditText txtPublishingDate;
     Calendar calSelectedPublishingDate;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int mYear, mMonth, mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,7 @@ public class AddNewBookActivity extends AppCompatActivity {
                                 // Display Selected date in textbox
                                 txtPublishingDate.setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
+                                //Gán lại ngày tháng luôn để lần sau có chỉnh thì chỉnh tiếp từ ngay tháng trước.
                                 mDay = dayOfMonth;
                                 mMonth = monthOfYear;
                                 mYear = year;

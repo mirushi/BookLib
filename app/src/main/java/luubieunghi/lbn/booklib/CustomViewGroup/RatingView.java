@@ -85,7 +85,7 @@ public class RatingView extends LinearLayout {
 
         allowRating = true;
         addStars();
-        updateCheckedStars(mNumStars);
+        updateCheckedStars(mRating);
     }
 
     private void addStars()
@@ -110,7 +110,7 @@ public class RatingView extends LinearLayout {
 
     private void updateCheckedStars(int stars)
     {
-
+        //Không cập nhật nếu số sao đưa vào nhiều hơn số sao tối đa của view.
         if (stars > mNumStars)
             return;
 
