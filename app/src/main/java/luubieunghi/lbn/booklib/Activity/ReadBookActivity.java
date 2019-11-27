@@ -35,9 +35,7 @@ public class ReadBookActivity extends AppCompatActivity {
     }
 
     private void initiateValue() {
-
         frm_1 = new BookReadingFirstPageFrm();
-
         frm_2 = new BookReadingSecondPageFrm();
         frm_3 = new BookReadingThirdPageFrm();
         viewPager = findViewById(R.id.read_book_viewpager);

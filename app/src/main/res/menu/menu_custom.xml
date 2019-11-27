@@ -41,7 +41,7 @@
         app:actionLayout="@android:layout/two_line_list_item"
         android:icon="@drawable/ic_action_fiber_manual_yellow"
         android:title=""
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/custom_seven"
@@ -57,4 +57,10 @@
         android:title=""
         app:showAsAction="ifRoom" />
 
+    <item android:id="@+id/custom_delete_note_btn"
+        android:actionLayout="@android:layout/two_line_list_item"
+        android:title=""
+        android:icon="@drawable/ic_action_highlight_delete"
+        app:showAsAction="ifRoom"
+        />
 </menu>
