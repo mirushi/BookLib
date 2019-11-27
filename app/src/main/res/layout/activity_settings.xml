@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_settings_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/activity_settings_label_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cài đặt"
+        android:textSize="32sp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="@id/activity_settings_layout"
+        app:layout_constraintLeft_toLeftOf="@id/activity_settings_layout"
+        app:layout_constraintRight_toRightOf="@id/activity_settings_layout"
+        android:layout_marginTop="32dp"/>
+
+    <ListView
+        android:id="@+id/activity_settings_lsView_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_settings_label_description"
+        app:layout_constraintLeft_toLeftOf="@id/activity_settings_layout"
+        app:layout_constraintRight_toRightOf="@id/activity_settings_layout"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"/>
+
+</LinearLayout>

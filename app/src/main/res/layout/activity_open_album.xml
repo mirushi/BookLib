@@ -6,6 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".Activity.OpenAlbum"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_open_album"
+        app:title="BookLib"
+        app:subtitle="Danh sách bài hát"
+        app:maxButtonHeight="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                app:defaultQueryHint="Type text here ..."
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                app:closeIcon="@drawable/ic_close_black_24dp"
+                app:searchIcon="@drawable/ic_action_search"
+                android:layoutDirection="rtl">
+            </androidx.appcompat.widget.SearchView>
+            <!--              <EditText-->
+            <!--                  android:layout_width="match_parent"-->
+            <!--                  android:layout_height="match_parent"-->
+            <!--                  android:textColorHint="#000000"-->
+            <!--                  android:hint="song or singer"-->
+            <!--                  android:singleLine="true"-->
+            <!--                  android:layout_weight="6"-->
+            <!--                  android:layout_marginRight="10dp"-->
+            <!--                  android:backgroundTint="#000000"-->
+            <!--                  android:textCursorDrawable="@xml/cusor_color"-->
+            <!--                  >-->
+            <!--              </EditText>-->
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
     <LinearLayout
         android:background="@drawable/images"
         android:layout_width="match_parent"

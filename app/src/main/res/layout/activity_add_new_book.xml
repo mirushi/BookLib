@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/activity_add_new_book_toolbar"
+            layout="@layout/main_menu_toolbar"/>
+        <TableLayout
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp">
+
+            <TableRow>
+                <Spinner
+                    android:id="@+id/activity_add_new_book_server_selection_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_span="2"
+                    android:background="@drawable/define_image" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <ImageView
+                    android:layout_width="133dp"
+                    android:layout_height="173dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_span="2"
+                    android:background="@drawable/icon_book_100px"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Tựa đề : "
+                    android:layout_gravity="left|center_vertical"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập vào tựa đề sách">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_add_new_book_edt_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Tác giả : "
+                    android:layout_gravity="left|center_vertical"/>
+                <EditText
+                    android:id="@+id/activity_add_new_book_edt_author"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:hint="Nhập tác giả của sách"/>
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Đánh giá : "
+                    android:layout_gravity="left|center_vertical"/>
+                <luubieunghi.lbn.booklib.CustomViewGroup.RatingView
+                    android:id="@+id/activity_add_new_book_ratingview_rating"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    app:numStars="5"
+                    app:rating="0"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Ids : "
+                    android:layout_gravity="left|center_vertical"/>
+                <EditText
+                    android:id="@+id/activity_add_new_book_edt_ids"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:hint="Ids cách nhau bằng dấu ,"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Tags : "
+                    android:layout_gravity="left|center_vertical"/>
+                <EditText
+                    android:id="@+id/activity_add_new_book_edt_tags"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:hint="Tags cách nhau bởi dấu ,"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Ngôn ngữ : "
+                    android:layout_gravity="left|center_vertical"/>
+                <Spinner
+                    android:id="@+id/activity_add_new_book_spinner_language"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/define_image"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="NXB : "
+                    android:layout_gravity="left|center_vertical"/>
+                <EditText
+                    android:id="@+id/activity_add_new_book_edt_publisher"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:hint="Nhập vào NXB (VD : NXB Trẻ)"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Ngày xuất bản : "
+                    android:layout_gravity="left|center_vertical"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_add_new_book_edt_publishing_date"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:editable="false"
+                    android:inputType="none"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/activity_add_new_book_btn_choose_publishing_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:insetRight="0dp"
+                    android:insetLeft="0dp"
+                    app:icon="@drawable/ic_date_range_black_24dp"
+                    android:minWidth="0dp"
+                    app:iconPadding="0dp"
+                    app:iconGravity="textStart"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Mô tả : "
+                    android:layout_gravity="left|center_vertical"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="8dp">
+                <EditText
+                    android:id="@+id/activity_add_new_book_edt_description"
+                    android:layout_span="2"
+                    android:singleLine="false"/>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+

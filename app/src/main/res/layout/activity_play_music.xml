@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <LinearLayout
+    xlmns:id="@+id/layout_play_music"
     xmlns:xlmns="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,243 +13,249 @@
     tools:context=".Activity.PlayMusic"
     xlmns:clickable="true"
     xlmns:longClickable="true"
-    xlmns:id="@+id/test"
-    xlmns:orientation="vertical">
+    xlmns:orientation="vertical"
+    >
 
+    <!--        <androidx.appcompat.widget.Toolbar-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:id="@+id/toolBar">-->
+    <!--        </androidx.appcompat.widget.Toolbar>-->
     <LinearLayout
-        xlmns:id="@+id/layout_play_music"
         xlmns:layout_width="match_parent"
-        xlmns:layout_height="match_parent"
-        xlmns:orientation="vertical"
-        xlmns:background="@null"
+        xlmns:layout_height="wrap_content"
+        xlmns:layout_weight="1"
+        xlmns:orientation="horizontal"
+        xlmns:layout_marginTop="20dp"
         xlmns:clickable="true"
         xlmns:longClickable="true"
         >
-
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/toolBar">-->
-        <!--        </androidx.appcompat.widget.Toolbar>-->
-        <LinearLayout
+        <TextView
+            xlmns:longClickable="true"
+            xlmns:id="@+id/txt_TenBaiHat"
             xlmns:layout_width="match_parent"
             xlmns:layout_height="wrap_content"
+            xlmns:layout_gravity="center_vertical"
             xlmns:layout_weight="1"
-            xlmns:orientation="horizontal"
-            xlmns:layout_marginTop="10dp"
-            xlmns:clickable="true"
+            xlmns:text="Tên Bài Hát"
+            xlmns:textColor="#0d0d0d"
+            xlmns:textSize="20dp"
+            xlmns:layout_marginLeft="10dp"/>
+
+        <ImageButton
             xlmns:longClickable="true"
+            xlmns:id="@+id/btn_img_menu"
+            xlmns:layout_width="match_parent"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_gravity="center|right"
+            xlmns:layout_weight="7"
+            xlmns:src="@drawable/ic_more_vert_black_24dp"
+            xlmns:background="@null"
+            xlmns:layout_marginRight="10dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        xlmns:longClickable="true"
+        xlmns:layout_marginLeft="10dp"
+        xlmns:id="@+id/txt_TenCaSi"
+        xlmns:layout_width="match_parent"
+        xlmns:layout_height="wrap_content"
+        xlmns:text="Tên Ca Sĩ"
+        xlmns:textColor="#0d0d0d"
+        xlmns:textSize="16dp"
+        xlmns:layout_weight="1"/>
+
+    <LinearLayout
+        xlmns:id="@+id/lv_img"
+        xlmns:longClickable="true"
+        xlmns:clickable="true"
+        xlmns:layout_width="match_parent"
+        xlmns:layout_height="wrap_content"
+        xlmns:layout_weight="6">
+
+        <ImageView
+            xlmns:longClickable="true"
+            xlmns:id="@+id/img_disc"
+            xlmns:layout_width="match_parent"
+            xlmns:layout_height="match_parent"
+            xlmns:layout_marginBottom="10dp"
+            xlmns:src="@drawable/icon_f"
+            xlmns:layout_marginRight="10dp"
+            xlmns:layout_marginLeft="10dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        xlmns:longClickable="true"
+        xlmns:id="@+id/txt_BaiHat"
+        xlmns:layout_width="match_parent"
+        xlmns:layout_height="wrap_content"
+        xlmns:layout_marginTop="10dp"
+        xlmns:text="Bài hát"
+        xlmns:textAlignment="center"
+        xlmns:gravity="center_vertical"
+        xlmns:textColor="#0d0d0d"
+        xlmns:textSize="26dp"
+        xlmns:layout_weight="1" />
+
+    <LinearLayout
+        xlmns:longClickable="true"
+        xlmns:clickable="true"
+        xlmns:layout_marginTop="10dp"
+        xlmns:layout_width="match_parent"
+        xlmns:layout_height="wrap_content"
+        xlmns:orientation="vertical"
+        xlmns:layout_weight="1"
+        xlmns:gravity="center_vertical"
+        >
+
+        <LinearLayout
+            xlmns:longClickable="true"
+            xlmns:layout_width="match_parent"
+            xlmns:layout_height="match_parent"
+            xlmns:orientation="horizontal"
+            xlmns:layout_marginTop="15dp"
+            xlmns:gravity="center_vertical"
             >
 
             <TextView
                 xlmns:longClickable="true"
-                xlmns:id="@+id/txt_TenBaiHat"
-                xlmns:layout_width="match_parent"
+                xlmns:id="@+id/txt_CurrentTime"
+                xlmns:layout_width="wrap_content"
                 xlmns:layout_height="wrap_content"
-                xlmns:layout_gravity="center_vertical"
-                xlmns:layout_weight="1"
-                xlmns:text="Tên Bài Hát"
-                xlmns:textColor="#0d0d0d"
-                xlmns:textSize="20dp"
-                xlmns:layout_marginLeft="10dp"/>
-
-            <ImageButton
-                xlmns:longClickable="true"
-                xlmns:id="@+id/btn_img_menu"
-                xlmns:layout_width="match_parent"
-                xlmns:layout_height="wrap_content"
-                xlmns:layout_gravity="center|right"
-                xlmns:layout_weight="7"
-                xlmns:src="@drawable/ic_more_vert_black_24dp"
-                xlmns:background="@null"
-                xlmns:layout_marginRight="10dp"
-                />
-
-        </LinearLayout>
-
-        <TextView
-            xlmns:longClickable="true"
-            xlmns:layout_marginLeft="10dp"
-            xlmns:id="@+id/txt_TenCaSi"
-            xlmns:layout_width="match_parent"
-            xlmns:layout_height="wrap_content"
-            xlmns:text="Tên Ca Sĩ"
-            xlmns:textColor="#0d0d0d"
-            xlmns:textSize="16dp"
-            xlmns:layout_weight="1"/>
-
-        <LinearLayout
-            xlmns:longClickable="true"
-            xlmns:clickable="true"
-            xlmns:layout_width="match_parent"
-            xlmns:layout_height="wrap_content"
-            xlmns:layout_weight="6">
-
-            <ImageView
-                xlmns:longClickable="true"
-                xlmns:id="@+id/img_disc"
-                xlmns:layout_width="match_parent"
-                xlmns:layout_height="match_parent"
-                xlmns:layout_marginBottom="10dp"
-                xlmns:src="@drawable/icon_f"
-                xlmns:layout_marginRight="10dp"
-                xlmns:layout_marginLeft="10dp"
-                />
-        </LinearLayout>
-
-        <TextView
-            xlmns:longClickable="true"
-            xlmns:id="@+id/txt_BaiHat"
-            xlmns:layout_width="match_parent"
-            xlmns:layout_height="wrap_content"
-            xlmns:layout_marginTop="10dp"
-            xlmns:text="Bài hát"
-            xlmns:textAlignment="center"
-            xlmns:gravity="center_vertical"
-            xlmns:textColor="#0d0d0d"
-            xlmns:textSize="26dp"
-            xlmns:layout_weight="1" />
-
-        <LinearLayout
-            xlmns:longClickable="true"
-            xlmns:clickable="true"
-            xlmns:layout_marginTop="10dp"
-            xlmns:layout_width="match_parent"
-            xlmns:layout_height="wrap_content"
-            xlmns:orientation="vertical"
-            xlmns:layout_weight="1"
-            xlmns:gravity="center_vertical"
-            >
-
-            <LinearLayout
-                xlmns:longClickable="true"
-                xlmns:layout_width="match_parent"
-                xlmns:layout_height="match_parent"
-                xlmns:orientation="horizontal"
-                xlmns:layout_marginTop="15dp"
-                xlmns:gravity="center_vertical"
-                >
-
-                <TextView
-                    xlmns:longClickable="true"
-                    xlmns:id="@+id/txt_CurrentTime"
-                    xlmns:layout_width="wrap_content"
-                    xlmns:layout_height="wrap_content"
-                    xlmns:layout_marginLeft="5dp"
-                    xlmns:layout_weight="1"
-                    xlmns:text="00:00"
-                    xlmns:gravity="left"
-                    xlmns:textColor="#0d0d0d"/>
-
-                <SeekBar
-                    xlmns:longClickable="true"
-                    xlmns:id="@+id/seekBar_Time"
-                    xlmns:layout_width="275dp"
-                    xlmns:layout_height="wrap_content"
-                    xlmns:layout_weight="5"
-                    xlmns:max="100"
-                    xlmns:progress="3"
-                    xlmns:progressDrawable="@xml/seekbar_custome"
-                    xlmns:thumb="@xml/custome_thumb"
-                    />
-
-                <TextView
-                    xlmns:longClickable="true"
-                    xlmns:id="@+id/txt_ToTalTime"
-                    xlmns:layout_width="wrap_content"
-                    xlmns:layout_height="wrap_content"
-                    xlmns:layout_weight="1"
-                    xlmns:text="00:00"
-                    xlmns:gravity="right"
-                    xlmns:layout_marginRight="5dp"
-                    xlmns:textColor="#0d0d0d"/>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            xlmns:longClickable="true"
-            xlmns:clickable="true"
-            xlmns:layout_width="match_parent"
-            xlmns:layout_height="wrap_content"
-            xlmns:layout_weight="1"
-            xlmns:orientation="horizontal"
-            xlmns:gravity="center"
-            xlmns:layout_marginBottom="20dp"
-            xlmns:layout_marginLeft="10dp"
-            xlmns:layout_marginRight="10dp"
-            >
-
-            <ImageButton
-                xlmns:longClickable="true"
                 xlmns:layout_marginLeft="5dp"
-                xlmns:layout_marginRight="5dp"
-                xlmns:background="@xml/custome_button"
-                xlmns:id="@+id/btn_img_shuffle"
+                xlmns:layout_weight="1"
+                xlmns:text="00:00"
+                xlmns:gravity="left"
+                xlmns:textColor="#0d0d0d"/>
+
+            <SeekBar
+                xlmns:longClickable="true"
+                xlmns:id="@+id/seekBar_Time"
+                xlmns:layout_width="275dp"
+                xlmns:layout_height="wrap_content"
+                xlmns:layout_weight="5"
+                xlmns:max="100"
+                xlmns:progress="3"
+                xlmns:progressDrawable="@xml/seekbar_custome"
+                xlmns:thumb="@xml/custome_thumb"
+                />
+
+            <TextView
+                xlmns:longClickable="true"
+                xlmns:id="@+id/txt_ToTalTime"
                 xlmns:layout_width="wrap_content"
                 xlmns:layout_height="wrap_content"
                 xlmns:layout_weight="1"
-                xlmns:src="@drawable/ic_shuffle_black_24dp"
-                />
+                xlmns:text="00:00"
+                xlmns:gravity="right"
+                xlmns:layout_marginRight="5dp"
+                xlmns:textColor="#0d0d0d"/>
 
-            <ImageButton
-                xlmns:longClickable="true"
-                xlmns:layout_marginLeft="5dp"
-                xlmns:layout_marginRight="5dp"
-                xlmns:id="@+id/btn_img_previous"
-                xlmns:layout_width="wrap_content"
-                xlmns:layout_height="wrap_content"
-                xlmns:layout_weight="1"
-                xlmns:background="@xml/custome_button"
-                xlmns:src="@drawable/ic_skip_previous_black_24dp" />
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                xlmns:longClickable="true"
-                xlmns:layout_marginLeft="5dp"
-                xlmns:layout_marginRight="5dp"
-                xlmns:background="@xml/custome_button"
-                xlmns:id="@+id/btn_img_play"
-                xlmns:layout_width="wrap_content"
-                xlmns:layout_height="wrap_content"
-                xlmns:layout_weight="1"
-                xlmns:src="@drawable/ic_play_arrow_black_24dp"
-                app:backgroundTint="#80b7cf"
-                />
-
-            <ImageButton
-                xlmns:longClickable="true"
-                xlmns:layout_marginLeft="5dp"
-                xlmns:layout_marginRight="5dp"
-                xlmns:background="@xml/custome_button"
-                xlmns:id="@+id/btn_img_next"
-                xlmns:layout_width="wrap_content"
-                xlmns:layout_height="wrap_content"
-                xlmns:layout_weight="1"
-                xlmns:src="@drawable/ic_skip_next_black_24dp"
-                />
-
-            <ImageButton
-                xlmns:longClickable="true"
-                xlmns:layout_marginLeft="5dp"
-                xlmns:layout_marginRight="5dp"
-                xlmns:background="@xml/custome_button"
-                xlmns:id="@+id/btn_img_repeat"
-                xlmns:layout_width="wrap_content"
-                xlmns:layout_height="wrap_content"
-                xlmns:layout_weight="1"
-                xlmns:src="@drawable/ic_repeat_one_black_24dp" />
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        xlmns:longClickable="true"
+        xlmns:clickable="true"
+        xlmns:layout_width="match_parent"
+        xlmns:layout_height="wrap_content"
+        xlmns:layout_weight="1"
+        xlmns:orientation="horizontal"
+        xlmns:gravity="center"
+        xlmns:layout_marginBottom="20dp"
+        xlmns:layout_marginLeft="10dp"
+        xlmns:layout_marginRight="10dp"
+        >
 
-    <com.google.android.material.navigation.NavigationView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/nav_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@android:color/white"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/play_music_menu"
-        android:backgroundTint="#9dbdb8"/>
+        <ImageButton
+            xlmns:longClickable="true"
+            xlmns:layout_marginLeft="5dp"
+            xlmns:layout_marginRight="5dp"
+            xlmns:background="@xml/custome_button"
+            xlmns:id="@+id/btn_img_shuffle"
+            xlmns:layout_width="wrap_content"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_weight="1"
+            xlmns:src="@drawable/ic_shuffle_black_24dp"
+            />
 
+        <ImageButton
+            xlmns:longClickable="true"
+            xlmns:layout_marginLeft="5dp"
+            xlmns:layout_marginRight="5dp"
+            xlmns:id="@+id/btn_img_previous"
+            xlmns:layout_width="wrap_content"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_weight="1"
+            xlmns:background="@xml/custome_button"
+            xlmns:src="@drawable/ic_skip_previous_black_24dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            xlmns:longClickable="true"
+            xlmns:layout_marginLeft="5dp"
+            xlmns:layout_marginRight="5dp"
+            xlmns:background="@xml/custome_button"
+            xlmns:id="@+id/btn_img_play"
+            xlmns:layout_width="wrap_content"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_weight="1"
+            xlmns:src="@drawable/ic_play_arrow_black_24dp"
+            app:backgroundTint="#80b7cf"
+            />
+
+        <ImageButton
+            xlmns:longClickable="true"
+            xlmns:layout_marginLeft="5dp"
+            xlmns:layout_marginRight="5dp"
+            xlmns:background="@xml/custome_button"
+            xlmns:id="@+id/btn_img_next"
+            xlmns:layout_width="wrap_content"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_weight="1"
+            xlmns:src="@drawable/ic_skip_next_black_24dp"
+            />
+
+        <ImageButton
+            xlmns:longClickable="true"
+            xlmns:layout_marginLeft="5dp"
+            xlmns:layout_marginRight="5dp"
+            xlmns:background="@xml/custome_button"
+            xlmns:id="@+id/btn_img_repeat"
+            xlmns:layout_width="wrap_content"
+            xlmns:layout_height="wrap_content"
+            xlmns:layout_weight="1"
+            xlmns:src="@drawable/ic_repeat_one_black_24dp" />
+    </LinearLayout>
 </LinearLayout>
+
+
+
+<!--<LinearLayout-->
+<!--    xmlns:xlmns="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xlmns:layout_width="match_parent"-->
+<!--    xlmns:layout_height="match_parent"-->
+<!--    tools:openDrawer="start"-->
+<!--    tools:context=".Activity.PlayMusic"-->
+<!--    xlmns:clickable="true"-->
+<!--    xlmns:longClickable="true"-->
+<!--    xlmns:orientation="vertical">-->
+
+<!--    -->
+
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:id="@+id/nav_menu"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:background="@android:color/white"-->
+<!--        app:headerLayout="@layout/nav_header"-->
+<!--        app:menu="@menu/play_music_menu"-->
+<!--        android:backgroundTint="#9dbdb8"/>-->
+
+<!--</LinearLayout>-->

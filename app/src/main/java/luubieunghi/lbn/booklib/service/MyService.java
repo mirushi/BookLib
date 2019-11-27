@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import luubieunghi.lbn.booklib.Activity.PlayMusic;
 import luubieunghi.lbn.booklib.R;
@@ -28,6 +31,7 @@ public class MyService extends Service {
     private static final String chanel_Name="PLAY MUSIC";
     public static  MediaPlayer mediaPlayer=new MediaPlayer();
     public static  RemoteViews notificationLayout;
+
 
     @Nullable
     @Override
@@ -48,7 +52,6 @@ public class MyService extends Service {
 
         //lấy action của intent để xử lí
         String action=intent.getAction();
-
         if(action!=null){
             if(action.equals("Action_Stop")){
                 stop_MyService(intent);
@@ -72,7 +75,6 @@ public class MyService extends Service {
                 }
             }
         }
-
         return START_STICKY;
     }
 
@@ -91,10 +93,12 @@ public class MyService extends Service {
 
     // bắt đầu phát nhạc
     private void play_MediaPlayer(Intent intent) {
-        dongBoImageResource();
         if(mediaPlayer.isPlaying())
+        { PlayMusic.setBtn_PlayResource(true);
            mediaPlayer.pause();
+        }
         else {
+            PlayMusic.setBtn_PlayResource(false);
            mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
            mediaPlayer.start();
         }
@@ -103,33 +107,32 @@ public class MyService extends Service {
     // xóa thông báo và dừng mediaplayer
     private void stop_MyService(Intent intent) {
         //đóng notification
-        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.cancel(1);
         //tắt nhạc
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
-        }
-        // đồng bộ image resource button play
-        PlayMusic.setBtn_PlayResource(true);
-    }
-
-    public void dongBoImageResource(){
-        if(mediaPlayer.isPlaying()){
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
             PlayMusic.setBtn_PlayResource(true);
         }
-        else {
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
-            PlayMusic.setBtn_PlayResource(false);
-        }
-
     }
+
+//    public void dongBoImageResource(){
+//        if(mediaPlayer.isPlaying()){
+//            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
+//            PlayMusic.setBtn_PlayResource(true);
+//        }
+//        else {
+//            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
+//            PlayMusic.setBtn_PlayResource(false);
+//        }
+//
+//    }
 
     //tạo intent sync giữa notification và activity
     private PendingIntent onButtonNotificationClick(@IdRes int id) {
-        Intent intent = new Intent(getBaseContext(), NotificationReciever.class);
+        Intent intent = new Intent(getBaseContext(), NotificationReciever.class);//1
         intent.putExtra("control_id",id);
-        return PendingIntent.getBroadcast(getBaseContext(), id, intent, 0);
+        return PendingIntent.getBroadcast(getBaseContext(), id, intent, 0);//1
     }
 
     //tạo chanel cho notification
@@ -144,23 +147,23 @@ public class MyService extends Service {
 
     // hiển thị notification
     private void showNotification() {
-
         createNotificationChanel();
-        Intent intent=new Intent(getBaseContext(), PlayMusic.class);
-        PendingIntent pendingIntent= PendingIntent.getActivity(getBaseContext(),0,intent,0);
-        Notification customNotification= new NotificationCompat.Builder(getBaseContext(),chanel_ID)
+        Intent intent=new Intent(getBaseContext(), MyService.class);//1
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent= PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);//1
+        Notification customNotification= new NotificationCompat.Builder(getBaseContext(),chanel_ID)//1
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(notificationLayout)
                 .setSmallIcon(R.drawable.icon_f)
-                .setPriority(Notification.PRIORITY_MIN)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .build();
         if(mediaPlayer.isPlaying()){
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_white_24dp);
         }
         else{
-            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
+            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_white_24dp);
         }
 
         notificationLayout.setOnClickPendingIntent(R.id.btn_close_notification,
@@ -176,5 +179,4 @@ public class MyService extends Service {
         NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1,customNotification);
     }
-
 }
