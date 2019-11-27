@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.model.SettingItemModel;
+import luubieunghi.lbn.booklib.Model.SettingItemModel;
 
 public class SettingsItemAdapter extends ArrayAdapter<SettingItemModel> {
 

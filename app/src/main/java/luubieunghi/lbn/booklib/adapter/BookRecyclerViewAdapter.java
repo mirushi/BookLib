@@ -1,10 +1,9 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,10 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import luubieunghi.lbn.booklib.Activity.MainActivity;
-import luubieunghi.lbn.booklib.Activity.ReadBookActivity;
+import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.model.Book;
+import luubieunghi.lbn.booklib.Model.Book;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 

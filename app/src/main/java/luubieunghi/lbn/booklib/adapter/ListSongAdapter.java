@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

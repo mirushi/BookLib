@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:text="Đánh giá : "
                     android:layout_gravity="left|center_vertical"/>
-                <luubieunghi.lbn.booklib.CustomViewGroup.RatingView
+                <luubieunghi.lbn.booklib.UI.About.RatingView
                     android:id="@+id/activity_add_new_book_ratingview_rating"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"

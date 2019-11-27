@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Activity.OpenAlbum;
-import luubieunghi.lbn.booklib.Activity.ReadBookActivity;
+import luubieunghi.lbn.booklib.UI.OpenAlbum.OpenAlbum;
 import luubieunghi.lbn.booklib.R;
 
 public class BookPageManagementAdapter extends RecyclerView.Adapter<BookPageManagementAdapter.MyViewHolder> {

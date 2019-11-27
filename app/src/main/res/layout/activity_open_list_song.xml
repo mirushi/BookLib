@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.openListSong"
+    tools:context=".UI.OpenListSong.OpenListSong"
     android:orientation="vertical"
     android:weightSum="10">
     <androidx.appcompat.widget.Toolbar

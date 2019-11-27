@@ -1,11 +1,11 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import luubieunghi.lbn.booklib.BookFilterType;
-import luubieunghi.lbn.booklib.Fragment.BookListingFragment;
+import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
+import luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
 public class BookListingPagerAdapter extends FragmentPagerAdapter {
 

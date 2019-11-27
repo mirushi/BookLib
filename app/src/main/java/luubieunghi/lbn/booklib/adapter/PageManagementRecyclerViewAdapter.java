@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import luubieunghi.lbn.booklib.PageManagementRecyclerViewItem;
+import luubieunghi.lbn.booklib.UI.BookPageManagement.PageManagementRecyclerViewItem;
 import luubieunghi.lbn.booklib.R;
 
 public class PageManagementRecyclerViewAdapter extends RecyclerView.Adapter<PageManagementRecyclerViewAdapter.ViewHolder> {

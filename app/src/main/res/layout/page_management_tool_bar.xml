@@ -6,7 +6,7 @@
     android:background="#ffffff"
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-    tools:context=".Activity.PageManagementActivity"
+    tools:context=".UI.BookPageManagement.PageManagementActivity"
     android:elevation="5dp"
 
     >

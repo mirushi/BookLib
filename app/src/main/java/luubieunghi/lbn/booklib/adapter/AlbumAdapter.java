@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -14,8 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.model.Album;
-import luubieunghi.lbn.booklib.model.BaiHat;
+import luubieunghi.lbn.booklib.Model.Album;
 
 public class AlbumAdapter extends ArrayAdapter {
     private Activity context;

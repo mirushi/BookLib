@@ -1,7 +1,6 @@
-package luubieunghi.lbn.booklib.adapter;
+package luubieunghi.lbn.booklib.Adapter;
 
 import android.app.Activity;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.model.BaiHat;
+import luubieunghi.lbn.booklib.Model.BaiHat;
 
 public class BaiHatAdapter extends ArrayAdapter {
     private Activity context;

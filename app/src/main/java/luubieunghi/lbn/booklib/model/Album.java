@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.model;
+package luubieunghi.lbn.booklib.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

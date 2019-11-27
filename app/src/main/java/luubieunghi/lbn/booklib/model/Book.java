@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.model;
+package luubieunghi.lbn.booklib.Model;
 
 import android.content.Context;
 import android.graphics.Bitmap;

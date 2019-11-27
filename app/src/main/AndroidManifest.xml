@@ -9,35 +9,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.BookPageManagement">
+        <activity android:name=".UI.BookPageManagement.BookPageManagement">
         </activity>
-        <activity android:name=".Activity.PlayAudio">
+        <activity android:name=".UI.PlayAudio.PlayAudio">
         </activity>
-        <activity android:name=".Activity.ReadBookSettingActivity"></activity>
-        <activity android:name=".Activity.PageManagementActivity"></activity>
-        <activity android:name=".Activity.ReadBookActivity"></activity>
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".UI.ReadBookSetting.ReadBookSettingActivity"></activity>
+        <activity android:name=".UI.BookPageManagement.PageManagementActivity"></activity>
+        <activity android:name=".UI.ReadBook.ReadBookActivity"></activity>
+        <activity android:name=".UI.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.OpenAlbum" />
-        <activity android:name=".Activity.PlayMusic" />
+        <activity android:name=".UI.OpenAlbum.OpenAlbum" />
+        <activity android:name=".UI.PlayMusic.PlayMusic" />
         <activity
-            android:name=".Activity.AboutActivity"
+            android:name=".UI.About.AboutActivity"
             android:label="About" />
-        <activity android:name=".Activity.AddNewBookActivity" />
+        <activity android:name=".UI.AddNewBook.AddNewBookActivity" />
 
-        <activity android:name=".Activity.SettingsActivity"/>
+        <activity android:name=".UI.Setting.SettingsActivity"/>
 
-        <activity android:name=".Activity.openListSong">
+        <activity android:name=".UI.OpenListSong.OpenListSong">
         </activity>
 
-        <service android:name=".service.MyService" />
+        <service android:name=".Services.MyService" />
 
-        <receiver android:name=".service.NotificationReciever" />
+        <receiver android:name=".Services.NotificationReciever" />
     </application>
 
 </manifest>

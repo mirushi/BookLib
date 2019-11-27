@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00000000"
-    tools:context=".Fragment.BookReadingFirstPageFrm">
+    tools:context=".UI.ReadBook.BookReadingFirstPageFrm">
 
     <ImageView
         android:id="@+id/frm_1_imgview"

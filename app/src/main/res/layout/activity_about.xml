@@ -122,7 +122,7 @@
 <!--        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_4"-->
 <!--        android:background="@drawable/ic_star_border_black_24dp"/>-->
 
-    <luubieunghi.lbn.booklib.CustomViewGroup.RatingView
+    <luubieunghi.lbn.booklib.UI.About.RatingView
         android:id="@+id/activity_about_ratingView_rating"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
