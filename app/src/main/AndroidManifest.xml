@@ -15,7 +15,7 @@
         </activity>
         <activity android:name=".Activity.ReadBookSettingActivity"></activity>
         <activity android:name=".Activity.PageManagementActivity"></activity>
-        <activity android:name=".Activity.ReadBookActivity">
+        <activity android:name=".Activity.ReadBookActivity"/>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,6 @@
         </activity>
         <activity android:name=".Activity.OpenAlbum" />
         <activity android:name=".Activity.PlayMusic" />
-        <activity android:name=".Activity.MainActivity">
-
-        </activity>
         <activity
             android:name=".Activity.AboutActivity"
             android:label="About" />
