@@ -18,15 +18,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_horizontal">
-            <ImageButton
-                android:id="@+id/btn_img_menu_left_play_audio"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_menu_black_24dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1">
-            </ImageButton>
             <TextView
                 android:gravity="center|left"
                 android:layout_width="match_parent"
@@ -53,7 +44,16 @@
             android:src="@drawable/ic_access_time_black_24dp"
             android:background="@null">
         </ImageButton>
+        <ImageButton
+            android:id="@+id/btn_equalizer_play_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_equalizer_black_24dp"
+            android:background="@null">
+        </ImageButton>
         <Button
+            android:id="@+id/btn_play_speed_play_audio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_record_voice_over_black_24dp"

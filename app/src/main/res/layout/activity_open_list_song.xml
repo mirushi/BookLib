@@ -11,10 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_listsong"
-        app:title=""
+        app:title="BookLib"
         app:maxButtonHeight="?attr/actionBarSize"
         android:minHeight="?attr/actionBarSize"
-        android:layout_weight="1"
         android:background="@color/colorPrimary">
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +21,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SearchView
+                app:defaultQueryHint="Type text here ..."
                 android:layout_width="37dp"
                 android:layout_height="match_parent"
                 android:layout_weight="7"
@@ -41,18 +41,12 @@
             <!--                  android:textCursorDrawable="@xml/cusor_color"-->
             <!--                  >-->
             <!--              </EditText>-->
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_more_vert_black_24dp"
-                android:background="@null"
-                android:layout_marginLeft="0dp"
-                android:layout_weight="1"
-                >
-            </ImageButton>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.tabs.TabLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tablayout_listsong_type"
@@ -60,6 +54,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="8"

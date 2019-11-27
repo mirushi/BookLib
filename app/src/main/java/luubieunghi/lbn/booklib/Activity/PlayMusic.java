@@ -31,6 +31,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.adapter.BookPageManagementAdapter;
 import luubieunghi.lbn.booklib.service.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.service.MyService;
 
@@ -39,7 +40,7 @@ import static luubieunghi.lbn.booklib.service.MyService.mediaPlayer;
 
 public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    LinearLayout layout_Play_Music, test;
+    LinearLayout layout_Play_Music, test, lv_img;
     private ImageView img;
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
     private SeekBar seekBar_Time;
@@ -56,30 +57,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.play_music_menu,menu);
         return true;
-    }
-
-    private void ConfigGesturesListener()
-    {
-        layout_Play_Music.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
-            @Override
-            public void SwipeDownFromTop()
-            {
-                Intent intent = new Intent(PlayMusic.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_top_out, R.anim.slide_top_in);
-            }
-        });
-
-        test=findViewById(R.id.test);
-        test.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
-            @Override
-            public void SwipeDownFromTop()
-            {
-                Intent intent = new Intent(PlayMusic.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_top_out, R.anim.slide_top_in);
-            }
-        });
     }
 
     @Override
@@ -120,9 +97,37 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         });
         //gestureDetector.setContextClickListener();
 
+        if(mediaPlayer!=null&&mediaPlayer.isPlaying())
+            PlayMusic.setBtn_PlayResource(false);
+        else
+            PlayMusic.setBtn_PlayResource(true);
     }
 
     private void setBtn_img_Next_Clicked(View v){
+
+    }
+
+
+    private void ConfigGesturesListener()
+    {
+        layout_Play_Music.setOnTouchListener(new AppWideGesturesListener(PlayMusic.this){
+            @Override
+            public void SwipeDownFromTop()
+            {
+                Intent intent = new Intent(PlayMusic.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
+            }
+        });
+//        lv_img.setOnTouchListener(new AppWideGesturesListener(this){
+//            @Override
+//            public void SwipeDownFromTop()
+//            {
+//                Intent intent = new Intent(PlayMusic.this, MainActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_top_in, R.anim.slide_top_out);
+//            }
+//        });
 
     }
 
@@ -177,12 +182,6 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
 
     //hàm Onclick của btn_img_Play
     private void setBtn_img_Play_Clicked(View v){
-        if(mediaPlayer.isPlaying()){
-            btn_img_Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-        }
-        else {
-            btn_img_Play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
-        }
         Intent intent=new Intent(PlayMusic.this, MyService.class);
         intent.setAction("Action_Play");
         startService(intent);
@@ -247,14 +246,10 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
         layout_Play_Music=findViewById(R.id.layout_play_music);
 
         //gestureDetector = new GestureDetector(PlayMusic.this,PlayMusic.this);
-    }
+        layout_Play_Music=findViewById(R.id.layout_play_music);
+        lv_img=findViewById(R.id.lv_img);
 
-    //lấy chiều vuốt để hiển thị list song
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        //gestureDetector.onTouchEvent(event);
-//        return true;
-//    }
+    }
 
     //check what item selected in menu
     @Override
@@ -279,9 +274,9 @@ public class PlayMusic extends AppCompatActivity implements NavigationView.OnNav
 
 
     public static void setBtn_PlayResource(boolean play){
-        if(play==true&&btn_img_Play!=null)
+        if(play==true)
             btn_img_Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-        if (play==false&&btn_img_Play!=null)
+        if (play==false)
             btn_img_Play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
     }
 }

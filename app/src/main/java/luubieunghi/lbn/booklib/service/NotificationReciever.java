@@ -13,7 +13,6 @@ public class NotificationReciever extends BroadcastReceiver {
 
         // lấy id của control để start service theo từng control
         int id=intent.getIntExtra("control_id",-1);
-
         switch (id){
             case R.id.btn_close_notification:
             {

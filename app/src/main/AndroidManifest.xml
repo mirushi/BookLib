@@ -11,13 +11,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.BookPageManagement">
         </activity>
-        <activity android:name=".Activity.PlayAudio"/>
+        <activity android:name=".Activity.PlayAudio">
+        </activity>
         <activity android:name=".Activity.ReadBookSettingActivity"></activity>
         <activity android:name=".Activity.PageManagementActivity"></activity>
         <activity android:name=".Activity.ReadBookActivity">
         </activity>
-        <activity android:name=".Activity.OpenAlbum" />
-        <activity android:name=".Activity.PlayMusic" />
+        <activity android:name=".Activity.OpenAlbum" >
+        </activity>
+        <activity android:name=".Activity.PlayMusic">
+        </activity>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +35,8 @@
 
         <activity android:name=".Activity.SettingsActivity"/>
 
-        <activity android:name=".Activity.openListSong" />
+        <activity android:name=".Activity.openListSong">
+        </activity>
 
         <service android:name=".service.MyService" />
 
