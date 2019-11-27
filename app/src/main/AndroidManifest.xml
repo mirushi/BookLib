@@ -30,6 +30,8 @@
             android:label="About" />
         <activity android:name=".Activity.AddNewBookActivity" />
 
+        <activity android:name=".Activity.SettingsActivity"/>
+
         <activity android:name=".Activity.openListSong" />
 
         <service android:name=".service.MyService" />

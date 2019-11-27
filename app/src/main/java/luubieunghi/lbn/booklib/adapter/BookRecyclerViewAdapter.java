@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,12 +27,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     private Context context;
 
     //Những hằng số để phân biệt các item trong context menu.
-    private final int startReadingBookID = 1123;
-    private final int loadBookDetailsID = 1124;
-    private final int viewBookmarksID = 1125;
-    private final int viewHighlightsID = 1126;
-    private final int markReadID = 1127;
-    private final int deleteBookID = 1128;
+    public static final int startReadingBookID = 1123;
+    public static final int loadBookDetailsID = 1124;
+    public static final int viewBookmarksID = 1125;
+    public static final int viewHighlightsID = 1126;
+    public static final int markReadID = 1127;
+    public static final int deleteBookID = 1128;
 
     public BookRecyclerViewAdapter(List<Book> bookList) {
         this.bookList = bookList;
@@ -91,6 +92,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             menu.add(this.getAdapterPosition(), markReadID, 4, "Đánh dấu là đã đọc");
             menu.add(this.getAdapterPosition(), deleteBookID, 5, "Xoá sách");
         }
+
     }
 
 

@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.adapter.BookListingPagerAdapter;
+import luubieunghi.lbn.booklib.adapter.BookRecyclerViewAdapter;
 import luubieunghi.lbn.booklib.service.AppWideGesturesListener;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.os.PersistableBundle;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -63,6 +65,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onContextItemSelected(MenuItem item){
+
+        switch (item.getItemId())
+        {
+            case BookRecyclerViewAdapter.loadBookDetailsID:{
+                displayMessage("Load Book Details Clicked !");
+                return true;
+            }
+            case BookRecyclerViewAdapter.startReadingBookID:{
+                displayMessage("Start reading book clicked !");
+                return true;
+            }
+            case BookRecyclerViewAdapter.viewBookmarksID:{
+                displayMessage("View Bookmark clicked !");
+                return true;
+            }
+            case BookRecyclerViewAdapter.viewHighlightsID:{
+                displayMessage("View highlight clicked !");
+                return true;
+            }
+            case BookRecyclerViewAdapter.markReadID:{
+                displayMessage("Mark read clicked !");
+                return true;
+            }
+            case BookRecyclerViewAdapter.deleteBookID:{
+                displayMessage("Delete book clicked !");
+                return true;
+            }
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void displayMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
@@ -93,15 +133,26 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.menu_item_about)
+                switch (item.getItemId())
                 {
-                    Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                    startActivity(intent);
-                }
-                else if (item.getItemId() == R.id.menu_main_item_add_book)
-                {
-                    Intent intent = new Intent(MainActivity.this, AddNewBookActivity.class);
-                    startActivity(intent);
+                    case R.id.menu_item_about:
+                    {
+                        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.menu_main_item_add_book:
+                    {
+                        Intent intent = new Intent(MainActivity.this, AddNewBookActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.menu_item_settings:
+                    {
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
                 }
                 return false;
             }
