@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.Adapter;
+package luubieunghi.lbn.booklib.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
 
-public class AddNewBookActivity extends AppCompatActivity {
+public class AddNewBookActivity extends AppCompatActivity implements AddNewBookContract.AddNewBookMVPView {
 
     Toolbar toolbar;
     MaterialButton mbDateSelectionButton;
@@ -106,5 +106,15 @@ public class AddNewBookActivity extends AppCompatActivity {
                 dpd.show();
             }
         });
+    }
+
+    @Override
+    public void BookAddedSuccess() {
+        //Hiển thị thông báo sách được thêm thành công.
+    }
+
+    @Override
+    public void BookAddedFailure() {
+        //Hiển thị thông báo có lỗi xảy ra khi thêm sách.
     }
 }
