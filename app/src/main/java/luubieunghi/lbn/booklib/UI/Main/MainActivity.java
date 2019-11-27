@@ -12,7 +12,6 @@ import androidx.viewpager.widget.ViewPager;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
-import luubieunghi.lbn.booklib.Services.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;

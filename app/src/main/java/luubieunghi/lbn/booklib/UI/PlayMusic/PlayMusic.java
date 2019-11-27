@@ -22,12 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.Services.AppWideGesturesListener;
-import luubieunghi.lbn.booklib.Services.MyService;
+import luubieunghi.lbn.booklib.UI.Main.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
 import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 
-import static luubieunghi.lbn.booklib.Services.MyService.mediaPlayer;
+import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.mediaPlayer;
 
 
 public class PlayMusic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

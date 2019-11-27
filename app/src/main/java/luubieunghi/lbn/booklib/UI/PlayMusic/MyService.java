@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.Services;
+package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.R;
 
 public class MyService extends Service {

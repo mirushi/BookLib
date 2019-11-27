@@ -35,9 +35,9 @@
         <activity android:name=".UI.OpenListSong.OpenListSong">
         </activity>
 
-        <service android:name=".Services.MyService" />
+        <service android:name=".UI.PlayMusic.MyService" />
 
-        <receiver android:name=".Services.NotificationReciever" />
+        <receiver android:name=".UI.PlayMusic.NotificationReciever" />
     </application>
 
 </manifest>
