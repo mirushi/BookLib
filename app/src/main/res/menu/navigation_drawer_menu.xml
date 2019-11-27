@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_drawer_item_library"
+        android:icon="@drawable/ic_action_library_add"
+        android:title="Thư viện"/>
+
+    <item
+        android:id="@+id/navigation_drawer_item_statistic"
+        android:icon="@drawable/ic_reading_statistic"
+        android:title="Thành tích đọc"/>
+
+</menu>

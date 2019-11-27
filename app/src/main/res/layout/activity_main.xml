@@ -43,40 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/navigation_drawer_menu">
 
         <!--Header-->
-
-
-        <!-- Layout của các items -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!-- Item thứ nhất -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/navigation_item_height"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="end"
-                    android:text="Thư viện sách"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/navigation_item_height"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="end"
-                    android:text="Thành tích đọc"/>
-            </LinearLayout>
-        </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
 

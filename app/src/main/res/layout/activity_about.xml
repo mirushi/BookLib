@@ -79,54 +79,65 @@
         android:gravity="center_horizontal"
         android:text="Bạn thích BookLib ? \n Hãy để lại đánh giá bên dưới cho chúng mình nhé :) !"/>
     
-    <ImageButton
-        android:layout_width="64dp"
+<!--    <ImageButton-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:id="@+id/activity_about_imgButton_star_3"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_rating_description"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/ic_star_border_black_24dp"/>-->
+
+<!--    <ImageButton-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:id="@+id/activity_about_imgButton_star_2"-->
+<!--        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_3"-->
+<!--        android:background="@drawable/ic_star_border_black_24dp" />-->
+
+<!--    <ImageButton-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:id="@+id/activity_about_imgButton_star_1"-->
+<!--        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_2"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_2"-->
+<!--        android:background="@drawable/ic_star_border_black_24dp"-->
+<!--        />-->
+
+<!--    <ImageButton-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:id="@+id/activity_about_imgButton_star_4"-->
+<!--        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_3"-->
+<!--        android:background="@drawable/ic_star_border_black_24dp"/>-->
+
+<!--    <ImageButton-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:id="@+id/activity_about_imgBUtton_star_5"-->
+<!--        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_4"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_4"-->
+<!--        android:background="@drawable/ic_star_border_black_24dp"/>-->
+
+    <luubieunghi.lbn.booklib.CustomViewGroup.RatingView
+        android:id="@+id/activity_about_ratingView_rating"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
-        android:id="@+id/activity_about_imgButton_star_3"
+        app:numStars="5"
+        app:rating="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_about_txtView_rating_description"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_star_border_black_24dp"/>
-
-    <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/activity_about_imgButton_star_2"
-        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"
-        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_3"
-        android:background="@drawable/ic_star_border_black_24dp" />
-
-    <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/activity_about_imgButton_star_1"
-        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_2"
-        app:layout_constraintRight_toLeftOf="@id/activity_about_imgButton_star_2"
-        android:background="@drawable/ic_star_border_black_24dp"
-        />
-
-    <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/activity_about_imgButton_star_4"
-        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_3"
-        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_3"
-        android:background="@drawable/ic_star_border_black_24dp"/>
-
-    <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/activity_about_imgBUtton_star_5"
-        app:layout_constraintTop_toTopOf="@id/activity_about_imgButton_star_4"
-        app:layout_constraintLeft_toRightOf="@id/activity_about_imgButton_star_4"
-        android:background="@drawable/ic_star_border_black_24dp"/>
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/activity_about_txtView_author"
-        app:layout_constraintTop_toBottomOf="@id/activity_about_imgButton_star_3"
+        app:layout_constraintTop_toBottomOf="@id/activity_about_ratingView_rating"
         android:layout_marginTop="16dp"
         android:text="BookLib Dev Team"
         android:textStyle="bold"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_setting_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow>
+
+        <ImageView
+            android:id="@+id/item_setting_imgView_symbol"
+            android:layout_height="56dp"
+            android:layout_width="56dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TableLayout
+            android:id="@+id/item_settings_title_and_description_layout"
+            android:layout_marginLeft="8dp">
+            <TableRow>
+                <TextView
+                    android:id="@+id/item_setting_txtView_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:layout_marginTop="10dp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/item_setting_txtView_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Description"
+                    android:autoSizeTextType="uniform"/>
+            </TableRow>
+        </TableLayout>
+
+    </TableRow>
+</TableLayout>
