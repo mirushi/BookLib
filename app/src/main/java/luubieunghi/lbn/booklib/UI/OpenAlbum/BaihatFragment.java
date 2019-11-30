@@ -1,5 +1,7 @@
 package luubieunghi.lbn.booklib.UI.OpenAlbum;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,11 +23,16 @@ import luubieunghi.lbn.booklib.Model.BaiHat;
 
 public class  BaihatFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+
     View view;
     private ListView lv_DanhSachBaiHat;
     private ArrayList<BaiHat> dsBaiHat;
     private BaiHatAdapter adapter;
+    private Context context;
 
+    public BaihatFragment(Context context){
+        this.context=context;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +42,7 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
         for(int i=0;i<50;i++){
             dsBaiHat.add(new BaiHat("Bài hát "+i,"Ca sĩ "+i,i,i));
         }
-        adapter=new BaiHatAdapter(getActivity(),R.layout.item_song,dsBaiHat);
+        adapter=new BaiHatAdapter((Activity) context,R.layout.item_song,dsBaiHat);
         lv_DanhSachBaiHat.setAdapter(adapter);
         lv_DanhSachBaiHat.setOnItemClickListener(this);
         return view;
@@ -43,8 +50,7 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent=new Intent(getActivity(), PlayMusic.class);
-        getActivity().finish();
+        Intent intent=new Intent(context, PlayMusic.class);
         startActivity(intent);
     }
 }
