@@ -2,9 +2,12 @@ package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
 import android.app.Presentation;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -75,6 +78,55 @@ public class BookListingFragment extends Fragment implements BookListingContract
         return view;
     }
 
+    private void displayMessage(String message){
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public class BookRecyclerViewOnItemClickListener implements MenuItem.OnMenuItemClickListener{
+
+        BookListingReadProgressFilter filter;
+
+        public BookRecyclerViewOnItemClickListener(BookListingReadProgressFilter filter){
+            this.filter = filter;
+        }
+
+        public BookRecyclerViewOnItemClickListener(){
+            this.filter = null;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            Integer itemPosition = item.getOrder();
+            switch (item.getItemId()){
+                case BookRecyclerViewAdapter.loadBookDetailsID:{
+                    displayMessage(filter.toString() + "Load Book Details Clicked !" + itemPosition.toString());
+                    return true;
+                }
+                case BookRecyclerViewAdapter.startReadingBookID:{
+                    displayMessage(filter.toString() + "Start reading book clicked !" + itemPosition.toString());
+                    return true;
+                }
+                case BookRecyclerViewAdapter.viewBookmarksID:{
+                    displayMessage(filter.toString() + "View Bookmark clicked !" + itemPosition.toString());
+                    return true;
+                }
+                case BookRecyclerViewAdapter.viewHighlightsID:{
+                    displayMessage(filter.toString() + "View highlight clicked !" + itemPosition.toString());
+                    return true;
+                }
+                case BookRecyclerViewAdapter.markReadID:{
+                    displayMessage(filter.toString() + "Mark read clicked !" + itemPosition.toString());
+                    return true;
+                }
+                case BookRecyclerViewAdapter.deleteBookID:{
+                    displayMessage(filter.toString() + "Delete book clicked !" + itemPosition.toString());
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     private void SetupRecyclerView()
     {
         //Tạo recyclerView cho từng danh sách.
@@ -86,8 +138,6 @@ public class BookListingFragment extends Fragment implements BookListingContract
         freshBookRecyclerViewAdapter = new BookRecyclerViewAdapter(freshStartBooks);
         inProgressBookRecyclerViewAdapter = new BookRecyclerViewAdapter(inProgressBooks);
         finishedBookRecyclerViewAdapter = new BookRecyclerViewAdapter(finishedBooks);
-
-        //Tạo
 
         //Set layout manager để hiển thị theo hàng ngang.
         freshStartBooksLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -104,6 +154,33 @@ public class BookListingFragment extends Fragment implements BookListingContract
         rcvFreshStartBooks.setAdapter(freshBookRecyclerViewAdapter);
         rcvInProgressBooks.setAdapter(inProgressBookRecyclerViewAdapter);
         rcvFinishedBooks.setAdapter(finishedBookRecyclerViewAdapter);
+
+        //Cài context menu listener cho sách mới.
+        rcvFreshStartBooks.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                freshBookRecyclerViewAdapter.setMenuItemOnClickListener
+                        (new BookRecyclerViewOnItemClickListener(BookListingReadProgressFilter.NEW));
+            }
+        });
+
+        //Cài context menu listener cho sách đang đọc.
+        rcvInProgressBooks.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                inProgressBookRecyclerViewAdapter.setMenuItemOnClickListener
+                        (new BookRecyclerViewOnItemClickListener(BookListingReadProgressFilter.READING));
+            }
+        });
+
+        //Cài context menu listener cho sách đã hoàn thành.
+        rcvFinishedBooks.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                finishedBookRecyclerViewAdapter.setMenuItemOnClickListener
+                        (new BookRecyclerViewOnItemClickListener(BookListingReadProgressFilter.FINISHED));
+            }
+        });
     }
 
     private void LoadDataForRecyclerView()
