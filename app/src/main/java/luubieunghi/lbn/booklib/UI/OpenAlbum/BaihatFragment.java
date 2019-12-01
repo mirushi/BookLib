@@ -21,7 +21,7 @@ import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
 import luubieunghi.lbn.booklib.Model.BaiHat;
 
-public class  BaihatFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class  BaihatFragment extends Fragment implements AdapterView.OnItemClickListener, BaiHatFragmentContract.IBaiHatFragmentView {
 
 
     View view;
@@ -29,6 +29,7 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     private ArrayList<BaiHat> dsBaiHat;
     private BaiHatAdapter adapter;
     private Context context;
+    private BaiHatFragmentPresenter presenter;
 
     public BaihatFragment(Context context){
         this.context=context;
@@ -38,12 +39,8 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_baihat,container,false);
         lv_DanhSachBaiHat=view.findViewById(R.id.lv_danhSachBaiHat);
-        dsBaiHat=new ArrayList<>();
-        for(int i=0;i<50;i++){
-            dsBaiHat.add(new BaiHat("Bài hát "+i,"Ca sĩ "+i,i,i));
-        }
-        adapter=new BaiHatAdapter((Activity) context,R.layout.item_song,dsBaiHat);
-        lv_DanhSachBaiHat.setAdapter(adapter);
+        presenter=new BaiHatFragmentPresenter(context,this);
+        presenter.updateListView();
         lv_DanhSachBaiHat.setOnItemClickListener(this);
         return view;
     }
@@ -52,5 +49,22 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(context, PlayMusic.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void updateListView(ArrayList<BaiHat> dsBaiHat) {
+        this.dsBaiHat=dsBaiHat;
+        adapter=new BaiHatAdapter((Activity) context,R.layout.item_song,dsBaiHat);
+        lv_DanhSachBaiHat.setAdapter(adapter);
+    }
+
+    @Override
+    public void addEvents() {
+
+    }
+
+    @Override
+    public void setUp() {
+
     }
 }
