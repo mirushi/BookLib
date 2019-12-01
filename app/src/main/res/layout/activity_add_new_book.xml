@@ -48,15 +48,15 @@
                     android:layout_gravity="left|center_vertical"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nhập vào tựa đề sách">
+                    android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/activity_add_new_book_edt_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:hint="Tựa đề sách"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>

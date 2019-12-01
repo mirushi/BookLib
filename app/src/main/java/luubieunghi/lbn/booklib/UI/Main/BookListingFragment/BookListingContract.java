@@ -10,5 +10,11 @@ public interface BookListingContract {
     }
     interface BookListingMVPPresenter{
         void LoadBookList(BookListingReadProgressFilter filter);
+        void StartReading(Book book);
+        void ViewDetailedInfo(Book book);
+        void ViewBookmark(Book book);
+        void ViewHighlight(Book book);
+        void MarkRead(Book book);
+        void DeleteBook(Book book);
     }
 }

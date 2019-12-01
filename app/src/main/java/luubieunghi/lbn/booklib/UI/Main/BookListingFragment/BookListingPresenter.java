@@ -51,4 +51,34 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
             view.AddMultipleBookToView(finishedBooks, BookListingReadProgressFilter.FINISHED);
         }
     }
+
+    @Override
+    public void StartReading(Book book) {
+        //Mở sách bắt đầu đọc.
+    }
+
+    @Override
+    public void ViewDetailedInfo(Book book) {
+        //Mở activity xem thông tin chi tiết của sách.
+    }
+
+    @Override
+    public void ViewBookmark(Book book) {
+        //Mở trình quản lý Bookmark của sách.
+    }
+
+    @Override
+    public void ViewHighlight(Book book) {
+        //Mở trình quản lý highlight của sách.
+    }
+
+    @Override
+    public void MarkRead(Book book) {
+        //Đánh dấu sách là đã được đọc.
+    }
+
+    @Override
+    public void DeleteBook(Book book) {
+        //Xoá sách.
+    }
 }
