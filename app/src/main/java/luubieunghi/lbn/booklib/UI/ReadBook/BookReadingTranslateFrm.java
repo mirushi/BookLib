@@ -1,5 +1,6 @@
 package luubieunghi.lbn.booklib.UI.ReadBook;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,15 @@ import java.util.ArrayList;
 
 import luubieunghi.lbn.booklib.R;
 
-public class BookReadingTranslateFrm extends Fragment {
-
+public class BookReadingTranslateFrm extends Fragment implements TranslateFrmContract.TranslateFrmView {
+    String source;
     private Spinner sourceSpinner;
     private Spinner toTranslateSpinner;
     View view;
+    Context context;
 
-    public BookReadingTranslateFrm() {
+    public BookReadingTranslateFrm(Context context) {
+        this.context = context;
         // Required empty public constructor
     }
 
@@ -35,16 +38,55 @@ public class BookReadingTranslateFrm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_translate_frm, container, false);
-        sourceSpinner = view.findViewById(R.id.source_spinner);
-        toTranslateSpinner = view.findViewById(R.id.to_translated_spinner);
-        setAdapterSpinner();
-
+        setUpViews();
+        setUpEvents();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void setUpViews() {
+        sourceSpinner = view.findViewById(R.id.source_spinner);
+        toTranslateSpinner = view.findViewById(R.id.to_translated_spinner);
+        setAdapterSpinner();
+
+    }
+
+    @Override
+    public void setUpEvents() {
+        sourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(view.getContext(), sourceSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        toTranslateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(view.getContext(), sourceSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void setUp(String string) {
+        this.source = string;
     }
 
     private void setAdapterSpinner() {
@@ -62,31 +104,11 @@ public class BookReadingTranslateFrm extends Fragment {
         //for sourceSpinner
         sourceSpinner.setAdapter(sourceSpinnerAdapter);
         //override handle for item of sourceSpinner
-        sourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(view.getContext(), sourceSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         //for toTranslateSpinner
         toTranslateSpinner.setAdapter(sourceSpinnerAdapter);
         //override handle for item of toTranslateSpinner
-        toTranslateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(view.getContext(), sourceSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
     }
+
 }
