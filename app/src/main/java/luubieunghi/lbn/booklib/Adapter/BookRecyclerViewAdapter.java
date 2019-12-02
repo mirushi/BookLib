@@ -19,7 +19,7 @@ import java.util.List;
 
 import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.Model.Book;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 

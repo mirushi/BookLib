@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.Model;
+package luubieunghi.lbn.booklib.Model.Book;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,9 +12,93 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import androidx.core.content.ContextCompat;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import luubieunghi.lbn.booklib.R;
 
+@Entity (tableName = "book")
 public class Book {
+
+    //Các biến dùng cho RPL.
+    @PrimaryKey
+    @ColumnInfo(name = "bookid")
+    private int dbBookID;
+
+    @ColumnInfo(name = "booktitle")
+    private String dbBookTitle;
+
+    @ColumnInfo(name = "rating")
+    private int dbRating;
+
+    @ColumnInfo(name = "langid")
+    private int dbLangID;
+
+    @ColumnInfo(name = "publisherid")
+    private int dbPublisherID;
+
+    @ColumnInfo(name = "publishdate")
+    private LocalDate dbPublishDate;
+
+    @ColumnInfo(name = "description")
+    private String dbDescription;
+
+    public int getDbBookID() {
+        return dbBookID;
+    }
+
+    public void setDbBookID(int dbBookID) {
+        this.dbBookID = dbBookID;
+    }
+
+    public String getDbBookTitle() {
+        return dbBookTitle;
+    }
+
+    public void setDbBookTitle(String dbBookTitle) {
+        this.dbBookTitle = dbBookTitle;
+    }
+
+    public int getDbRating() {
+        return dbRating;
+    }
+
+    public void setDbRating(int dbRating) {
+        this.dbRating = dbRating;
+    }
+
+    public int getDbLangID() {
+        return dbLangID;
+    }
+
+    public void setDbLangID(int dbLangID) {
+        this.dbLangID = dbLangID;
+    }
+
+    public int getDbPublisherID() {
+        return dbPublisherID;
+    }
+
+    public void setDbPublisherID(int dbPublisherID) {
+        this.dbPublisherID = dbPublisherID;
+    }
+
+    public LocalDate getDbPublishDate() {
+        return dbPublishDate;
+    }
+
+    public void setDbPublishDate(LocalDate dbPublishDate) {
+        this.dbPublishDate = dbPublishDate;
+    }
+
+    public String getDbDescription() {
+        return dbDescription;
+    }
+
+    public void setDbDescription(String dbDescription) {
+        this.dbDescription = dbDescription;
+    }
+
     Bitmap bookImage;
     String bookTitle;
     ArrayList<String> bookAuthors;

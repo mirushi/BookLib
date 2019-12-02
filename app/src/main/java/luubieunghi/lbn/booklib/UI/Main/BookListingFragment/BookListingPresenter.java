@@ -1,10 +1,8 @@
 package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Model.Book;
-import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookContract;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public class BookListingPresenter implements BookListingContract.BookListingMVPPresenter {
 

@@ -1,7 +1,7 @@
 package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
 import java.util.ArrayList;
-import luubieunghi.lbn.booklib.Model.Book;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public interface BookListingContract {
     interface BookListingMVPView {
