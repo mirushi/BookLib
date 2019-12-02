@@ -30,7 +30,7 @@ public class BookReadingSecondPageFrm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         defineFrm = new BookReadingDefineFrm();
-        highlightNoteFrm = new BookReadingHighlightNoteFrm();
+        highlightNoteFrm = new BookReadingHighlightNoteFrm(getContext());
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_second_page_frm, container, false);
         textView = view.findViewById(R.id.frm_2_tw);

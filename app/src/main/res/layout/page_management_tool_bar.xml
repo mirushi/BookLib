@@ -10,5 +10,28 @@
     android:elevation="5dp"
 
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="7">
+        <ImageButton
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:background="@null"
+            android:id="@+id/toolbar_btn_img_back">
+        </ImageButton>
+        <androidx.appcompat.widget.SearchView
+            android:layoutDirection="rtl"
+            android:layout_weight="6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:searchIcon="@drawable/ic_action_search"
+            app:closeIcon="@drawable/ic_close_black_24dp"
+            android:id="@+id/toolbar_search_view">
+        </androidx.appcompat.widget.SearchView>
+    </LinearLayout>
 
 </androidx.appcompat.widget.Toolbar>
