@@ -15,13 +15,13 @@
         </activity>
         <activity android:name=".UI.ReadBookSetting.ReadBookSettingActivity"></activity>
         <activity android:name=".UI.BookPageManagement.PageManagementActivity"></activity>
-        <activity android:name=".UI.ReadBook.ReadBookActivity">  <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".UI.ReadBook.ReadBookActivity"></activity>
         <activity android:name=".UI.Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UI.OpenAlbum.OpenAlbum" />
         <activity android:name=".UI.PlayMusic.PlayMusic" />

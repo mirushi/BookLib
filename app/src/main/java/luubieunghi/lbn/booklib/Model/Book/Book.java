@@ -17,30 +17,29 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import luubieunghi.lbn.booklib.R;
 
-@Entity (tableName = "book")
+//@Entity (tableName = "book")
 public class Book {
-
     //Các biến dùng cho RPL.
-    @PrimaryKey
-    @ColumnInfo(name = "bookid")
+//    @PrimaryKey
+//    @ColumnInfo(name = "bookid")
     private int dbBookID;
 
-    @ColumnInfo(name = "booktitle")
+//    @ColumnInfo(name = "booktitle")
     private String dbBookTitle;
 
-    @ColumnInfo(name = "rating")
+//    @ColumnInfo(name = "rating")
     private int dbRating;
 
-    @ColumnInfo(name = "langid")
+//    @ColumnInfo(name = "langid")
     private int dbLangID;
 
-    @ColumnInfo(name = "publisherid")
+//    @ColumnInfo(name = "publisherid")
     private int dbPublisherID;
 
-    @ColumnInfo(name = "publishdate")
+//    @ColumnInfo(name = "publishdate")
     private LocalDate dbPublishDate;
 
-    @ColumnInfo(name = "description")
+//    @ColumnInfo(name = "description")
     private String dbDescription;
 
     public int getDbBookID() {
