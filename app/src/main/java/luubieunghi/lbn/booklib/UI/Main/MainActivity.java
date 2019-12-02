@@ -67,44 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-
-        switch (item.getItemId())
-        {
-            case BookRecyclerViewAdapter.loadBookDetailsID:{
-                displayMessage("Load Book Details Clicked !");
-                return true;
-            }
-            case BookRecyclerViewAdapter.startReadingBookID:{
-                displayMessage("Start reading book clicked !");
-                return true;
-            }
-            case BookRecyclerViewAdapter.viewBookmarksID:{
-                displayMessage("View Bookmark clicked !");
-                return true;
-            }
-            case BookRecyclerViewAdapter.viewHighlightsID:{
-                displayMessage("View highlight clicked !");
-                return true;
-            }
-            case BookRecyclerViewAdapter.markReadID:{
-                displayMessage("Mark read clicked !");
-                return true;
-            }
-            case BookRecyclerViewAdapter.deleteBookID:{
-                displayMessage("Delete book clicked !");
-                return true;
-            }
-        }
-
-        return super.onContextItemSelected(item);
-    }
-
-    private void displayMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);

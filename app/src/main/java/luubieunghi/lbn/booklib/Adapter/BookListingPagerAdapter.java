@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
-import luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
+import luubieunghi.lbn.booklib.UI.Main.BookListingFragment.BookListingFragment;
 
 public class BookListingPagerAdapter extends FragmentPagerAdapter {
 
