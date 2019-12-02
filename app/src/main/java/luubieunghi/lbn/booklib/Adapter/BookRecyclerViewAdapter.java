@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,16 +14,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.Model.Book;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 
     private List<Book> bookList;
     private Context context;
+
+    //Lưu lại danh sách MenuItem để setOnClickListener cho nó.
+    ArrayList<MenuItem> menuItems = new ArrayList<>();
 
     //Những hằng số để phân biệt các item trong context menu.
     public static final int startReadingBookID = 1123;
@@ -69,6 +74,13 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         return bookList.size();
     }
 
+    public void setMenuItemOnClickListener(MenuItem.OnMenuItemClickListener listener){
+        for (int i=0;i<menuItems.size();++i){
+            MenuItem item = menuItems.get(i);
+            item.setOnMenuItemClickListener(listener);
+        }
+    }
+
     public class BookRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         ImageView bookImage;
@@ -81,16 +93,16 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             //Set để hiển thị context menu cho recycler view.
             view.setOnCreateContextMenuListener(this);
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-            menu.add(this.getAdapterPosition(), startReadingBookID, 0, "Bắt đầu đọc sách");
-            menu.add(this.getAdapterPosition(), loadBookDetailsID, 1, "Xem thông tin sách");
-            menu.add(this.getAdapterPosition(), viewBookmarksID, 2, "Hiển thị dấu trang");
-            menu.add(this.getAdapterPosition(), viewHighlightsID, 3, "Hiển thị highlight");
-            menu.add(this.getAdapterPosition(), markReadID, 4, "Đánh dấu là đã đọc");
-            menu.add(this.getAdapterPosition(), deleteBookID, 5, "Xoá sách");
+            menuItems.add(menu.add(this.getAdapterPosition(), startReadingBookID, getAdapterPosition(), "Bắt đầu đọc sách"));
+            menuItems.add(menu.add(this.getAdapterPosition(), loadBookDetailsID, getAdapterPosition(), "Xem thông tin sách"));
+            menuItems.add(menu.add(this.getAdapterPosition(), viewBookmarksID, getAdapterPosition(), "Hiển thị dấu trang"));
+            menuItems.add(menu.add(this.getAdapterPosition(), viewHighlightsID, getAdapterPosition(), "Hiển thị highlight"));
+            menuItems.add(menu.add(this.getAdapterPosition(), markReadID, getAdapterPosition(), "Đánh dấu là đã đọc"));
+            menuItems.add(menu.add(this.getAdapterPosition(), deleteBookID, getAdapterPosition(), "Xoá sách"));
         }
-
     }
 
 

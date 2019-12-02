@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import luubieunghi.lbn.booklib.R;
@@ -22,13 +24,20 @@ public class RatingView extends LinearLayout {
 
     boolean ratingIsChanging;
 
-    OnRateListener onRateListener;
+    OnRateListener onRateListener = null;
     boolean allowRating;
+
+    //Danh sách ArrayList lưu lại cái checkbox đã được thêm vào view.
+    ArrayList<CheckBox> checkBoxes;
+
+    //Observer pattern.
+    public static interface OnRateListener{
+        void onRatingChanged();
+    }
 
     private final CheckBox.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             if (!allowRating)
                 return;
             if (ratingIsChanging)
@@ -36,6 +45,10 @@ public class RatingView extends LinearLayout {
 
             int buttonId = buttonView.getId();
             updateCheckedStars(buttonId + 1);
+
+            //Gọi event cho biết sự thay đổi của rating.
+            if (onRateListener != null)
+                onRateListener.onRatingChanged();
         }
     };
 
@@ -132,8 +145,8 @@ public class RatingView extends LinearLayout {
         ratingIsChanging = false;
     }
 
-    public interface OnRateListener{
-        void onRated(int rating, int totalStar);
+    public void setOnRateListener(OnRateListener listener){
+        onRateListener = listener;
     }
 
     //Các phương thức để đối tượng có thể thao tác được từ bên ngoài.
