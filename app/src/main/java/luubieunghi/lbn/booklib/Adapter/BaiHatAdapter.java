@@ -41,7 +41,7 @@ public class BaiHatAdapter extends ArrayAdapter {
 //            img_HinhBaiHat_DanhSachBaiHat.setAccessibilityPaneTitle(song.getHinh());
 //        }
         txt_TenBaiHat_Item_Song.setText(song.getSongName());
-        txt_TenCaSi_Item_Song.setText(song.getArtists());
+        txt_TenCaSi_Item_Song.setText(song.getArtistNames());
         return row;
     }
 }

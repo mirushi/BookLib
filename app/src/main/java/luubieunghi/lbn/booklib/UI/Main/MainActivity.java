@@ -7,8 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
@@ -35,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
     //Các biến liên quan đến Drawer.
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    public static AudioDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        db= Room.databaseBuilder(getApplicationContext(),
+//                AudioDatabase.class, "database-name").build();
         ConfigToolbar();
         ConfigViewPager();
         ConfigDrawerLayout();

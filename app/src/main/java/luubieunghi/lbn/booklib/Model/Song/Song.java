@@ -1,7 +1,9 @@
 package luubieunghi.lbn.booklib.Model.Song;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -11,8 +13,8 @@ import java.io.Serializable;
 @Entity(tableName = "Song")
 public class Song implements Serializable {
 
-    @PrimaryKey
-    private String SongID;
+    @PrimaryKey @NonNull
+    private String songID;
 
     @ColumnInfo(name = "SongName")
     private String songName;
@@ -26,27 +28,24 @@ public class Song implements Serializable {
     @ColumnInfo(name = "ImagePath")
     private String imagePath;
 
-    @ColumnInfo(name = "Artists")
-    private String artists;
+    @ColumnInfo(name = "ArtistNames")
+    private String artistNames;
 
-    public Song() {
-    }
-
-    public Song(String songID, String songName, String filePath, int duration, String imagePath, String artists) {
-        SongID = songID;
+    public Song(String songID, String songName, String filePath, int duration, String imagePath, String artistNames) {
+        this.songID = songID;
         this.songName = songName;
         this.filePath = filePath;
         this.duration = duration;
         this.imagePath = imagePath;
-        this.artists = artists;
+        this.artistNames = artistNames;
     }
 
     public String getSongID() {
-        return SongID;
+        return songID;
     }
 
     public void setSongID(String songID) {
-        SongID = songID;
+        this.songID = songID;
     }
 
     public String getSongName() {
@@ -81,11 +80,11 @@ public class Song implements Serializable {
         this.imagePath = imagePath;
     }
 
-    public String getArtists() {
-        return artists;
+    public String getArtistNames() {
+        return artistNames;
     }
 
-    public void setArtists(String artists) {
-        this.artists = artists;
+    public void setArtistNames(String artistNames) {
+        this.artistNames = artistNames;
     }
 }

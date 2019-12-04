@@ -1,36 +1,35 @@
 package luubieunghi.lbn.booklib.Model.Album_Song;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Album_Song")
+@Entity(tableName = "Album_Song", primaryKeys = {"AlbumID","SongID"})
 public class Album_Song {
 
-    @PrimaryKey
+    @NonNull
     private String AlbumID;
-    @PrimaryKey
-    private String songID;
 
-    public Album_Song(){};
+    @NonNull
+    private String SongID;
 
-    public Album_Song(String albumID, String songID) {
-        AlbumID = albumID;
-        this.songID = songID;
+    public Album_Song(String AlbumID, String SongID) {
+        this.AlbumID = AlbumID;
+        this.SongID = SongID;
     }
 
     public String getAlbumID() {
         return AlbumID;
     }
 
-    public void setAlbumID(String albumID) {
-        AlbumID = albumID;
+    public void setAlbumID(String AlbumID) {
+        this.AlbumID = AlbumID;
     }
 
     public String getSongID() {
-        return songID;
+        return SongID;
     }
 
-    public void setSongID(String songID) {
-        this.songID = songID;
+    public void setSongID(String SongID) {
+        this.SongID = SongID;
     }
 }

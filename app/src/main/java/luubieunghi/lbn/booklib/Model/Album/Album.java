@@ -1,5 +1,6 @@
 package luubieunghi.lbn.booklib.Model.Album;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,8 +9,8 @@ import java.io.Serializable;
 
 @Entity(tableName = "Album")
 public class Album implements Serializable {
-    @PrimaryKey
-    private String AlbumID;
+    @PrimaryKey @NonNull
+    private String albumID;
 
     @ColumnInfo(name = "AlbumName")
     private String albumName;
@@ -17,20 +18,19 @@ public class Album implements Serializable {
     @ColumnInfo(name = "ImagePath")
     private String imagePath;
 
-    public Album(){};
 
     public Album(String albumID, String albumName, String imagePath) {
-        AlbumID = albumID;
+        this.albumID = albumID;
         this.albumName = albumName;
         this.imagePath = imagePath;
     }
 
     public String getAlbumID() {
-        return AlbumID;
+        return albumID;
     }
 
     public void setAlbumID(String albumID) {
-        AlbumID = albumID;
+        this.albumID = albumID;
     }
 
     public String getAlbumName() {

@@ -1,5 +1,6 @@
 package luubieunghi.lbn.booklib.Model.Song;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -7,6 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+@Dao
 public interface Song_DAO {
 
     @Query("select * from Song")
@@ -19,21 +21,21 @@ public interface Song_DAO {
     Song findByID(String ID);
 
     @Insert
-    boolean insert(Song song);
+    void insert(Song song);
 
     @Insert
-    boolean insertAll(Song... songs);
+    void insertAll(Song... songs);
 
     @Update
-    boolean update(Song song);
+    int update(Song song);
 
-    @Query("update Song set SongName = :songName, FilePath = :filePath, Duration = :duration, ImagePath = :imagePath, Artists = :artists where SongID = :songID")
-    boolean updateByID(String songID, String songName, String filePath, int duration, String imagePath, String artists);
+    @Query("update Song set SongName = :songName, FilePath = :filePath, Duration = :duration, ImagePath = :imagePath, ArtistNames = :artistNames where SongID = :songID")
+    int updateByID(String songID, String songName, String filePath, int duration, String imagePath, String artistNames);
 
 
     @Delete
-    boolean delete(Song song);
+    int delete(Song song);
 
-    @Query("delete from Song where SongID like songID")
-    boolean deleteByID(String songID);
+    @Query("delete from Song where SongID like :songID")
+    int deleteByID(String songID);
 }
