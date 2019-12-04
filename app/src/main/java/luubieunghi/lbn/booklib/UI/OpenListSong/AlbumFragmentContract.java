@@ -2,7 +2,7 @@ package luubieunghi.lbn.booklib.UI.OpenListSong;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Model.Album;
+import luubieunghi.lbn.booklib.Model.Album.Album;
 
 public class AlbumFragmentContract {
     interface  IAlbumFragmentView{

@@ -15,16 +15,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
-import luubieunghi.lbn.booklib.Model.BaiHat;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 
 public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemClickListener, OpenAlbumContract.IOpenAlbumView {
 
     private TextView txt_TenAlbum_DanhSachBaiHat_Album, txt_SoLuongBaiHat_DanhSachBaiHat_Album;
     private ListView lv_DanhSachBaiHat_Album;
-    private ArrayList<BaiHat> dsBaiHat;
+    private ArrayList<Song> dsSong;
     private BaiHatAdapter adapter;
     private androidx.appcompat.widget.Toolbar toolbar_OpenAlbum;
     private OpenAlbumPresenter presenter;
@@ -64,9 +64,9 @@ public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
     @Override
-    public void updateListView(ArrayList<BaiHat> baihats) {
-        dsBaiHat=baihats;
-        adapter=new BaiHatAdapter(OpenAlbum.this,R.layout.item_song,dsBaiHat);
+    public void updateListView(ArrayList<Song> baihats) {
+        dsSong =baihats;
+        adapter=new BaiHatAdapter(OpenAlbum.this,R.layout.item_song, dsSong);
         lv_DanhSachBaiHat_Album.setAdapter(adapter);
     }
 

@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.Model.Album;
+import luubieunghi.lbn.booklib.Model.Album.Album;
 
 public class AlbumAdapter extends ArrayAdapter {
     private Activity context;
@@ -39,7 +39,7 @@ public class AlbumAdapter extends ArrayAdapter {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 //            img_HinhBaiHat_DanhSachBaiHat.setAccessibilityPaneTitle(baiHat.getHinh());
 //        }
-        txt_TenAlbum_Item_Album.setText(album.getTenAlbum());
+        txt_TenAlbum_Item_Album.setText(album.getAlbumName());
         return row;
     }
 }

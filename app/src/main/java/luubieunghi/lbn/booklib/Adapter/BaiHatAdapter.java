@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.Model.BaiHat;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 
 public class BaiHatAdapter extends ArrayAdapter {
     private Activity context;
@@ -36,12 +36,12 @@ public class BaiHatAdapter extends ArrayAdapter {
         TextView txt_TenBaiHat_Item_Song=row.findViewById(R.id.txt_tenbaihat_item_song);
         TextView txt_TenCaSi_Item_Song=row.findViewById(R.id.txt_tencasi_item_song);
 
-        BaiHat baiHat=(BaiHat)this.objects.get(position);
+        Song song =(Song)this.objects.get(position);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            img_HinhBaiHat_DanhSachBaiHat.setAccessibilityPaneTitle(baiHat.getHinh());
+//            img_HinhBaiHat_DanhSachBaiHat.setAccessibilityPaneTitle(song.getHinh());
 //        }
-        txt_TenBaiHat_Item_Song.setText(baiHat.getTenBaiHat());
-        txt_TenCaSi_Item_Song.setText(baiHat.getTenCaSi());
+        txt_TenBaiHat_Item_Song.setText(song.getSongName());
+        txt_TenCaSi_Item_Song.setText(song.getArtists());
         return row;
     }
 }

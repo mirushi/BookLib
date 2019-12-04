@@ -2,11 +2,11 @@ package luubieunghi.lbn.booklib.UI.OpenAlbum;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Model.BaiHat;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 
-public class BaiHatFragmentContract {
+public class SongFragmentContract {
     interface IBaiHatFragmentView{
-        void updateListView(ArrayList<BaiHat> dsBaiHat);
+        void updateListView(ArrayList<Song> dsSong);
         void addEvents();
         void setUp();
 

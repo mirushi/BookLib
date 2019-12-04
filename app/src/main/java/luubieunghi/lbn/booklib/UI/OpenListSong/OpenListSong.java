@@ -14,10 +14,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 
-import luubieunghi.lbn.booklib.UI.OpenAlbum.BaihatFragment;
+import luubieunghi.lbn.booklib.UI.OpenAlbum.SongFragment;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.ListSongAdapter;
-import luubieunghi.lbn.booklib.UI.OpenAlbum.OpenAlbumContract;
+
 public class OpenListSong extends AppCompatActivity implements OpenListSongContract.IOpenListSongView {
 
     private Toolbar toolbar_listsong;
@@ -50,7 +50,7 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         listSongAdapter=new ListSongAdapter(getSupportFragmentManager());
-        listSongAdapter.addFragment(new BaihatFragment(this),"Song");
+        listSongAdapter.addFragment(new SongFragment(this),"Bài Hát");
         listSongAdapter.addFragment(new AlbumFragment(this),"Album");
         viewPager_ListSong.setAdapter(listSongAdapter);
         tabLayout_ListSong.setupWithViewPager(viewPager_ListSong);

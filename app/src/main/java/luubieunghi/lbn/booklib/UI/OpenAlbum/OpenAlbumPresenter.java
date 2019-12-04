@@ -4,31 +4,29 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
-import luubieunghi.lbn.booklib.Model.BaiHat;
-import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 
 public class OpenAlbumPresenter implements OpenAlbumContract.IOpenAlbumPresenter {
 
     private Context context;
     private OpenAlbumContract.IOpenAlbumView view;
-    private ArrayList<BaiHat> dsBaiHat;
+    private ArrayList<Song> listSong;
     public OpenAlbumPresenter(Context context, OpenAlbumContract.IOpenAlbumView view) {
         this.context = context;
         this.view=view;
-        dsBaiHat = new ArrayList<>();
+        listSong = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            dsBaiHat.add(new BaiHat("Bai hat " + i, "Ca si " + i, 1, 1));
+            listSong.add(new Song("ID "+i,"Song "+i,"FilePath "+i,0,"ImagePath "+i,"Artist "+i));;
         }
         updateListView();
     }
 
     public void updateListView(){
-        view.updateListView(dsBaiHat);
+        view.updateListView(listSong);
     }
 
-    public void addSong(BaiHat baiHat){
-        dsBaiHat.add(baiHat);
+    public void addSong(Song song){
+        listSong.add(song);
     }
 
 }

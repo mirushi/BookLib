@@ -19,19 +19,19 @@ import java.util.ArrayList;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
-import luubieunghi.lbn.booklib.Model.BaiHat;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 
-public class  BaihatFragment extends Fragment implements AdapterView.OnItemClickListener, BaiHatFragmentContract.IBaiHatFragmentView {
+public class SongFragment extends Fragment implements AdapterView.OnItemClickListener, SongFragmentContract.IBaiHatFragmentView {
 
 
     View view;
     private ListView lv_DanhSachBaiHat;
-    private ArrayList<BaiHat> dsBaiHat;
+    private ArrayList<Song> dsSong;
     private BaiHatAdapter adapter;
     private Context context;
-    private BaiHatFragmentPresenter presenter;
+    private SongFragmentPresenter presenter;
 
-    public BaihatFragment(Context context){
+    public SongFragment(Context context){
         this.context=context;
     }
     @Nullable
@@ -39,7 +39,7 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_baihat,container,false);
         lv_DanhSachBaiHat=view.findViewById(R.id.lv_danhSachBaiHat);
-        presenter=new BaiHatFragmentPresenter(context,this);
+        presenter=new SongFragmentPresenter(context,this);
         presenter.updateListView();
         lv_DanhSachBaiHat.setOnItemClickListener(this);
         return view;
@@ -52,9 +52,9 @@ public class  BaihatFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void updateListView(ArrayList<BaiHat> dsBaiHat) {
-        this.dsBaiHat=dsBaiHat;
-        adapter=new BaiHatAdapter((Activity) context,R.layout.item_song,dsBaiHat);
+    public void updateListView(ArrayList<Song> dsSong) {
+        this.dsSong = dsSong;
+        adapter=new BaiHatAdapter((Activity) context,R.layout.item_song, dsSong);
         lv_DanhSachBaiHat.setAdapter(adapter);
     }
 

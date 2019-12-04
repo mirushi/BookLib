@@ -39,7 +39,7 @@ public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter
             context.startActivity(Intent.createChooser(i,"Share with ..."));
         }
         catch (Exception ex){
-            Toast.makeText(context,"Thear are no app suitable for sharing",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"There are no app suitable for sharing",Toast.LENGTH_LONG).show();
         }
     }
 

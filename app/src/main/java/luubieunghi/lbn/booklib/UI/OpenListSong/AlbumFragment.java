@@ -15,13 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import luubieunghi.lbn.booklib.UI.OpenAlbum.OpenAlbum;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.AlbumAdapter;
-import luubieunghi.lbn.booklib.Model.Album;
-import luubieunghi.lbn.booklib.Model.BaiHat;
+import luubieunghi.lbn.booklib.Model.Album.Album;
 
 public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickListener, AlbumFragmentContract.IAlbumFragmentView {
 
