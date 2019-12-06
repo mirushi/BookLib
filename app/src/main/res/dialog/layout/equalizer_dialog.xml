@@ -244,6 +244,7 @@
             android:layout_weight="5">
         </LinearLayout>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textColor="#489494"
             android:id="@+id/btn_OK_equalizer_dialog"
             android:layout_weight="1"

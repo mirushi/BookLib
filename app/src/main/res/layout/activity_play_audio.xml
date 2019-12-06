@@ -36,50 +36,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/btn_timer_play_audio"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_access_time_black_24dp"
-            android:background="@null">
-        </ImageButton>
-        <ImageButton
-            android:id="@+id/btn_equalizer_play_audio"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_equalizer_black_24dp"
-            android:background="@null">
-        </ImageButton>
+
         <Button
+            android:id="@+id/btn_timer_play_audio"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/ic_access_time_black_24dp"
+            app:icon="@drawable/ic_access_time_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button
+            android:id="@+id/btn_equalizer_play_audio"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/ic_equalizer_black_24dp"
+            app:icon="@drawable/ic_equalizer_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/btn_play_speed_play_audio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_record_voice_over_black_24dp"
-            android:background="@null"
-            android:textAllCaps="false"
-            android:text="1x"
-            android:layout_weight="1"
             android:layout_gravity="center"
-            android:textSize="15dp">
-        </Button>
-        <ImageButton
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_record_voice_over_black_24dp"
+            android:text="1x"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            app:icon="@drawable/ic_record_voice_over_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button
             android:id="@+id/btn_img_volume_down_play_audio"
-            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
             android:src="@drawable/ic_volume_down_black_24dp"
-            android:background="@null">
-        </ImageButton>
-        <ImageButton
+            app:icon="@drawable/ic_volume_down_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button
             android:id="@+id/btn_img_volume_up_play_audio"
-            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
             android:src="@drawable/ic_volume_up_black_24dp"
-            android:background="@null">
-        </ImageButton>
+            app:icon="@drawable/ic_volume_up_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
     </LinearLayout>
     <TextView
         android:layout_weight="1"
@@ -181,46 +202,66 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         >
+
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@null"
+            android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
+            android:text="1 m"
+            android:textColor="#000000"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_fast_rewind_black_48dp"
+            app:iconGravity="start"
+            app:iconTint="@null"></Button>
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
+            android:text="10 s"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            app:icon="@drawable/ic_fast_rewind_black_48dp"
+            app:iconGravity="start"
+            app:iconTint="@null"></Button>
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_fast_forward_black_48dp"
+            android:text="10 s"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            app:icon="@drawable/ic_fast_forward_black_48dp"
+            app:iconGravity="start"
+            app:iconTint="@null"></Button>
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_fast_forward_black_48dp"
             android:text="1 m"
             android:textAllCaps="false"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-        </Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_fast_rewind_black_48dp"
-            android:background="@null"
-            android:textAllCaps="false"
-            android:text="10 s"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-        </Button>
-        <Button
-            android:textAllCaps="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_fast_forward_black_48dp"
-            android:background="@null"
-            android:text="10 s"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-        </Button>
-        <Button
-            android:textAllCaps="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_fast_forward_black_48dp"
-            android:background="@null"
-            android:text="1 m"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-        </Button>
+            android:textColor="#000000"
+            app:icon="@drawable/ic_fast_forward_black_48dp"
+            app:iconGravity="start"
+            app:iconTint="@null"></Button>
 
     </LinearLayout>
 
@@ -229,34 +270,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageButton
+
+        <Button
             android:id="@+id/btn_img_previous_play_audio"
-            android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_skip_previous_black_48dp"
-            android:background="@null"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            >
-        </ImageButton>
-        <ImageButton
+            android:background="@null"
+            android:src="@drawable/ic_skip_previous_black_48dp"
+            app:icon="@drawable/ic_skip_previous_black_48dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button
             android:id="@+id/btn_img_play_play_audio"
-            android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
             android:src="@drawable/ic_play_arrow_black_48dp"
-            android:background="@null"
-            android:layout_weight="1">
-        </ImageButton>s
-        <ImageButton
+            app:icon="@drawable/ic_play_arrow_black_48dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
+
+        <Button
             android:id="@+id/btn_img_next_play_audio"
-            android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_skip_next_black_48dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@null"
-            android:layout_weight="1">
-        </ImageButton>
+            android:src="@drawable/ic_skip_next_black_48dp"
+            app:icon="@drawable/ic_skip_next_black_48dp"
+            app:iconGravity="textStart"
+            app:iconTint="@null"></Button>
     </LinearLayout>
 
 </LinearLayout>

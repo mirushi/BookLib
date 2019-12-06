@@ -26,44 +26,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.5x">
+            android:text="0.5x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.6x">
+            android:text="0.6x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.7x">
+            android:text="0.7x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.8x">
+            android:text="0.8x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.9x">
+            android:text="0.9x"
+            android:textColor="#000000">
         </Button>
 
     </LinearLayout>
@@ -72,6 +82,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:background="@null"
             android:textColor="#489494"
@@ -89,44 +100,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1.1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="0.5x">
+            android:text="1.1x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.2x">
+            android:text="1.2x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.3x">
+            android:text="1.3x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.4x">
+            android:text="1.4x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.5x">
+            android:text="1.5x"
+            android:textColor="#000000">
         </Button>
 
     </LinearLayout>
@@ -139,44 +160,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.6x">
+            android:text="1.6x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.7x">
+            android:text="1.7x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.8x">
+            android:text="1.8x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1.9x">
+            android:text="1.9x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="2.0x">
+            android:text="2.0x"
+            android:textColor="#000000">
         </Button>
 
     </LinearLayout>
@@ -189,43 +220,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="2.2x">
+            android:text="2.2x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="2.4x">
+            android:text="2.4x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="2.6x">
+            android:text="2.6x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="2.8x">
+            android:text="2.8x"
+            android:textColor="#000000">
         </Button>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="3.0x">
+            android:text="3.0x"
+            android:textColor="#000000">
         </Button>
 
     </LinearLayout>
@@ -243,6 +284,7 @@
             android:layout_weight="19">
         </LinearLayout>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:id="@+id/btn_OK_playback_speed_dialog"
             android:layout_weight="1"
             android:background="@null"

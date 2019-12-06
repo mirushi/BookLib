@@ -53,6 +53,7 @@
             android:layout_weight="5">
         </LinearLayout>
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:textColor="#489494"
             android:id="@+id/btn_OK_timer_dialog"
             android:layout_weight="1"

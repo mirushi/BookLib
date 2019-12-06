@@ -19,8 +19,7 @@ import luubieunghi.lbn.booklib.R;
 public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IPlayAudioView{
 
     private Toolbar toolbar;
-    private ImageButton btn_equalizer, btn_timer;
-    private Button btn_play_speed;
+    private Button btn_equalizer, btn_timer, btn_play_speed;
 
     private PlayAudioPresenter presenter;
 
