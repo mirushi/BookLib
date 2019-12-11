@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f7797db1fd2cf66a4440fa94f36ceacb",
+    "entities": [
+      {
+        "tableName": "book",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `booktitle` TEXT, `bcoverpath` TEXT, `bfilepath` TEXT, `rating` INTEGER NOT NULL, `langid` INTEGER NOT NULL, `publisherid` INTEGER NOT NULL, `publishdate` TEXT, `description` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "bookID",
+            "columnName": "bookid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bookTitle",
+            "columnName": "booktitle",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bookCoverPath",
+            "columnName": "bcoverpath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bookFilePath",
+            "columnName": "bfilepath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "langID",
+            "columnName": "langid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisherID",
+            "columnName": "publisherid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publishDate",
+            "columnName": "publishdate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bookid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "author",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`authorID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "authorID",
+            "columnName": "authorID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorName",
+            "columnName": "authorName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "authorID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f7797db1fd2cf66a4440fa94f36ceacb')"
+    ]
+  }
+}
