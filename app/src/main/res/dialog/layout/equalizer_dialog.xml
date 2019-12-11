@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -103,46 +104,51 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:weightSum="5">
+
             <SeekBar
+                android:id="@+id/sb_chanel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:max="1500"
+                android:min="-1500"
+                android:progress="0"></SeekBar>
+            <SeekBar
+                android:id="@+id/sb_chanel2"
                 android:progress="0"
-                android:max="15"
-                android:min="-15"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
             </SeekBar>
             <SeekBar
+                android:id="@+id/sb_chanel3"
                 android:progress="0"
-                android:max="15"
-                android:min="-15"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
             </SeekBar>
             <SeekBar
+                android:id="@+id/sb_chanel4"
                 android:progress="0"
-                android:max="15"
-                android:min="-15"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
             </SeekBar>
             <SeekBar
+                android:id="@+id/sb_chanel5"
                 android:progress="0"
-                android:max="15"
-                android:min="-15"
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-            </SeekBar>
-            <SeekBar
-                android:progress="0"
-                android:max="15"
-                android:min="-15"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,22 +179,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Load">
+            android:text="">
         </TextView>
         <TextView
             android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save">
+            android:text="">
         </TextView>
-        <TextView
-            android:textSize="15dp"
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/btn_reset_equalizer"
+            android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reset">
-        </TextView>
+            android:text="Reset"
+            android:textAllCaps="false"
+            android:textSize="15dp"
+            app:backgroundTint="@null"></Button>
     </LinearLayout>
 
 

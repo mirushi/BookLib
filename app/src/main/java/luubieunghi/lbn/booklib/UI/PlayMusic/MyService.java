@@ -7,7 +7,9 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.audiofx.Equalizer;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import androidx.annotation.IdRes;
@@ -21,7 +23,9 @@ public class MyService extends Service {
 
     private static final String chanel_ID="MUSIC";
     private static final String chanel_Name="PLAY MUSIC";
+    public   static  float volume=0.5f;
     public static  MediaPlayer mediaPlayer=new MediaPlayer();
+    public static Equalizer equalizer=new Equalizer(0, mediaPlayer.getAudioSessionId());
     public static  RemoteViews notificationLayout;
 
 
@@ -36,7 +40,19 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         mediaPlayer= MediaPlayer.create(getBaseContext(), R.raw.van_su_tuy_duyen);
+        mediaPlayer.setVolume(volume,volume);
+        createEqualizer();
         notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
+    }
+
+    private void createEqualizer() {
+
+        equalizer.setEnabled(true);
+        equalizer.setBandLevel((short)0,equalizer.getBandLevel((short)0));
+        equalizer.setBandLevel((short)1,equalizer.getBandLevel((short)1));
+        equalizer.setBandLevel((short)2,equalizer.getBandLevel((short)2));
+        equalizer.setBandLevel((short)3,equalizer.getBandLevel((short)3));
+        equalizer.setBandLevel((short)4,equalizer.getBandLevel((short)4));
     }
 
     @Override

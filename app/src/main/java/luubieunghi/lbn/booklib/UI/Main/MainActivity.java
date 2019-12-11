@@ -37,14 +37,11 @@ public class MainActivity extends AppCompatActivity {
     //Các biến liên quan đến Drawer.
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    public static AudioDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        db= Room.databaseBuilder(getApplicationContext(),
-//                AudioDatabase.class, "database-name").build();
         ConfigToolbar();
         ConfigViewPager();
         ConfigDrawerLayout();
@@ -58,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void SwipeUpFromBottom()
             {
                  Intent intent = new Intent(MainActivity.this, PlayMusic.class);
+                 intent.putExtra("ID", "BH1");
                  startActivity(intent);
                  overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);
             }

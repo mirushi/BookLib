@@ -1,9 +1,8 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -19,9 +18,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+
+
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
@@ -37,7 +39,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
     private SeekBar seekBar_Time;
     private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
-    private static FloatingActionButton btn_img_Play;
+    private static Button btn_img_Play;
     private PlayMusicPresenter presenter;
 
     @Override
@@ -51,11 +53,24 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
+        Intent intent=getIntent();
+        String id=intent.getStringExtra("ID");
+        //BUG TO Ở ĐÂY
+        AudioDatabase database=AudioDatabase.getInstance(this);
+        /*Song song= database.song_dao().findByID(id);
+        try {
+            mediaPlayer.setDataSource(song.getFilePath());
+            mediaPlayer.seekTo(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
         addControls();
         ConfigGesturesListener();
         addEvents();
         presenter=new PlayMusicPresenter(this);
     }
+
+
 
     @Override
     public void addEvents() {
@@ -193,8 +208,8 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
 
     public static void setBtn_PlayResource(boolean play){
         if(play==true)
-            btn_img_Play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            btn_img_Play.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
         if (play==false)
-            btn_img_Play.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+            btn_img_Play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
     }
 }

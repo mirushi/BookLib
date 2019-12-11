@@ -36,6 +36,9 @@ public interface Song_DAO {
     @Delete
     int delete(Song song);
 
+    @Query("delete from Song")
+    int deleteAll();
+
     @Query("delete from Song where SongID like :songID")
     int deleteByID(String songID);
 }

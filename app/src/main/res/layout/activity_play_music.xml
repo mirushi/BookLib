@@ -201,20 +201,25 @@
             app:iconGravity="textStart"
             app:iconTint="@null" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:scaleType="center"
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:longClickable="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@xml/custome_button"
             android:id="@+id/btn_img_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@xml/custome_button"
-            android:longClickable="true"
-            android:src="@drawable/ic_play_arrow_black_24dp"
-            android:layout_gravity="center"
             app:backgroundTint="#80b7cf"
-             />
+            />
+<!--            app:iconGravity="textStart"-->
+<!--            app:iconTint="@null"-->
+
+<!--            app:icon="@drawable/ic_play_arrow_black_24dp"-->
+
+
+
 
         <Button
             android:id="@+id/btn_img_next"
