@@ -32,11 +32,12 @@
             <TableRow
                 android:layout_marginTop="8dp">
                 <ImageView
+                    android:id="@+id/activity_add_new_book_imgView_book_image"
                     android:layout_width="133dp"
-                    android:layout_height="173dp"
+                    android:layout_height="133dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_span="2"
-                    android:background="@drawable/icon_book_100px"/>
+                    android:layout_span="3"
+                    android:src="@drawable/icon_book_100px"/>
             </TableRow>
 
             <TableRow
@@ -50,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/activity_add_new_book_edt_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

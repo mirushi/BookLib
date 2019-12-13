@@ -14,36 +14,43 @@ import java.util.ArrayList;
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import luubieunghi.lbn.booklib.Model.Language.Language;
+import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
 import luubieunghi.lbn.booklib.R;
 
-@Entity (tableName = "book")
+@Entity (tableName = "book", indices = {@Index("langID"), @Index("publisherID")},foreignKeys = {
+        @ForeignKey(entity = Language.class, parentColumns = "langID", childColumns = "langID"),
+        @ForeignKey(entity = Publisher.class, parentColumns = "publisherID", childColumns = "publisherID")})
 public class Book {
     //Các biến dùng cho RPL.
+
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "bookid")
+    @ColumnInfo(name = "bookID")
     private int bookID = 0;
 
-    @ColumnInfo(name = "booktitle")
+    @ColumnInfo(name = "bookTitle")
     private String bookTitle;
 
-    @ColumnInfo(name = "bcoverpath")
+    @ColumnInfo(name = "bCoverPath")
     private String bookCoverPath;
 
-    @ColumnInfo(name = "bfilepath")
+    @ColumnInfo(name = "bFilepath")
     private String bookFilePath;
 
     @ColumnInfo(name = "rating")
     private int rating;
 
-    @ColumnInfo(name = "langid")
+    @ColumnInfo(name = "langID")
     private int langID;
 
-    @ColumnInfo(name = "publisherid")
+    @ColumnInfo(name = "publisherID")
     private int publisherID;
 
-    @ColumnInfo(name = "publishdate")
+    @ColumnInfo(name = "publishDate")
     private LocalDate publishDate;
 
     @ColumnInfo(name = "description")
