@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
+import android.net.Uri;
 import android.os.IBinder;
-import android.util.Log;
+
 import android.widget.RemoteViews;
 
 import androidx.annotation.IdRes;
@@ -17,6 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+
+import java.io.IOException;
+
+import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 
 public class MyService extends Service {
@@ -39,7 +45,8 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer= MediaPlayer.create(getBaseContext(), R.raw.van_su_tuy_duyen);
+        //mediaPlayer= MediaPlayer.create(getBaseContext(),);
+        //mediaPlayer=MediaPlayer.create(getBaseContext(), Uri.parse(song.getFilePath()));
         mediaPlayer.setVolume(volume,volume);
         createEqualizer();
         notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
@@ -60,6 +67,13 @@ public class MyService extends Service {
 
         //lấy action của intent để xử lí
         String action=intent.getAction();
+        Song song=(Song)intent.getSerializableExtra("song");
+        mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(song.getFilePath()));
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if(action!=null){
             if(action.equals("Action_Stop")){
                 stop_MyService(intent);
@@ -107,7 +121,7 @@ public class MyService extends Service {
         }
         else {
             PlayMusic.setBtn_PlayResource(false);
-           mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+            mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
            mediaPlayer.start();
         }
     }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 
 import java.io.IOException;
+import java.util.List;
 
 
 import luubieunghi.lbn.booklib.Database.AudioDatabase;
@@ -41,6 +44,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
     private static Button btn_img_Play;
     private PlayMusicPresenter presenter;
+    private Song currentSong=null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,16 +58,11 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
         Intent intent=getIntent();
-        String id=intent.getStringExtra("ID");
         //BUG TO Ở ĐÂY
         AudioDatabase database=AudioDatabase.getInstance(this);
-        /*Song song= database.song_dao().findByID(id);
-        try {
-            mediaPlayer.setDataSource(song.getFilePath());
-            mediaPlayer.seekTo(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+        List<Song> songs= database.song_dao().getByIDs("BH1");
+        currentSong =songs.get(0);
         addControls();
         ConfigGesturesListener();
         addEvents();
@@ -91,7 +90,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         btn_img_Play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.playMusicService();
+                presenter.playMusicService(currentSong);
             }
         });
         //degug mở list song do chưa vuốt được

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="luubieunghi.lbn.booklib">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -12,11 +13,6 @@
         <activity android:name=".UI.BookPageManagement.BookPageManagement">
         </activity>
         <activity android:name=".UI.PlayAudio.PlayAudio">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".UI.ReadBookSetting.ReadBookSettingActivity"></activity>
         <activity android:name=".UI.BookPageManagement.PageManagementActivity"></activity>
@@ -24,7 +20,13 @@
         <activity android:name=".UI.Main.MainActivity">
         </activity>
         <activity android:name=".UI.OpenAlbum.OpenAlbum" />
-        <activity android:name=".UI.PlayMusic.PlayMusic" />
+        <activity android:name=".UI.PlayMusic.PlayMusic" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UI.About.AboutActivity"
             android:label="About" />

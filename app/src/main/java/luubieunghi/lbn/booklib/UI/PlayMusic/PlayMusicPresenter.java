@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 
 public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter {
@@ -44,9 +45,10 @@ public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter
     }
 
     @Override
-    public void playMusicService() {
+    public void playMusicService(Song song) {
         Intent intent=new Intent(context, MyService.class);
         intent.setAction("Action_Play");
+        intent.putExtra("song",song);
         context.startService(intent);
     }
 

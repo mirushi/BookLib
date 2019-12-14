@@ -1,5 +1,7 @@
 package luubieunghi.lbn.booklib.UI.PlayAudio;
 
+import android.widget.Button;
+
 public class PlayAudioContract {
     interface IPlayAudioView{
         void addControls();
@@ -9,6 +11,7 @@ public class PlayAudioContract {
         void showPlaySpeedDialog();
         void showTimerDialog();
         void setTimerText(String s);
+        void resetButtonColor(Button ...buttons);
     }
     interface IPlayAudioPresenter{
         void sendMail();

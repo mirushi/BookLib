@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_0.5x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -36,6 +37,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_0.6x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -46,6 +48,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_0.7x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -56,6 +59,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_0.8x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -66,6 +70,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_0.9x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -82,6 +87,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
+            android:id="@+id/btn_1.0x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:background="@null"
@@ -100,6 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_1.1x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1.1"
@@ -110,6 +117,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.2x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -120,6 +128,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.3x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -130,6 +139,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.4x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -140,6 +150,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.5x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -160,6 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_1.6x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -170,6 +182,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.7x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -180,6 +193,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.8x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -190,6 +204,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_1.9x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -200,6 +215,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_2.0x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -220,6 +236,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_2.2x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -230,6 +247,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_2.4x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_weight="1"
             android:background="@null"
@@ -239,6 +257,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_2.6x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -249,6 +268,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_2.8x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -259,6 +279,7 @@
             android:textColor="#000000">
         </Button>
         <Button
+            android:id="@+id/btn_3.0x"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAllCaps="false"
             android:layout_weight="1"
@@ -283,16 +304,16 @@
             android:layout_height="match_parent"
             android:layout_weight="19">
         </LinearLayout>
+
         <Button
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:id="@+id/btn_OK_playback_speed_dialog"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
             android:text="OK"
-            android:textColor="#489494">
-        </Button>
+            android:textColor="#489494"></Button>
     </LinearLayout>
 
 </LinearLayout>

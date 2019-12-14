@@ -17,9 +17,6 @@ public interface Song_DAO {
     @Query("select * from Song where SongID in (:IDS)")
     List<Song> getByIDs(String ...IDS);
 
-    @Query("select * from Song where SongID like :ID")
-    Song findByID(String ID);
-
     @Insert
     void insert(Song song);
 

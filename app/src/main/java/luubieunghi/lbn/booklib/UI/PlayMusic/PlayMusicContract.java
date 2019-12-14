@@ -1,5 +1,7 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
+import luubieunghi.lbn.booklib.Model.Song.Song;
+
 public class PlayMusicContract {
     interface IPlayMusicView{
         void addControls();
@@ -13,6 +15,6 @@ public class PlayMusicContract {
 
         void sendMail();
         void share();
-        void playMusicService();
+        void playMusicService(Song song);
     }
 }

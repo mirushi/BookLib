@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.UI.PlayMusic.MyService;
-import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.equalizer;
 
@@ -31,6 +32,9 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     private Button btn_skip_previous_10s, btn_skip_previous_1m, btn_skip_next_10s,btn_skip_next_1m;
 
     private PlayAudioPresenter presenter;
+
+    private Button []buttons;
+    private String playbackSpeed="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,19 +209,85 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     public void showPlaySpeedDialog() {
         final AlertDialog dialog=new AlertDialog.Builder(PlayAudio.this).create();
 
-        final View view=getLayoutInflater().inflate(R.layout.equalizer_dialog,null);
+        View view=getLayoutInflater().inflate(R.layout.playback_speed_dialog,null);
 
+        configPlaySpeedDialog(view, dialog);
+
+        dialog.setView(view);
+        dialog.show();
+    }
+
+    private void configPlaySpeedDialog(View view, final AlertDialog dialog){
         Button btn_OK=view.findViewById(R.id.btn_OK_playback_speed_dialog);
+        Button btn_0_5x=view.findViewById(R.id.btn_0_5x);
+        Button btn_0_6x=view.findViewById(R.id.btn_0_6x);
+        Button btn_0_7x=view.findViewById(R.id.btn_0_7x);
+        Button btn_0_8x=view.findViewById(R.id.btn_0_8x);
+        Button btn_0_9x=view.findViewById(R.id.btn_0_9x);
+        Button btn_1_0x=view.findViewById(R.id.btn_1_0x);
+        Button btn_1_1x=view.findViewById(R.id.btn_1_1x);
+        Button btn_1_2x=view.findViewById(R.id.btn_1_2x);
+        Button btn_1_3x=view.findViewById(R.id.btn_1_3x);
+        Button btn_1_4x=view.findViewById(R.id.btn_1_4x);
+        Button btn_1_5x=view.findViewById(R.id.btn_1_5x);
+        Button btn_1_6x=view.findViewById(R.id.btn_1_6x);
+        Button btn_1_7x=view.findViewById(R.id.btn_1_7x);
+        Button btn_1_8x=view.findViewById(R.id.btn_1_8x);
+        Button btn_1_9x=view.findViewById(R.id.btn_1_9x);
+        Button btn_2_0x=view.findViewById(R.id.btn_2_0x);
+        Button btn_2_2x=view.findViewById(R.id.btn_2_2x);
+        Button btn_2_4x=view.findViewById(R.id.btn_2_4x);
+        Button btn_2_6x=view.findViewById(R.id.btn_2_6x);
+        Button btn_2_8x=view.findViewById(R.id.btn_2_8x);
+        Button btn_3_0x=view.findViewById(R.id.btn_3_0x);
+
+        final List<Button> btns=new ArrayList<>();
+        btns.add(btn_0_5x);
+        btns.add(btn_0_6x);
+        btns.add(btn_0_7x);
+        btns.add(btn_0_8x);
+        btns.add(btn_0_9x);
+        btns.add(btn_1_0x);
+        btns.add(btn_1_1x);
+        btns.add(btn_1_2x);
+        btns.add(btn_1_3x);
+        btns.add(btn_1_4x);
+        btns.add(btn_1_5x);
+        btns.add(btn_1_6x);
+        btns.add(btn_1_7x);
+        btns.add(btn_1_8x);
+        btns.add(btn_1_9x);
+        btns.add(btn_2_0x);
+        btns.add(btn_2_2x);
+        btns.add(btn_2_4x);
+        btns.add(btn_2_6x);
+        btns.add(btn_2_8x);
+        btns.add(btn_3_0x);
+
+        for(final Button btn:btns){
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buttons = new Button[btns.size()];
+                    buttons = btns.toArray(buttons);
+                    resetButtonColor(buttons);
+                    btn.setTextColor(Color.parseColor("#489494"));
+                    String text=btn.getText().toString();
+                    playbackSpeed=text.replace("x","");
+                }
+            });
+        }
+
         btn_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        RadioGroup rg=view.findViewById(R.id.radio_group);
-        dialog.setView(view);
-        dialog.show();
+
+
     }
+
 
     @Override
     public void showTimerDialog() {
@@ -258,6 +328,13 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     @Override
     public void setTimerText(String s) {
         btn_timer.setText(s);
+    }
+
+    @Override
+    public void resetButtonColor(Button... buttons) {
+        for(Button btn:buttons){
+            btn.setTextColor(Color.parseColor("#000000"));
+        }
     }
 
 

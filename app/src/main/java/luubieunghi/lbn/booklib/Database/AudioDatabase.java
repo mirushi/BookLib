@@ -21,7 +21,7 @@ public abstract class AudioDatabase extends RoomDatabase {
             return instance;
         else {
             instance= Room.databaseBuilder(context.getApplicationContext(),
-                    AudioDatabase.class, "Audio.db").build();
+                    AudioDatabase.class, "E:\\GitHub\\BookLib\\app\\src\\main\\java\\luubieunghi\\lbn\\booklib\\Database\\Audio.db").allowMainThreadQueries().build();
             return instance;
         }
     }
