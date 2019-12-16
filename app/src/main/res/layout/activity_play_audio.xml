@@ -38,6 +38,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:textSize="10dp"
             android:textColor="#000000"
             android:id="@+id/btn_timer_play_audio"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"

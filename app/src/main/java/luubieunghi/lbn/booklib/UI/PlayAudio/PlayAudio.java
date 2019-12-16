@@ -218,6 +218,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     }
 
     private void configPlaySpeedDialog(View view, final AlertDialog dialog){
+        final String[] text = {""};
         Button btn_OK=view.findViewById(R.id.btn_OK_playback_speed_dialog);
         Button btn_0_5x=view.findViewById(R.id.btn_0_5x);
         Button btn_0_6x=view.findViewById(R.id.btn_0_6x);
@@ -272,8 +273,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
                     buttons = btns.toArray(buttons);
                     resetButtonColor(buttons);
                     btn.setTextColor(Color.parseColor("#489494"));
-                    String text=btn.getText().toString();
-                    playbackSpeed=text.replace("x","");
+                    text[0] =btn.getText().toString();
+                    playbackSpeed= text[0].replace("x","");
                 }
             });
         }
@@ -281,6 +282,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         btn_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_play_speed.setText(text[0]);
                 dialog.dismiss();
             }
         });

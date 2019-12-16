@@ -3,7 +3,9 @@ package luubieunghi.lbn.booklib.UI.OpenListSong;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
 import luubieunghi.lbn.booklib.Model.Album.Album;
 
 public class AlbumFragmentPresenter implements AlbumFragmentContract.IAlbumFragmentPresenter {
@@ -13,9 +15,12 @@ public class AlbumFragmentPresenter implements AlbumFragmentContract.IAlbumFragm
     public AlbumFragmentPresenter(Context context, AlbumFragmentContract.IAlbumFragmentView view){
         this.context=context;
         this.view=view;
-        for(int i=0;i<50;i++){
+        AudioDatabase database=AudioDatabase.getInstance(context);
+        List<Album> abs=database.album_dao().getAll();
+        listAlbum.addAll(abs);
+       /* for(int i=0;i<50;i++){
             listAlbum.add(new Album("ID "+i,"AlbumName "+i,"Album Image "+i));
-        }
+        }*/
     }
 
 

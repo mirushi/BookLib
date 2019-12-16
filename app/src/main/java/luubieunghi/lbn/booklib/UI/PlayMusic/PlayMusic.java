@@ -1,12 +1,13 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
-import android.net.Uri;
+import android.media.MediaPlayer;
+import android.media.MediaTimestamp;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,10 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -44,7 +43,8 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
     private static Button btn_img_Play;
     private PlayMusicPresenter presenter;
-    private Song currentSong=null;
+    public static Song currentSong=null;
+    public Song song=null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,21 +55,39 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        song=(Song)getIntent().getSerializableExtra("song");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
         Intent intent=getIntent();
         //BUG TO Ở ĐÂY
         AudioDatabase database=AudioDatabase.getInstance(this);
-        database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+        //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
         List<Song> songs= database.song_dao().getByIDs("BH1");
         currentSong =songs.get(0);
+        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
+        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
         addControls();
+        //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
+        txt_ToTalTime.setText(mediaPlayer.getDuration()+"");
+        seekBar_Time.setMax(mediaPlayer.getDuration());
         ConfigGesturesListener();
         addEvents();
+        SyncTime syncTime=new SyncTime();
+        new Thread(syncTime).start();
         presenter=new PlayMusicPresenter(this);
     }
 
 
+    class SyncTime implements Runnable {
+        @Override
+        public void run() {
+            while (mediaPlayer.isPlaying()){
+                txt_CurrentTime.setText(mediaPlayer.getCurrentPosition()+"");
+            }
+        }
+    }
 
     @Override
     public void addEvents() {
@@ -90,9 +108,30 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         btn_img_Play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.playMusicService(currentSong);
+                presenter.playMusicService(song);
             }
         });
+
+
+
+        seekBar_Time.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mediaPlayer.seekTo(seekBar.getProgress());
+                txt_CurrentTime.setText(seekBar.getProgress()+"");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         //degug mở list song do chưa vuốt được
         btn_img_Next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,4 +250,5 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         if (play==false)
             btn_img_Play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
     }
+
 }

@@ -47,7 +47,11 @@ public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter
     @Override
     public void playMusicService(Song song) {
         Intent intent=new Intent(context, MyService.class);
-        intent.setAction("Action_Play");
+        if(MyService.mediaPlayer.isPlaying())
+            intent.setAction("Action_Stop");
+        else{
+            intent.setAction("Action_Play");
+        }
         intent.putExtra("song",song);
         context.startService(intent);
     }

@@ -10,6 +10,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.IBinder;
 
 import android.widget.RemoteViews;
@@ -68,11 +69,12 @@ public class MyService extends Service {
         //lấy action của intent để xử lí
         String action=intent.getAction();
         Song song=(Song)intent.getSerializableExtra("song");
-        mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(song.getFilePath()));
-        try {
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(song!=null)
+        {
+            if(!song.getSongID().equals(PlayMusic.currentSong.getSongID()))
+            {
+                mediaPlayer=MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
+            }
         }
         if(action!=null){
             if(action.equals("Action_Stop")){
@@ -116,7 +118,8 @@ public class MyService extends Service {
     // bắt đầu phát nhạc
     private void play_MediaPlayer(Intent intent) {
         if(mediaPlayer.isPlaying())
-        { PlayMusic.setBtn_PlayResource(true);
+        {
+            PlayMusic.setBtn_PlayResource(true);
            mediaPlayer.pause();
         }
         else {
