@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import luubieunghi.lbn.booklib.Model.Album.Album;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
@@ -32,6 +33,7 @@ public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_album);
+        Album album=(Album) getIntent().getSerializableExtra("album");
         addControls();
         addEvents();
         presenter=new OpenAlbumPresenter(OpenAlbum.this,this);

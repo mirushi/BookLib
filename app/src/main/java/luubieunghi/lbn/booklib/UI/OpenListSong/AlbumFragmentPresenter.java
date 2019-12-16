@@ -18,9 +18,7 @@ public class AlbumFragmentPresenter implements AlbumFragmentContract.IAlbumFragm
         AudioDatabase database=AudioDatabase.getInstance(context);
         List<Album> abs=database.album_dao().getAll();
         listAlbum.addAll(abs);
-       /* for(int i=0;i<50;i++){
-            listAlbum.add(new Album("ID "+i,"AlbumName "+i,"Album Image "+i));
-        }*/
+
     }
 
 
