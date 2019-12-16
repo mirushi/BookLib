@@ -18,14 +18,14 @@
         <activity android:name=".UI.BookPageManagement.PageManagementActivity"></activity>
         <activity android:name=".UI.ReadBook.ReadBookActivity"></activity>
         <activity android:name=".UI.Main.MainActivity">
-        </activity>
-        <activity android:name=".UI.OpenAlbum.OpenAlbum" />
-        <activity android:name=".UI.PlayMusic.PlayMusic" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".UI.OpenAlbum.OpenAlbum" />
+        <activity android:name=".UI.PlayMusic.PlayMusic" >
         </activity>
         <activity
             android:name=".UI.About.AboutActivity"
