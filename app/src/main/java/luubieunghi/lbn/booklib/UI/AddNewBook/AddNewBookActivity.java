@@ -137,6 +137,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
                 if (item.getItemId() == R.id.menu_add_new_book_finished);
                 {
                     presenter.AddBook();
+                    finish();
                 }
                 return false;
             }

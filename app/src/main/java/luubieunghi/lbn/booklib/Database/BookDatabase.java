@@ -44,7 +44,7 @@ public abstract class BookDatabase extends RoomDatabase {
     public abstract BookAuthorDAO BookAuthorDAO();
     public abstract BookIdentityNumDAO BookIdentityNumDAO();
     public abstract BookTagDAO BookTagDAO();
-    public abstract LanguageDAO BanguageDAO();
+    public abstract LanguageDAO LanguageDAO();
     public abstract PublisherDAO PublisherDAO();
     public abstract TagDAO TagDAO();
 }

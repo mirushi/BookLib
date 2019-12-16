@@ -27,4 +27,7 @@ public interface PublisherDAO {
 
     @Query("SELECT * FROM publisher WHERE publisher.publisherName like '%' ||:subPublisherName||'%'")
     List<Publisher> searchForPublisher(String subPublisherName);
+
+    @Query("SELECT * FROM publisher WHERE publisher.publisherName = :publisherName")
+    List<Publisher> searchForExactPublisher(String publisherName);
 }

@@ -15,5 +15,8 @@ public interface AddNewBookContract {
         void AddBook();
         void LoadLanguages();
         void LoadServerList();
+        void LoadPublisherList();
+        void AddPublisher(String publisherName);
+        void AddLanguage(String langName);
     }
 }

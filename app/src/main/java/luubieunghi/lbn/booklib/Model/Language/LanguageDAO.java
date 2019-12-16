@@ -24,4 +24,7 @@ public interface LanguageDAO {
 
     @Query("Select * from language where Language.langName like '%' || :subLangName || '%'")
     List<Language> searchForLanguages(String subLangName);
+
+    @Query("Select * from language where Language.langName = :langName")
+    List<Language> searchForExactLanguageName(String langName);
 }
