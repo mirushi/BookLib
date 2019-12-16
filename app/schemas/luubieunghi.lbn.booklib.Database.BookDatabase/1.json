@@ -1,0 +1,398 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "9d69e60abd1c4eb6d9b7a46ec040c475",
+    "entities": [
+      {
+        "tableName": "book",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bookTitle` TEXT, `bCoverPath` TEXT, `bFilepath` TEXT, `rating` INTEGER NOT NULL, `langID` INTEGER NOT NULL, `publisherID` INTEGER NOT NULL, `publishDate` TEXT, `description` TEXT, FOREIGN KEY(`langID`) REFERENCES `language`(`langID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`publisherID`) REFERENCES `publisher`(`publisherID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "bookID",
+            "columnName": "bookID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bookTitle",
+            "columnName": "bookTitle",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bookCoverPath",
+            "columnName": "bCoverPath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bookFilePath",
+            "columnName": "bFilepath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "langID",
+            "columnName": "langID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisherID",
+            "columnName": "publisherID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publishDate",
+            "columnName": "publishDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bookID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_book_langID",
+            "unique": false,
+            "columnNames": [
+              "langID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_book_langID` ON `${TABLE_NAME}` (`langID`)"
+          },
+          {
+            "name": "index_book_publisherID",
+            "unique": false,
+            "columnNames": [
+              "publisherID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_book_publisherID` ON `${TABLE_NAME}` (`publisherID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "language",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "langID"
+            ],
+            "referencedColumns": [
+              "langID"
+            ]
+          },
+          {
+            "table": "publisher",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "publisherID"
+            ],
+            "referencedColumns": [
+              "publisherID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "author",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`authorID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "authorID",
+            "columnName": "authorID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorName",
+            "columnName": "authorName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "authorID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "bookAuthor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `authorID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `authorID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`authorID`) REFERENCES `author`(`authorID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "bookID",
+            "columnName": "bookID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorID",
+            "columnName": "authorID",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bookID",
+            "authorID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_bookAuthor_authorID",
+            "unique": false,
+            "columnNames": [
+              "authorID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bookAuthor_authorID` ON `${TABLE_NAME}` (`authorID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "book",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "bookID"
+            ],
+            "referencedColumns": [
+              "bookID"
+            ]
+          },
+          {
+            "table": "author",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "authorID"
+            ],
+            "referencedColumns": [
+              "authorID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "bookidentitynum",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `IDName` TEXT NOT NULL, `IDValue` TEXT, PRIMARY KEY(`bookID`, `IDName`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "bookID",
+            "columnName": "bookID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IDName",
+            "columnName": "IDName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IDValue",
+            "columnName": "IDValue",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bookID",
+            "IDName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "book",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "bookID"
+            ],
+            "referencedColumns": [
+              "bookID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "booktag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `tagID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `tagID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`tagID`) REFERENCES `tag`(`tagID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "bookID",
+            "columnName": "bookID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagID",
+            "columnName": "tagID",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bookID",
+            "tagID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_booktag_tagID",
+            "unique": false,
+            "columnNames": [
+              "tagID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_booktag_tagID` ON `${TABLE_NAME}` (`tagID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "book",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "bookID"
+            ],
+            "referencedColumns": [
+              "bookID"
+            ]
+          },
+          {
+            "table": "tag",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tagID"
+            ],
+            "referencedColumns": [
+              "tagID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "language",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`langID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `langName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "langID",
+            "columnName": "langID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "langName",
+            "columnName": "langName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "langID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "publisher",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`publisherID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `publisherName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "publisherID",
+            "columnName": "publisherID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisherName",
+            "columnName": "publisherName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "publisherID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tagID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tagContent` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "tagID",
+            "columnName": "tagID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagContent",
+            "columnName": "tagContent",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tagID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_tag_tagContent",
+            "unique": true,
+            "columnNames": [
+              "tagContent"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_tag_tagContent` ON `${TABLE_NAME}` (`tagContent`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d69e60abd1c4eb6d9b7a46ec040c475')"
+    ]
+  }
+}

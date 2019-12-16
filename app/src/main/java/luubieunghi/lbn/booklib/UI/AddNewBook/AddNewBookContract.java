@@ -1,6 +1,10 @@
 package luubieunghi.lbn.booklib.UI.AddNewBook;
 
+import android.content.Context;
+
 import java.time.LocalDate;
+
+import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public interface AddNewBookContract {
     interface AddNewBookMVPView{
@@ -8,7 +12,11 @@ public interface AddNewBookContract {
         void BookAddedFailure();
     }
     interface AddNewBookMVPPresenter{
-        void AddBook(String pathToCover, String title, String author, Integer rating,
-                     String ids, String tags, String language, String publisher, LocalDate publishDate, String description);
+        void AddBook();
+        void LoadLanguages();
+        void LoadServerList();
+        void LoadPublisherList();
+        void AddPublisher(String publisherName);
+        void AddLanguage(String langName);
     }
 }

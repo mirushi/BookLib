@@ -14,150 +14,105 @@ import java.util.ArrayList;
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import luubieunghi.lbn.booklib.Model.Language.Language;
+import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
 import luubieunghi.lbn.booklib.R;
 
-//@Entity (tableName = "book")
+@Entity (tableName = "book", indices = {@Index("langID"), @Index("publisherID")},foreignKeys = {
+        @ForeignKey(entity = Language.class, parentColumns = "langID", childColumns = "langID"),
+        @ForeignKey(entity = Publisher.class, parentColumns = "publisherID", childColumns = "publisherID")})
 public class Book {
     //Các biến dùng cho RPL.
-//    @PrimaryKey
-//    @ColumnInfo(name = "bookid")
-    private int dbBookID;
 
-//    @ColumnInfo(name = "booktitle")
-    private String dbBookTitle;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "bookID")
+    private int bookID = 0;
 
-//    @ColumnInfo(name = "rating")
-    private int dbRating;
+    @ColumnInfo(name = "bookTitle")
+    private String bookTitle;
 
-//    @ColumnInfo(name = "langid")
-    private int dbLangID;
+    @ColumnInfo(name = "bCoverPath")
+    private String bookCoverPath;
 
-//    @ColumnInfo(name = "publisherid")
-    private int dbPublisherID;
+    @ColumnInfo(name = "bFilepath")
+    private String bookFilePath;
 
-//    @ColumnInfo(name = "publishdate")
-    private LocalDate dbPublishDate;
+    @ColumnInfo(name = "rating")
+    private int rating;
 
-//    @ColumnInfo(name = "description")
-    private String dbDescription;
+    @ColumnInfo(name = "langID")
+    private int langID;
 
-    public int getDbBookID() {
-        return dbBookID;
-    }
+    @ColumnInfo(name = "publisherID")
+    private int publisherID;
 
-    public void setDbBookID(int dbBookID) {
-        this.dbBookID = dbBookID;
-    }
+    @ColumnInfo(name = "publishDate")
+    private LocalDate publishDate;
 
-    public String getDbBookTitle() {
-        return dbBookTitle;
-    }
+    @ColumnInfo(name = "description")
+    private String description;
 
-    public void setDbBookTitle(String dbBookTitle) {
-        this.dbBookTitle = dbBookTitle;
-    }
-
-    public int getDbRating() {
-        return dbRating;
-    }
-
-    public void setDbRating(int dbRating) {
-        this.dbRating = dbRating;
-    }
-
-    public int getDbLangID() {
-        return dbLangID;
-    }
-
-    public void setDbLangID(int dbLangID) {
-        this.dbLangID = dbLangID;
-    }
-
-    public int getDbPublisherID() {
-        return dbPublisherID;
-    }
-
-    public void setDbPublisherID(int dbPublisherID) {
-        this.dbPublisherID = dbPublisherID;
-    }
-
-    public LocalDate getDbPublishDate() {
-        return dbPublishDate;
-    }
-
-    public void setDbPublishDate(LocalDate dbPublishDate) {
-        this.dbPublishDate = dbPublishDate;
-    }
-
-    public String getDbDescription() {
-        return dbDescription;
-    }
-
-    public void setDbDescription(String dbDescription) {
-        this.dbDescription = dbDescription;
-    }
-
+    //Biến dùng để lưu giữ hình ảnh cover cho sách.
+    @Ignore
     Bitmap bookImage;
-    String bookTitle;
-    ArrayList<String> bookAuthors;
-    int rating;
-    ArrayList<String> ids;
-    ArrayList<String> tags;
-    String language;
-    String publisher;
-    LocalDate publishDate;
-    String description;
-
+    //Biến lưu giữ context.
+    @Ignore
     Context context;
 
-    public Book(Context context, String _bookImagePath, String _bookTitle){
+    public Book(int bookID, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
+                int langID, int publisherID, LocalDate publishDate, String description){
+
+        //Gán giá trị bởi những biến được truyền vào.
+        this.bookID = bookID;
+        this.bookCoverPath = bookCoverPath;
+        this.bookFilePath = bookFilePath;
+        this.bookTitle = bookTitle;
+        this.rating = rating;
+        this.langID = langID;
+        this.publisherID = publisherID;
+        this.publishDate = publishDate;
+        this.description = description;
+
         File imgFile = null;
-        if (_bookImagePath != null)
-            imgFile = new File(_bookImagePath);
+        if (bookCoverPath != null)
+            imgFile = new File(bookCoverPath);
         //Nếu đường dẫn đến file chứa cover sách hợp lệ.
         if (imgFile != null && imgFile.exists())
-            bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            this.bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             //Nếu đường dẫn không hợp lệ.
         else
         {
             Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
-            bookImage = drawableToBitmap(icon_book);
+            this.bookImage = drawableToBitmap(icon_book);
         }
-        bookTitle = _bookTitle;
-
-        //Set những cái còn lại thành null hết.
+        this.bookTitle = bookTitle;
     }
 
-    public Book (Context context, String _bookImagePath, String _bookTitle,
-                 ArrayList<String> _bookAuthors, int _rating, ArrayList<String> _ids, ArrayList<String> _tags,
-                 String _language, String _publisher, LocalDate _publishDate, String _description){
-
-        //Gán giá trị bởi những biến được truyền vào.
-        bookAuthors = _bookAuthors;
-        rating = _rating;
-        ids = _ids;
-        tags = _tags;
-        language = _language;
-        publisher = _publisher;
-        publishDate = _publishDate;
-        description = _description;
-
-        File imgFile = null;
-        if (_bookImagePath != null)
-            imgFile = new File(_bookImagePath);
-        //Nếu đường dẫn đến file chứa cover sách hợp lệ.
-        if (imgFile != null && imgFile.exists())
-            bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        //Nếu đường dẫn không hợp lệ.
-        else
-        {
-            Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
-            bookImage = drawableToBitmap(icon_book);
-        }
-        bookTitle = _bookTitle;
+    //Đây là constructor có bookID.
+    @Ignore
+    public Book(Context context, int bookID, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
+                int langID, int publisherID, LocalDate publishDate, String description){
+        this(bookID, bookCoverPath, bookFilePath,
+                bookTitle, rating, langID, publisherID, publishDate, description);
+        this.context = context;
     }
 
+    //Constructor không có bookID.
+    @Ignore
+    public Book (Context context, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
+                 int langID, int publisherID, LocalDate publishDate, String description){
+        //Khởi tạo mà không có bookID thì ta cho bằng 0;
+        this(0, bookCoverPath, bookFilePath,
+                bookTitle, rating, langID, publisherID, publishDate, description);
+        this.context = context;
+    }
+
+    //Hàm chuyển từ Drawable qua Bitmap, phục vụ cho việc hiển thị ảnh trong asset của mình đã có.
+    @Ignore
     public static Bitmap drawableToBitmap(Drawable drawable)
     {
         Bitmap bitmap = null;
@@ -183,12 +138,33 @@ public class Book {
         return bitmap;
     }
 
-    public Bitmap getBookImage() {
-        return bookImage;
+    //Hàm này chỉ để test thôi.
+    @Ignore
+    public Book(Context context, String _bookImagePath, String _bookTitle){
+        File imgFile = null;
+        if (_bookImagePath != null)
+            imgFile = new File(_bookImagePath);
+        //Nếu đường dẫn đến file chứa cover sách hợp lệ.
+        if (imgFile != null && imgFile.exists())
+            bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            //Nếu đường dẫn không hợp lệ.
+        else
+        {
+            Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
+            bookImage = drawableToBitmap(icon_book);
+        }
+        bookTitle = _bookTitle;
+        //Set những cái còn lại thành null hết.
     }
 
-    public void setBookImage(Bitmap bookImage) {
-        this.bookImage = bookImage;
+    //Getters và Setters bên dưới.
+
+    public int getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
     }
 
     public String getBookTitle() {
@@ -199,12 +175,20 @@ public class Book {
         this.bookTitle = bookTitle;
     }
 
-    public ArrayList<String> getBookAuthors() {
-        return bookAuthors;
+    public String getBookCoverPath() {
+        return bookCoverPath;
     }
 
-    public void setBookAuthors(ArrayList<String> bookAuthors) {
-        this.bookAuthors = bookAuthors;
+    public void setBookCoverPath(String bookCoverPath) {
+        this.bookCoverPath = bookCoverPath;
+    }
+
+    public String getBookFilePath() {
+        return bookFilePath;
+    }
+
+    public void setBookFilePath(String bookFilePath) {
+        this.bookFilePath = bookFilePath;
     }
 
     public int getRating() {
@@ -215,36 +199,20 @@ public class Book {
         this.rating = rating;
     }
 
-    public ArrayList<String> getIds() {
-        return ids;
+    public int getLangID() {
+        return langID;
     }
 
-    public void setIds(ArrayList<String> ids) {
-        this.ids = ids;
+    public void setLangID(int langID) {
+        this.langID = langID;
     }
 
-    public ArrayList<String> getTags() {
-        return tags;
+    public int getPublisherID() {
+        return publisherID;
     }
 
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPublisherID(int publisherID) {
+        this.publisherID = publisherID;
     }
 
     public LocalDate getPublishDate() {
@@ -263,6 +231,14 @@ public class Book {
         this.description = description;
     }
 
+    public Bitmap getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(Bitmap bookImage) {
+        this.bookImage = bookImage;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -270,5 +246,4 @@ public class Book {
     public void setContext(Context context) {
         this.context = context;
     }
-
 }

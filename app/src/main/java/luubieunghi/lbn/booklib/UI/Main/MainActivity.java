@@ -18,6 +18,7 @@ import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.Menu;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     //Các biến liên quan đến Drawer.
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+
+    //Request code cho việc nhận thông tin đóng mở file.
+    private final int contentActRequestCode = 311;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Xử lý việc chọn file sách.
+        if (requestCode == contentActRequestCode && resultCode == RESULT_OK){
+            Uri selectedFile = data.getData();
+            Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
+            //Thêm URI vào nữa chứ.
+            intentGoToAddNewBook.putExtra("EXTRA_BOOK_URI", selectedFile);
+            startActivity(intentGoToAddNewBook);
+        }
+    }
+
     private void ConfigToolbar()
     {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -107,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.menu_main_item_add_book:
                     {
-                        Intent intent = new Intent(MainActivity.this, AddNewBookActivity.class);
-                        startActivity(intent);
+                        Intent intentOpenContentUI = new Intent().setType("application/epub+zip").setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intentOpenContentUI, "Select a epub book"), contentActRequestCode);
                         break;
                     }
                     case R.id.menu_item_settings:
