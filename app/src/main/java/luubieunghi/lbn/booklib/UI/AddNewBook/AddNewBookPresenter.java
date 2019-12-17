@@ -73,9 +73,17 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 //Sau khi thêm sách vào, chúng ta còn phải xử lý IDs, Tags và Authors trong mối quan hệ nhiều nhiều.
                 //Các tác giả của sách.
                 //Các IDs của sách.
+
+                //Cái gì đụng tới View là phải để cho Thread chính xử lý.
+                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.BookAddedSuccess();
+                    }
+                });
+
             }
         });
-        view.BookAddedSuccess();
     }
 
     @Override
