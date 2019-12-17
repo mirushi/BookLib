@@ -31,22 +31,24 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
     public void AddBook() {
         //Thao tác thêm sách vào CSDL.
         //Đầu tiên ta phải lấy thông tin ở View ra.
+        final Uri bookUri = view.pathToFile;
+        final Uri bookCoverUri = view.pathToBookCover;
+        final String title = view.txtBookTitle.getText().toString();
+        final String author = view.txtAuthor.getText().toString();
+        final int rating = view.ratingView.getRating();
+        final String ids = view.txtIDs.getText().toString();
+        final String tags = view.txtTags.getText().toString();
+        final String language = view.spinnerLanguage.getSelectedItem().toString();
+        final String publisher = view.txtPublisher.getText().toString();
+        final LocalDate publishDate = view.ldPublishingDate;
+        final String description = view.txtDescription.getText().toString();
 
+        //Sau đó, ta phải kiểm tra xem thông tin người dùng nhập vào có hợp lệ hay không.
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                final Uri bookUri = view.pathToFile;
-                final Uri bookCoverUri = view.pathToBookCover;
-                final String title = view.txtBookTitle.getText().toString();
-                final String author = view.txtAuthor.getText().toString();
-                final int rating = view.ratingView.getRating();
-                final String ids = view.txtIDs.getText().toString();
-                final String tags = view.txtTags.getText().toString();
-                final String language = view.spinnerLanguage.getSelectedItem().toString();
-                final String publisher = view.txtPublisher.getText().toString();
-                final LocalDate publishDate = view.ldPublishingDate;
-                final String description = view.txtDescription.getText().toString();
+
                 List<Language> langSearchResult = bookDB.LanguageDAO().searchForExactLanguageName(language);
                 if (langSearchResult == null || langSearchResult.size() == 0){
                     AddLanguage(language);
@@ -61,17 +63,19 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 }
                 int publisherID = publisherSearchResult.get(0).getPublisherID();
 
-                String bookCoverPath = bookCoverUri.toString();
-                String bookFilePath = bookUri.toString();
+                String bookCoverPath = bookCoverUri.getPath();
+                String bookFilePath = bookUri.getPath();
 
                 Book book = new Book(view, bookCoverPath, bookFilePath,
                         title, rating, langID, publisherID, publishDate, description);
 
                 bookDB.BookDAO().insertBook(book);
-
                 //Sau khi thêm sách vào, chúng ta còn phải xử lý IDs, Tags và Authors trong mối quan hệ nhiều nhiều.
+                //Các tác giả của sách.
+                //Các IDs của sách.
             }
         });
+        view.BookAddedSuccess();
     }
 
     @Override

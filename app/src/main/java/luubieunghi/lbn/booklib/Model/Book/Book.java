@@ -84,7 +84,7 @@ public class Book {
         if (imgFile != null && imgFile.exists())
             this.bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             //Nếu đường dẫn không hợp lệ.
-        else
+        else if (context != null)
         {
             Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
             this.bookImage = drawableToBitmap(icon_book);

@@ -24,4 +24,7 @@ public interface BookDAO {
 
     @Delete
     void deleteBook(Book book);
+
+    @Query("DELETE FROM book")
+    void nukeTable();
 }

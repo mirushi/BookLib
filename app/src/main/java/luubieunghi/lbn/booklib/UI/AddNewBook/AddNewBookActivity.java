@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
@@ -28,11 +29,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.RatingView;
+import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 
 public class AddNewBookActivity extends AppCompatActivity implements AddNewBookContract.AddNewBookMVPView {
 
     //Biến định nghĩa requestCode cho việc chọn ảnh bìa của sách.
     final int requestCodeForBookCoverPathSelect = 317;
+
+    //Biến dùng để hiển thị hộp thoại bảo người dùng chờ.
+    final BookLoadingAlertDialog waitDialog = new BookLoadingAlertDialog(this);
 
     //Giữ tất cả component của View.
     Toolbar toolbar;
@@ -90,7 +95,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
             //Lấy đường dẫn đến ảnh người dùng chọn.
             pathToBookCover = data.getData();
             //Load lại ảnh dựa trên sự lựa chọn của người dùng.
-            Picasso.get().load(pathToBookCover).into(bookCover);
+            Glide.with(this).load(pathToBookCover).fitCenter().into(bookCover);
         }
     }
 
@@ -136,8 +141,8 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_add_new_book_finished);
                 {
+                    waitDialog.showDialog();
                     presenter.AddBook();
-                    finish();
                 }
                 return false;
             }
@@ -187,11 +192,15 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     @Override
     public void BookAddedSuccess() {
         //Hiển thị thông báo sách được thêm thành công.
+        Toast.makeText(this, "Book added succcessfully !", Toast.LENGTH_LONG);
+        waitDialog.hideDialog();
+        finish();
     }
 
     @Override
-    public void BookAddedFailure() {
+    public void BookAddedFailure(String reason) {
         //Hiển thị thông báo có lỗi xảy ra khi thêm sách.
+        Toast.makeText(this, "Something wrong." + reason, Toast.LENGTH_LONG).show();
     }
 
 
