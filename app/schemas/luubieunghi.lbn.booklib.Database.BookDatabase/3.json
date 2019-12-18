@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "c01c82b2ae14fba8b3479393ba813b92",
+    "version": 3,
+    "identityHash": "5734004a7a2c33fb909a6ac55e9fc431",
     "entities": [
       {
         "tableName": "book",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bookTitle` TEXT, `bCoverPath` TEXT, `rating` INTEGER NOT NULL, `langID` INTEGER NOT NULL, `publisherID` INTEGER NOT NULL, `publishDate` TEXT, `description` TEXT, `bTypeID` INTEGER NOT NULL, FOREIGN KEY(`langID`) REFERENCES `language`(`langID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`publisherID`) REFERENCES `publisher`(`publisherID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`bTypeID`) REFERENCES `bookType`(`bTypeID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bookTitle` TEXT, `bCoverPath` TEXT, `rating` INTEGER NOT NULL, `langID` INTEGER NOT NULL, `publisherID` INTEGER NOT NULL, `publishDate` TEXT, `description` TEXT, `bTypeID` INTEGER NOT NULL, FOREIGN KEY(`langID`) REFERENCES `language`(`langID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`publisherID`) REFERENCES `publisher`(`publisherID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`bTypeID`) REFERENCES `bookType`(`bTypeID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -98,7 +98,7 @@
         "foreignKeys": [
           {
             "table": "language",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "langID"
@@ -109,7 +109,7 @@
           },
           {
             "table": "publisher",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "publisherID"
@@ -120,7 +120,7 @@
           },
           {
             "table": "bookType",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "bTypeID"
@@ -159,7 +159,7 @@
       },
       {
         "tableName": "bookAuthor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `authorID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `authorID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`authorID`) REFERENCES `author`(`authorID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `authorID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `authorID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`authorID`) REFERENCES `author`(`authorID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -194,7 +194,7 @@
         "foreignKeys": [
           {
             "table": "book",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "bookID"
@@ -205,7 +205,7 @@
           },
           {
             "table": "author",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "authorID"
@@ -218,7 +218,7 @@
       },
       {
         "tableName": "bookidentitynum",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `IDName` TEXT NOT NULL, `IDValue` TEXT, PRIMARY KEY(`bookID`, `IDName`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `IDName` TEXT NOT NULL, `IDValue` TEXT, PRIMARY KEY(`bookID`, `IDName`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -250,7 +250,7 @@
         "foreignKeys": [
           {
             "table": "book",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "bookID"
@@ -263,7 +263,7 @@
       },
       {
         "tableName": "booktag",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `tagID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `tagID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`tagID`) REFERENCES `tag`(`tagID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `tagID` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `tagID`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`tagID`) REFERENCES `tag`(`tagID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -298,7 +298,7 @@
         "foreignKeys": [
           {
             "table": "book",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "bookID"
@@ -309,7 +309,7 @@
           },
           {
             "table": "tag",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "tagID"
@@ -409,7 +409,7 @@
       },
       {
         "tableName": "bookfile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `bFileOrder` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bFilePath` TEXT, `bRead` INTEGER NOT NULL, `bTotal` INTEGER NOT NULL, FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `bFileOrder` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bFilePath` TEXT, `bRead` INTEGER NOT NULL, `bTotal` INTEGER NOT NULL, FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -461,7 +461,7 @@
         "foreignKeys": [
           {
             "table": "book",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "bookID"
@@ -502,7 +502,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c01c82b2ae14fba8b3479393ba813b92')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5734004a7a2c33fb909a6ac55e9fc431')"
     ]
   }
 }

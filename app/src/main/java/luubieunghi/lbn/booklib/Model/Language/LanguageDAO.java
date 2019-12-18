@@ -27,4 +27,7 @@ public interface LanguageDAO {
 
     @Query("Select * from language where Language.langName = :langName")
     List<Language> searchForExactLanguageName(String langName);
+
+    @Query("DELETE FROM LANGUAGE")
+    void nukeTable();
 }

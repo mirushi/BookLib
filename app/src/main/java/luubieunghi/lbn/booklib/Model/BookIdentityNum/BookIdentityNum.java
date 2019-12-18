@@ -7,9 +7,11 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 @Entity(tableName = "bookidentitynum",
         primaryKeys = {"bookID", "IDName"},
-        foreignKeys = @ForeignKey(entity = Book.class, parentColumns = "bookID", childColumns = "bookID"))
+        foreignKeys = @ForeignKey(onDelete = CASCADE, entity = Book.class, parentColumns = "bookID", childColumns = "bookID"))
 public class BookIdentityNum {
     @ColumnInfo(name = "bookID")
     private int bookID;

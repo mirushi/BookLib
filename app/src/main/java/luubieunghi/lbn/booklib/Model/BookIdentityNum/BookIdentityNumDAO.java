@@ -21,4 +21,8 @@ public interface BookIdentityNumDAO {
 
     @Query("SELECT * from bookidentitynum where bookidentitynum.bookID = :bookID")
     List<BookIdentityNum> getBookIDs(int bookID);
+
+    @Query("DELETE FROM bookidentitynum")
+    void nukeTable();
+
 }

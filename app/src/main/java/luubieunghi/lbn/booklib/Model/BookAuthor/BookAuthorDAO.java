@@ -27,4 +27,7 @@ public interface BookAuthorDAO {
             "ON book.bookid = bookauthor.bookID " +
             "WHERE bookAuthor.authorID = :authorID")
     List<Book> getBooksWrittenByAuthor(final int authorID);
+
+    @Query("DELETE FROM bookAuthor")
+    void nukeTable();
 }

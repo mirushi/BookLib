@@ -66,8 +66,8 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 String bookCoverPath = bookCoverUri.getPath();
                 String bookFilePath = bookUri.getPath();
 
-                Book book = new Book(view, bookCoverPath, bookFilePath,
-                        title, rating, langID, publisherID, publishDate, description);
+                Book book = new Book(view, bookCoverPath,
+                        title, rating, langID, publisherID, publishDate, description, 0);
 
                 bookDB.BookDAO().insertBook(book);
                 //Sau khi thêm sách vào, chúng ta còn phải xử lý IDs, Tags và Authors trong mối quan hệ nhiều nhiều.

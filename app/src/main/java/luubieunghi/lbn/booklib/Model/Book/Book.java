@@ -18,13 +18,18 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import luubieunghi.lbn.booklib.Model.BookType.BookType;
 import luubieunghi.lbn.booklib.Model.Language.Language;
 import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
 import luubieunghi.lbn.booklib.R;
 
-@Entity (tableName = "book", indices = {@Index("langID"), @Index("publisherID")},foreignKeys = {
-        @ForeignKey(entity = Language.class, parentColumns = "langID", childColumns = "langID"),
-        @ForeignKey(entity = Publisher.class, parentColumns = "publisherID", childColumns = "publisherID")})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity (tableName = "book", indices = {@Index("langID"), @Index("publisherID"), @Index("bTypeID")},
+        foreignKeys = {
+        @ForeignKey(onDelete = CASCADE,entity = Language.class, parentColumns = "langID", childColumns = "langID"),
+        @ForeignKey(onDelete = CASCADE,entity = Publisher.class, parentColumns = "publisherID", childColumns = "publisherID"),
+        @ForeignKey(onDelete = CASCADE,entity = BookType.class, parentColumns = "bTypeID", childColumns = "bTypeID")})
 public class Book {
     //Các biến dùng cho RPL.
 
@@ -37,9 +42,6 @@ public class Book {
 
     @ColumnInfo(name = "bCoverPath")
     private String bookCoverPath;
-
-    @ColumnInfo(name = "bFilepath")
-    private String bookFilePath;
 
     @ColumnInfo(name = "rating")
     private int rating;
@@ -56,6 +58,9 @@ public class Book {
     @ColumnInfo(name = "description")
     private String description;
 
+    @ColumnInfo(name = "bTypeID")
+    private int bTypeID;
+
     //Biến dùng để lưu giữ hình ảnh cover cho sách.
     @Ignore
     Bitmap bookImage;
@@ -63,13 +68,13 @@ public class Book {
     @Ignore
     Context context;
 
-    public Book(int bookID, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
-                int langID, int publisherID, LocalDate publishDate, String description){
+    public Book(int bookID, String bookCoverPath, String bookTitle, int rating,
+                int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
 
         //Gán giá trị bởi những biến được truyền vào.
         this.bookID = bookID;
         this.bookCoverPath = bookCoverPath;
-        this.bookFilePath = bookFilePath;
+        this.bTypeID = bTypeID;
         this.bookTitle = bookTitle;
         this.rating = rating;
         this.langID = langID;
@@ -94,20 +99,20 @@ public class Book {
 
     //Đây là constructor có bookID.
     @Ignore
-    public Book(Context context, int bookID, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
-                int langID, int publisherID, LocalDate publishDate, String description){
-        this(bookID, bookCoverPath, bookFilePath,
-                bookTitle, rating, langID, publisherID, publishDate, description);
+    public Book(Context context, int bookID, String bookCoverPath, String bookTitle, int rating,
+                int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
+        this(bookID, bookCoverPath,
+                bookTitle, rating, langID, publisherID, publishDate, description, bTypeID);
         this.context = context;
     }
 
     //Constructor không có bookID.
     @Ignore
-    public Book (Context context, String bookCoverPath, String bookFilePath, String bookTitle, int rating,
-                 int langID, int publisherID, LocalDate publishDate, String description){
+    public Book (Context context, String bookCoverPath, String bookTitle, int rating,
+                 int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
         //Khởi tạo mà không có bookID thì ta cho bằng 0;
-        this(0, bookCoverPath, bookFilePath,
-                bookTitle, rating, langID, publisherID, publishDate, description);
+        this(0, bookCoverPath,
+                bookTitle, rating, langID, publisherID, publishDate, description, bTypeID);
         this.context = context;
     }
 
@@ -183,13 +188,9 @@ public class Book {
         this.bookCoverPath = bookCoverPath;
     }
 
-    public String getBookFilePath() {
-        return bookFilePath;
-    }
+    public int getBTypeID() { return bTypeID; }
 
-    public void setBookFilePath(String bookFilePath) {
-        this.bookFilePath = bookFilePath;
-    }
+    public void setBTypeID(int bTypeID) { this.bTypeID = bTypeID; }
 
     public int getRating() {
         return rating;

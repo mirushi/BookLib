@@ -7,12 +7,14 @@ import androidx.room.Index;
 import luubieunghi.lbn.booklib.Model.Author.Author;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 @Entity (tableName = "bookAuthor",
         indices = {@Index("authorID")},
         primaryKeys = {"bookID", "authorID"},
         foreignKeys = {
-                @ForeignKey(entity = Book.class, parentColumns = "bookID", childColumns = "bookID"),
-                @ForeignKey(entity = Author.class, parentColumns = "authorID", childColumns = "authorID")
+                @ForeignKey(onDelete = CASCADE, entity = Book.class, parentColumns = "bookID", childColumns = "bookID"),
+                @ForeignKey(onDelete = CASCADE, entity = Author.class, parentColumns = "authorID", childColumns = "authorID")
                 })
 public class BookAuthor {
 

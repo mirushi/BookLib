@@ -22,4 +22,8 @@ public interface BookTagDAO {
     @Query("SELECT tag.tagID, tag.tagContent from booktag inner join tag " +
             "ON booktag.tagID = tag.tagID WHERE booktag.bookID = :bookID")
     List<Tag> getAllTagsOfBook(int bookID);
+
+    @Query("DELETE FROM booktag")
+    void nukeTable();
+
 }
