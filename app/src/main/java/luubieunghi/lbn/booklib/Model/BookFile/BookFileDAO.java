@@ -17,7 +17,7 @@ public abstract class BookFileDAO {
     public abstract List<BookFile> getAllFilesOfBook(int bookID);
 
     @Query("DELETE FROM bookfile WHERE bookfile.bookID = :bookID")
-    public abstract void removeAllFilesOfBook(int bookID);
+    public abstract void removeAllFilesOfBook(long bookID);
 
     @Transaction
     public void deleteAllFilesOfBookThenInsert(BookFile ...bookfiles){

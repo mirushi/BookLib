@@ -9,18 +9,18 @@ import androidx.room.PrimaryKey;
 public class Tag {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tagID")
-    private int tagID;
+    private long tagID;
 
-    public Tag(int tagID, String tagContent) {
+    public Tag(long tagID, String tagContent) {
         this.tagID = tagID;
         this.tagContent = tagContent;
     }
 
-    public int getTagID() {
+    public long getTagID() {
         return tagID;
     }
 
-    public void setTagID(int tagID) {
+    public void setTagID(long tagID) {
         this.tagID = tagID;
     }
 

@@ -17,7 +17,7 @@ public interface BookDAO {
     List<Book> searchBookTitle(String subTitle);
 
     @Insert
-    void insertBook(Book book);
+    long insertBook(Book book);
 
     @Update
     void updateBook(Book book);

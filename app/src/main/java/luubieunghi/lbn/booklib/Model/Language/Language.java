@@ -10,21 +10,21 @@ import androidx.room.PrimaryKey;
 public class Language {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "langID")
-    private int langID;
+    private long langID;
 
     @ColumnInfo(name = "langName")
     private String langName;
 
-    public Language(int langID, String langName) {
+    public Language(long langID, String langName) {
         this.langID = langID;
         this.langName = langName;
     }
 
-    public int getLangID() {
+    public long getLangID() {
         return langID;
     }
 
-    public void setLangID(int langID) {
+    public void setLangID(long langID) {
         this.langID = langID;
     }
 

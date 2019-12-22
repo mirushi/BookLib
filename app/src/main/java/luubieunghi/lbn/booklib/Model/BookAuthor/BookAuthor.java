@@ -19,20 +19,20 @@ import static androidx.room.ForeignKey.CASCADE;
 public class BookAuthor {
 
     @ColumnInfo(name = "bookID")
-    private final int bookID;
+    private final long bookID;
     @ColumnInfo(name = "authorID")
-    private final int authorID;
+    private final long authorID;
 
-    public BookAuthor (final int bookID, final int authorID){
+    public BookAuthor (final long bookID, final long authorID){
         this.bookID = bookID;
         this.authorID = authorID;
     }
 
-    public int getBookID() {
+    public long getBookID() {
         return bookID;
     }
 
-    public int getAuthorID() {
+    public long getAuthorID() {
         return authorID;
     }
 }

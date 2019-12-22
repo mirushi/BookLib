@@ -16,29 +16,29 @@ import static androidx.room.ForeignKey.CASCADE;
                         @ForeignKey(onDelete = CASCADE, entity = Tag.class, parentColumns = "tagID", childColumns = "tagID")})
 public class BookTag {
     @ColumnInfo(name = "bookID")
-    private int bookID;
+    private long bookID;
 
     @ColumnInfo(name = "tagID")
-    private int tagID;
+    private long tagID;
 
-    public BookTag(int bookID, int tagID) {
+    public BookTag(long bookID, long tagID) {
         this.bookID = bookID;
         this.tagID = tagID;
     }
 
-    public int getBookID() {
+    public long getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(long bookID) {
         this.bookID = bookID;
     }
 
-    public int getTagID() {
+    public long getTagID() {
         return tagID;
     }
 
-    public void setTagID(int tagID) {
+    public void setTagID(long tagID) {
         this.tagID = tagID;
     }
 

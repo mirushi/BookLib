@@ -35,7 +35,7 @@ public class Book {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "bookID")
-    private int bookID = 0;
+    private long bookID = 0;
 
     @ColumnInfo(name = "bookTitle")
     private String bookTitle;
@@ -47,10 +47,10 @@ public class Book {
     private int rating;
 
     @ColumnInfo(name = "langID")
-    private int langID;
+    private long langID;
 
     @ColumnInfo(name = "publisherID")
-    private int publisherID;
+    private long publisherID;
 
     @ColumnInfo(name = "publishDate")
     private LocalDate publishDate;
@@ -59,7 +59,7 @@ public class Book {
     private String description;
 
     @ColumnInfo(name = "bTypeID")
-    private int bTypeID;
+    private long bTypeID;
 
     //Biến dùng để lưu giữ hình ảnh cover cho sách.
     @Ignore
@@ -68,8 +68,8 @@ public class Book {
     @Ignore
     Context context;
 
-    public Book(int bookID, String bookCoverPath, String bookTitle, int rating,
-                int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
+    public Book(long bookID, String bookCoverPath, String bookTitle, int rating,
+                long langID, long publisherID, LocalDate publishDate, String description, long bTypeID){
 
         //Gán giá trị bởi những biến được truyền vào.
         this.bookID = bookID;
@@ -99,8 +99,8 @@ public class Book {
 
     //Đây là constructor có bookID.
     @Ignore
-    public Book(Context context, int bookID, String bookCoverPath, String bookTitle, int rating,
-                int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
+    public Book(Context context, long bookID, String bookCoverPath, String bookTitle, int rating,
+                long langID, long publisherID, LocalDate publishDate, String description, long bTypeID){
         this(bookID, bookCoverPath,
                 bookTitle, rating, langID, publisherID, publishDate, description, bTypeID);
         this.context = context;
@@ -109,7 +109,7 @@ public class Book {
     //Constructor không có bookID.
     @Ignore
     public Book (Context context, String bookCoverPath, String bookTitle, int rating,
-                 int langID, int publisherID, LocalDate publishDate, String description, int bTypeID){
+                 long langID, long publisherID, LocalDate publishDate, String description, long bTypeID){
         //Khởi tạo mà không có bookID thì ta cho bằng 0;
         this(0, bookCoverPath,
                 bookTitle, rating, langID, publisherID, publishDate, description, bTypeID);
@@ -164,11 +164,11 @@ public class Book {
 
     //Getters và Setters bên dưới.
 
-    public int getBookID() {
+    public long getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(long bookID) {
         this.bookID = bookID;
     }
 
@@ -188,9 +188,9 @@ public class Book {
         this.bookCoverPath = bookCoverPath;
     }
 
-    public int getBTypeID() { return bTypeID; }
+    public long getBTypeID() { return bTypeID; }
 
-    public void setBTypeID(int bTypeID) { this.bTypeID = bTypeID; }
+    public void setBTypeID(long bTypeID) { this.bTypeID = bTypeID; }
 
     public int getRating() {
         return rating;
@@ -200,19 +200,19 @@ public class Book {
         this.rating = rating;
     }
 
-    public int getLangID() {
+    public long getLangID() {
         return langID;
     }
 
-    public void setLangID(int langID) {
+    public void setLangID(long langID) {
         this.langID = langID;
     }
 
-    public int getPublisherID() {
+    public long getPublisherID() {
         return publisherID;
     }
 
-    public void setPublisherID(int publisherID) {
+    public void setPublisherID(long publisherID) {
         this.publisherID = publisherID;
     }
 

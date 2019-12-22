@@ -9,12 +9,12 @@ import androidx.room.PrimaryKey;
 public class Author {
     @PrimaryKey (autoGenerate = true)
     @ColumnInfo (name = "authorID")
-    private int authorID;
+    private long authorID;
 
     @ColumnInfo (name = "authorName")
     String authorName;
 
-    public Author (int authorID, String authorName){
+    public Author (long authorID, String authorName){
         this.authorID = authorID;
         this.authorName = authorName;
     }
@@ -25,11 +25,11 @@ public class Author {
         this.authorName = authorName;
     }
 
-    public int getAuthorID() {
+    public long getAuthorID() {
         return authorID;
     }
 
-    public void setAuthorID(int authorID) {
+    public void setAuthorID(long authorID) {
         this.authorID = authorID;
     }
 
