@@ -13,6 +13,5 @@ public class SongFragmentContract {
     }
     interface IBaiHatFragmentPresenter{
 
-        void updateListView();
     }
 }

@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaTimestamp;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,38 +59,50 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        song=(Song)getIntent().getSerializableExtra("song");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
-        Intent intent=getIntent();
+        song=(Song)getIntent().getSerializableExtra("song");
         //BUG TO Ở ĐÂY
-        AudioDatabase database=AudioDatabase.getInstance(this);
-        //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
-        List<Song> songs= database.song_dao().getByIDs("BH1");
-        currentSong =songs.get(0);
-        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
-        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+        if(song==null){
+            AudioDatabase database=AudioDatabase.getInstance(this);
+            //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+            List<Song> songs= database.song_dao().getByIDs("BH1");
+            currentSong =songs.get(0);
+            mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+        }
+        else {
+            int a=1;
+            if(!(currentSong==null))
+            {
+                if(currentSong.getSongID().equals(song.getSongID())){
+
+                }
+                else{
+                    currentSong=song;
+                    mediaPlayer.stop();
+                    mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+                    mediaPlayer.start();
+                }
+            }
+            else{
+                currentSong=song;
+                mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+                mediaPlayer.start();
+            }
+
+        }
         addControls();
         //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
         txt_ToTalTime.setText(mediaPlayer.getDuration()+"");
         seekBar_Time.setMax(mediaPlayer.getDuration());
+        img.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(currentSong.getImagePath())));
         ConfigGesturesListener();
         addEvents();
-        SyncTime syncTime=new SyncTime();
-        new Thread(syncTime).start();
         presenter=new PlayMusicPresenter(this);
     }
 
-
-    class SyncTime implements Runnable {
-        @Override
-        public void run() {
-            while (mediaPlayer.isPlaying()){
-                txt_CurrentTime.setText(mediaPlayer.getCurrentPosition()+"");
-            }
-        }
-    }
 
     @Override
     public void addEvents() {

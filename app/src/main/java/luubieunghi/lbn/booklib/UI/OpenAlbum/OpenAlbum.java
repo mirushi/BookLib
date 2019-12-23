@@ -14,8 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
 import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.Model.Album_Song.Album_Song;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BaiHatAdapter;
@@ -33,10 +36,17 @@ public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_album);
+        AudioDatabase ab=AudioDatabase.getInstance(this);
         Album album=(Album) getIntent().getSerializableExtra("album");
+        ArrayList<String> dsIDS=new ArrayList<>();
+        dsIDS.addAll(ab.album_song_dao().getSongIDByID(album.getAlbumID()));
+        String IDS[]=new String[dsIDS.size()];
+        IDS=dsIDS.toArray(IDS);
+        dsSong=new ArrayList<>();
+        dsSong.addAll(ab.song_dao().getByIDs(IDS));
         addControls();
         addEvents();
-        presenter=new OpenAlbumPresenter(OpenAlbum.this,this);
+        presenter=new OpenAlbumPresenter(OpenAlbum.this,this,dsSong);
     }
 
 

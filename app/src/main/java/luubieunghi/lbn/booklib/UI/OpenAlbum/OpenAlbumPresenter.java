@@ -10,23 +10,11 @@ public class OpenAlbumPresenter implements OpenAlbumContract.IOpenAlbumPresenter
 
     private Context context;
     private OpenAlbumContract.IOpenAlbumView view;
-    private ArrayList<Song> listSong;
-    public OpenAlbumPresenter(Context context, OpenAlbumContract.IOpenAlbumView view) {
+    public OpenAlbumPresenter(Context context, OpenAlbumContract.IOpenAlbumView view, ArrayList<Song> songs) {
         this.context = context;
         this.view=view;
-        listSong = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            listSong.add(new Song("ID "+i,"Song "+i,"FilePath "+i,0,"ImagePath "+i,"Artist "+i));;
-        }
-        updateListView();
+        view.updateListView(songs);
     }
-
-    public void updateListView(){
-        view.updateListView(listSong);
-    }
-
-    public void addSong(Song song){
-        listSong.add(song);
-    }
+    
 
 }

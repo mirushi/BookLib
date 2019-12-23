@@ -1,6 +1,9 @@
 package luubieunghi.lbn.booklib.Adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +43,15 @@ public class BaiHatAdapter extends ArrayAdapter {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 //            img_HinhBaiHat_DanhSachBaiHat.setAccessibilityPaneTitle(song.getHinh());
 //        }
+
+
         txt_TenBaiHat_Item_Song.setText(song.getSongName());
         txt_TenCaSi_Item_Song.setText(song.getArtistNames());
+        img_HinhBaiHat_Item_Song.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(song.getImagePath())));
         return row;
+    }
+
+    public void resizeImage(Image image){
+
     }
 }
