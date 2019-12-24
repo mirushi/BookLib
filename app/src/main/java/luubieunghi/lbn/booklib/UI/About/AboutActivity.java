@@ -1,17 +1,13 @@
 package luubieunghi.lbn.booklib.UI.About;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import luubieunghi.lbn.booklib.R;
 
 public class AboutActivity extends AppCompatActivity {

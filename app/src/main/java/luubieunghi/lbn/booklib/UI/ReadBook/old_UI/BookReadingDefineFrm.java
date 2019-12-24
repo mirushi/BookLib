@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-
 import luubieunghi.lbn.booklib.R;
 
 public class BookReadingDefineFrm extends Fragment implements DefineFrmContract.DefineFrmView {

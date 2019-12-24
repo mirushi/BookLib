@@ -8,21 +8,21 @@ import androidx.room.PrimaryKey;
 public class Publisher {
     @PrimaryKey (autoGenerate = true)
     @ColumnInfo(name = "publisherID")
-    private int publisherID;
+    private long publisherID;
 
     @ColumnInfo(name = "publisherName")
     private String publisherName;
 
-    public Publisher(int publisherID, String publisherName) {
+    public Publisher(long publisherID, String publisherName) {
         this.publisherID = publisherID;
         this.publisherName = publisherName;
     }
 
-    public int getPublisherID() {
+    public long getPublisherID() {
         return publisherID;
     }
 
-    public void setPublisherID(int publisherID) {
+    public void setPublisherID(long publisherID) {
         this.publisherID = publisherID;
     }
 

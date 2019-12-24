@@ -8,4 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EbookTypesSelectorDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert"/>
+
 </resources>

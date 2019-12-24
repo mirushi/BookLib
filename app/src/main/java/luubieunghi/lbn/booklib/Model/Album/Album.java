@@ -1,11 +1,11 @@
 package luubieunghi.lbn.booklib.Model.Album;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.io.Serializable;
 
 @Entity(tableName = "Album")
 public class Album implements Serializable {

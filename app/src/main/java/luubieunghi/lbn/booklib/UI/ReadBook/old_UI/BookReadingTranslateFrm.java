@@ -10,10 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
 import luubieunghi.lbn.booklib.R;
 
 public class BookReadingTranslateFrm extends Fragment implements TranslateFrmContract.TranslateFrmView {

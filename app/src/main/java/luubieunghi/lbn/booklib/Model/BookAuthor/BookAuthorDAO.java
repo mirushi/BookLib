@@ -15,6 +15,12 @@ public interface BookAuthorDAO {
     @Insert
     void Insert(BookAuthor bookAuthor);
 
+    @Insert
+    void Insert(BookAuthor ...bookAuthors);
+
+    @Insert
+    void Insert(List<BookAuthor> bookAuthors);
+
     @Delete
     void Delete(BookAuthor bookAuthor);
 

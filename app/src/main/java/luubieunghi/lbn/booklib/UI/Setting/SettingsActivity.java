@@ -7,9 +7,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.SettingsItemAdapter;
 import luubieunghi.lbn.booklib.Model.SettingItemModel;
+import luubieunghi.lbn.booklib.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

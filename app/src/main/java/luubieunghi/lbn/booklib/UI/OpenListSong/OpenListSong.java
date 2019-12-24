@@ -7,16 +7,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
-
-
-import luubieunghi.lbn.booklib.UI.OpenAlbum.SongFragment;
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.ListSongAdapter;
+import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.OpenAlbum.SongFragment;
 
 public class OpenListSong extends AppCompatActivity implements OpenListSongContract.IOpenListSongView {
 

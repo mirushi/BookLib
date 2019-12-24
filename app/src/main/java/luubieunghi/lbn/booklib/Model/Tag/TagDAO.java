@@ -1,27 +1,46 @@
 package luubieunghi.lbn.booklib.Model.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
+import androidx.room.Transaction;
 
 @Dao
-public interface TagDAO {
+public abstract class TagDAO {
     @Insert
-    void Insert(Tag tag);
+    public abstract long Insert(Tag tag);
 
     @Delete
-    void Delete(Tag tag);
+    public abstract void Delete(Tag tag);
 
     @Query("SELECT * FROM tag WHERE tag.tagContent LIKE '%' ||:subTag|| '%'")
-    List<Tag> searchForTags(String subTag);
+    public abstract List<Tag> searchForTags(String subTag);
 
     @Query("SELECT * FROM tag")
-    List<Tag> getAllTags();
+    public abstract List<Tag> getAllTags();
+
+    @Query("SELECT * FROM tag WHERE tag.tagContent = :tagName")
+    public abstract Tag getExactTagFromName(String tagName);
 
     @Query("DELETE FROM tag")
-    void nukeTable();
+    public abstract void nukeTable();
+
+    @Transaction
+    public List<Tag> insertIfNotExistAndReturnTags(String[] tagNames){
+        List<Tag> result = new ArrayList<>();
+        for (String tagName : tagNames){
+            Tag tag = getExactTagFromName(tagName);
+            if (tag == null){
+                tag = new Tag(0, tagName);
+                Long tagID = Insert(tag);
+                tag.setTagID(tagID);
+            }
+            result.add(tag);
+        }
+        return result;
+    }
 }

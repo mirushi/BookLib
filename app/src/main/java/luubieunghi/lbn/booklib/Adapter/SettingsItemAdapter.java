@@ -12,8 +12,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Model.SettingItemModel;
+import luubieunghi.lbn.booklib.R;
 
 public class SettingsItemAdapter extends ArrayAdapter<SettingItemModel> {
 

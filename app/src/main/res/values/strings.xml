@@ -9,6 +9,10 @@
         <item>Tiếng Anh</item>
         <item>Tiếng Việt</item>
     </string-array>
+    <string-array name="book_types">
+        <item>Ebook</item>
+        <item>Audio Book</item>
+    </string-array>
     <string name="content">I\'m not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.I\'m not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.Im not able to setText() of a TextView inside a ViewPager. here is my main activity class. I want to update a textView inside a swipe of layouts made by ViewPager.I</string>
 <string name = "general"><b>General</b></string>
 

@@ -9,21 +9,23 @@ import androidx.room.Query;
 import luubieunghi.lbn.booklib.Model.Tag.Tag;
 
 @Dao
-public interface BookTagDAO {
+public abstract class BookTagDAO {
     @Insert
-    void Insert(BookTag bookTag);
+    public abstract void Insert(BookTag bookTag);
+
+    @Insert
+    public abstract void Insert(List<BookTag> bookTags);
 
     @Delete
-    void Delete(BookTag bookTag);
+    public abstract void Delete(BookTag bookTag);
 
     @Query("SELECT * from booktag where booktag.bookID = :bookID")
-    List<BookTag> getAllBookTagsOfBook(int bookID);
+    public abstract List<BookTag> getAllBookTagsOfBook(int bookID);
 
     @Query("SELECT tag.tagID, tag.tagContent from booktag inner join tag " +
             "ON booktag.tagID = tag.tagID WHERE booktag.bookID = :bookID")
-    List<Tag> getAllTagsOfBook(int bookID);
+    public abstract List<Tag> getAllTagsOfBook(int bookID);
 
     @Query("DELETE FROM booktag")
-    void nukeTable();
-
+    public abstract void nukeTable();
 }

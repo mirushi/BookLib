@@ -1,26 +1,21 @@
 package luubieunghi.lbn.booklib.UI.PlayAudio;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import luubieunghi.lbn.booklib.R;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.equalizer;

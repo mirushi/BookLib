@@ -2,12 +2,12 @@ package luubieunghi.lbn.booklib.Adapter;
 
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

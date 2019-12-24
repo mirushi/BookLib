@@ -70,6 +70,11 @@ public abstract class BookDatabase extends RoomDatabase {
                 bookDatabaseInstance.BookIdentityNumDAO().nukeTable();
                 bookDatabaseInstance.BookTagDAO().nukeTable();
                 bookDatabaseInstance.TagDAO().nukeTable();
+                bookDatabaseInstance.LanguageDAO().Insert(new Language(0,"English"));
+                bookDatabaseInstance.LanguageDAO().Insert(new Language(0, "Tiếng Việt"));
+                bookDatabaseInstance.BookTypeDAO().Insert(new BookType(0, "Ebook"));
+                bookDatabaseInstance.BookTypeDAO().Insert(new BookType(1, "Audio Book"));
+
             }
         });
     }

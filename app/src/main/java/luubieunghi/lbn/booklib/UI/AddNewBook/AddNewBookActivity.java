@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +19,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import androidx.annotation.Nullable;
@@ -54,9 +55,12 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     EditText txtDescription;
 
     //Giữ URI đến file được người dùng chọn.
-    Uri pathToFile;
+    ArrayList<Uri> pathToFiles = new ArrayList<>();
     //Giữ URI đến file ảnh được người dùng chọn làm bìa sách.
     Uri pathToBookCover;
+
+    //Giữ một chuỗi phân biệt xem đây là loại sách gì (Ebook, Audio Book).
+    String bookType = "";
 
     Calendar calSelectedPublishingDate;
     private int mYear, mMonth, mDay;
@@ -79,7 +83,11 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         ConfigListeners();
 
         //Test xem URI được truyền đúng chưa.
-        Toast.makeText(this, "URI = " + pathToFile, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "URI = " + pathToFile, Toast.LENGTH_SHORT).show();
+        for (Uri pathToFile : pathToFiles){
+            Log.d("PATH_TO_FILE_STRING", pathToFile.toString());
+            Log.d("PATH_TO_FILE_GETPATH", pathToFile.getPath());
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,7 +130,13 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         mYear = c.get(Calendar.YEAR);
 
         //Gán giá trị từ đường dẫn người dùng chọn file.
-        pathToFile = getIntent().getExtras().getParcelable("EXTRA_BOOK_URI");
+        try
+        {
+            pathToFiles = getIntent().getExtras().getParcelableArrayList("EXTRA_BOOK_URI");
+            bookType = getIntent().getExtras().getParcelable("BOOK_TYPE");
+        }catch(NullPointerException npe){
+            npe.printStackTrace();
+        }
 
         //Tạo mới Presenter luôn.
         presenter = new AddNewBookPresenter(this);

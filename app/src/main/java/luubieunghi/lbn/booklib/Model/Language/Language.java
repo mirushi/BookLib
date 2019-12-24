@@ -2,29 +2,27 @@ package luubieunghi.lbn.booklib.Model.Language;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "language")
 public class Language {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "langID")
-    private int langID;
+    private long langID;
 
     @ColumnInfo(name = "langName")
     private String langName;
 
-    public Language(int langID, String langName) {
+    public Language(long langID, String langName) {
         this.langID = langID;
         this.langName = langName;
     }
 
-    public int getLangID() {
+    public long getLangID() {
         return langID;
     }
 
-    public void setLangID(int langID) {
+    public void setLangID(long langID) {
         this.langID = langID;
     }
 

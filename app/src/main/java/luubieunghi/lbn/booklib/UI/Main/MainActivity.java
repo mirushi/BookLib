@@ -1,7 +1,26 @@
 package luubieunghi.lbn.booklib.UI.Main;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.google.android.material.tabs.TabLayout;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
@@ -9,12 +28,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import luubieunghi.lbn.booklib.R;
+import droidninja.filepicker.FilePickerBuilder;
+import droidninja.filepicker.FilePickerConst;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
+import luubieunghi.lbn.booklib.Database.BookDatabase;
+
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
+
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,6 +50,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -36,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     //Request code cho việc nhận thông tin đóng mở file.
-    private final int contentActRequestCode = 311;
+    private final int requestCodeEbook = 311;
+
+    private final int requestCodeAudioBook = 201;
+
+    private boolean storagePermissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +121,56 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Xử lý việc chọn file sách.
-        if (requestCode == contentActRequestCode && resultCode == RESULT_OK){
-            Uri selectedFile = data.getData();
-            Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
-            //Thêm URI vào nữa chứ.
-            intentGoToAddNewBook.putExtra("EXTRA_BOOK_URI", selectedFile);
-            startActivity(intentGoToAddNewBook);
+        switch(requestCode){
+            //Xử lý việc chọn file sách.
+            case requestCodeEbook:{
+                if (resultCode == RESULT_OK && data != null){
+                    Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
+                    ArrayList<Uri> selectedFiles = new ArrayList<>();
+
+                    //Nếu người dùng không chọn nhiều file thì chỉ lấy thông tin 1 file duy nhất.
+                    if (data.getClipData() == null)
+                        selectedFiles.add(data.getData());
+                    else{
+                        int itemCount = data.getClipData().getItemCount();
+                        for (int i =0;i<itemCount;++i){
+                            Uri filePath = data.getClipData().getItemAt(i).getUri();
+                            selectedFiles.add(filePath);
+                        }
+                    }
+
+                    //Thêm URI vào nữa chứ.
+                    intentGoToAddNewBook.putParcelableArrayListExtra("EXTRA_BOOK_URI", selectedFiles);
+                    intentGoToAddNewBook.putExtra("BOOK_TYPE", "EBOOK");
+
+                    startActivity(intentGoToAddNewBook);
+                }
+                break;
+            }
+            //Xử lý việc chọn file audio book.
+            case requestCodeAudioBook:{
+                if (resultCode == Activity.RESULT_OK && data != null){
+                    Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
+                    ArrayList<Uri> selectedFiles = new ArrayList<>();
+
+                    //Nếu người dùng không chọn nhiều file thì chỉ lấy thông tin 1 file duy nhất.
+                    if (data.getClipData() == null)
+                        selectedFiles.add(data.getData());
+                    else{
+                        int itemCount = data.getClipData().getItemCount();
+                        for (int i =0;i<itemCount;++i){
+                            Uri filePath = data.getClipData().getItemAt(i).getUri();
+                            selectedFiles.add(filePath);
+                        }
+                    }
+
+                    intentGoToAddNewBook.putParcelableArrayListExtra("EXTRA_AUDIO_BOOK_URI", selectedFiles);
+                    intentGoToAddNewBook.putExtra("BOOK_TYPE", "AUDIO_BOOK");
+                    startActivity(intentGoToAddNewBook);
+                }
+                break;
+            }
+
         }
     }
 
@@ -124,8 +196,37 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.menu_main_item_add_book:
                     {
-                        Intent intentOpenContentUI = new Intent().setType("application/epub+zip").setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intentOpenContentUI, "Select a epub book"), contentActRequestCode);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.EbookTypesSelectorDialog);
+                        builder.setTitle("Chọn loại sách");
+
+                        //Danh sách.
+                        String[] bookTypes = {"Ebook", "Audio Book"};
+
+                        builder.setItems(bookTypes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                    {
+                                        //Nếu chọn Ebook thì ta mở cho chọn 1 file thôi.
+                                        Intent intentOpenContentUI = new Intent().setType("application/epub+zip").setAction(Intent.ACTION_GET_CONTENT);
+                                        intentOpenContentUI.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                                        startActivityForResult(Intent.createChooser(intentOpenContentUI, "Select a epub book"), requestCodeEbook);
+                                        break;
+                                    }
+                                    case 1:
+                                    {
+                                        Intent intentOpenContentUI = new Intent().setType("audio/mpeg").setAction(Intent.ACTION_GET_CONTENT);
+                                        intentOpenContentUI.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                                        startActivityForResult(Intent.createChooser(intentOpenContentUI, "Select audio book files"), requestCodeAudioBook);
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         break;
                     }
                     case R.id.menu_item_settings:

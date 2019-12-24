@@ -6,23 +6,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.IBinder;
-
 import android.widget.RemoteViews;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
-
-import java.io.IOException;
-
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 

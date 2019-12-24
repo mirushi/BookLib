@@ -11,7 +11,10 @@ import androidx.room.Update;
 @Dao
 public interface BookIdentityNumDAO {
     @Insert
-    void Insert(BookIdentityNum bookIdentityNum);
+    long Insert(BookIdentityNum bookIdentityNum);
+
+    @Insert
+    List<Long> Insert(List<BookIdentityNum> bookIdentityNums);
 
     @Delete
     void Delete(BookIdentityNum bookIdentityNum);

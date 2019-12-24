@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
-
 import luubieunghi.lbn.booklib.Model.Note;
 import luubieunghi.lbn.booklib.R;
 

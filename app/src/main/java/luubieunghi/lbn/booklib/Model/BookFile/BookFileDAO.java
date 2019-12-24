@@ -4,7 +4,6 @@ import java.util.List;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
-import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -17,7 +16,7 @@ public abstract class BookFileDAO {
     public abstract List<BookFile> getAllFilesOfBook(int bookID);
 
     @Query("DELETE FROM bookfile WHERE bookfile.bookID = :bookID")
-    public abstract void removeAllFilesOfBook(int bookID);
+    public abstract void removeAllFilesOfBook(long bookID);
 
     @Transaction
     public void deleteAllFilesOfBookThenInsert(BookFile ...bookfiles){
@@ -29,6 +28,9 @@ public abstract class BookFileDAO {
 
     @Insert
     public abstract void insertBookFile(BookFile... bookFiles);
+
+    @Insert
+    public abstract void insertBookFile(List<BookFile> bookFileList);
 
     @Update
     public abstract void updateBookFile(BookFile newBookFile);

@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
-import luubieunghi.lbn.booklib.UI.BookPageManagement.PageManagementRecyclerViewItem;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.BookPageManagement.PageManagementRecyclerViewItem;
 
 public class PageManagementRecyclerViewAdapter extends RecyclerView.Adapter<PageManagementRecyclerViewAdapter.ViewHolder> {
     List<PageManagementRecyclerViewItem> pageList;

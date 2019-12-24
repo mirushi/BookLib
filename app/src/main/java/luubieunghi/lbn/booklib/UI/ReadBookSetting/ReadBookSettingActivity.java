@@ -3,7 +3,6 @@ package luubieunghi.lbn.booklib.UI.ReadBookSetting;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import luubieunghi.lbn.booklib.R;
 
 public class ReadBookSettingActivity extends AppCompatActivity {

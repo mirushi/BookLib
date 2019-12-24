@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import luubieunghi.lbn.booklib.Model.Song.Song;
-import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 
 public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter {
 

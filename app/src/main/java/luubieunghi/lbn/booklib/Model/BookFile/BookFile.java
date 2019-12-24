@@ -17,7 +17,7 @@ public class BookFile {
 
     //Các biến dùng cho RSL.
     @ColumnInfo(name = "bookID")
-    private int bookID;
+    private long bookID;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "bFileOrder")
@@ -32,11 +32,19 @@ public class BookFile {
     @ColumnInfo(name = "bTotal")
     private long bTotal;
 
-    public int getBookID() {
+    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal) {
+        this.bookID = bookID;
+        this.bFileOrder = bFileOrder;
+        this.bFilePath = bFilePath;
+        this.bRead = bRead;
+        this.bTotal = bTotal;
+    }
+
+    public long getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(long bookID) {
         this.bookID = bookID;
     }
 

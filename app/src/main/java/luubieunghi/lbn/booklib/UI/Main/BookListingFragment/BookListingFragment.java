@@ -15,10 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
 import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
 
 public class BookListingFragment extends Fragment implements BookListingContract.BookListingMVPView {

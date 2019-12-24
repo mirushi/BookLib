@@ -8,21 +8,21 @@ import androidx.room.PrimaryKey;
 public class BookType {
     @PrimaryKey
     @ColumnInfo(name = "bTypeID")
-    private int bTypeID;
+    private long bTypeID;
 
     @ColumnInfo(name = "bTypeName")
     private String bTypeName;
 
-    public BookType(int bTypeID, String bTypeName) {
+    public BookType(long bTypeID, String bTypeName) {
         this.bTypeID = bTypeID;
         this.bTypeName = bTypeName;
     }
 
-    public int getBTypeID() {
+    public long getBTypeID() {
         return bTypeID;
     }
 
-    public void setBTypeID(int bTypeID) {
+    public void setBTypeID(long bTypeID) {
         this.bTypeID = bTypeID;
     }
 
