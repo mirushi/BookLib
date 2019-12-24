@@ -9,12 +9,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
+import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
+import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 import android.content.Intent;
 import android.content.res.Configuration;

@@ -26,4 +26,7 @@ public interface AuthorDAO {
 
     @Delete
     void deleteAuthor(Author author);
+
+    @Query("DELETE FROM author")
+    void nukeTable();
 }

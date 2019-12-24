@@ -71,7 +71,6 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
         }
         else {
-            int a=1;
             if(!(currentSong==null))
             {
                 if(currentSong.getSongID().equals(song.getSongID())){
@@ -93,6 +92,12 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             }
 
         }
+//        AudioDatabase database=AudioDatabase.getInstance(this);
+//        //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+//        List<Song> songs= database.song_dao().getByIDs("BH1");
+//        //currentSong =songs.get(0);
+//        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
+//        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
         addControls();
         //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
         txt_ToTalTime.setText(mediaPlayer.getDuration()+"");

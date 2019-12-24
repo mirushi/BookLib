@@ -21,4 +21,7 @@ public interface TagDAO {
 
     @Query("SELECT * FROM tag")
     List<Tag> getAllTags();
+
+    @Query("DELETE FROM tag")
+    void nukeTable();
 }

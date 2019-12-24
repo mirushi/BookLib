@@ -9,7 +9,7 @@ import luubieunghi.lbn.booklib.Model.Book.Book;
 public interface AddNewBookContract {
     interface AddNewBookMVPView{
         void BookAddedSuccess();
-        void BookAddedFailure();
+        void BookAddedFailure(String reason);
     }
     interface AddNewBookMVPPresenter{
         void AddBook();
