@@ -45,7 +45,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:2.9.7"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.7"
 
-    implementation 'com.github.dongnvsince1999:FolioReader-Android:0.5.4-6'
+    implementation 'com.github.dongnvsince1999:FolioReader-Android:0.5.4-7'
 
 
 
