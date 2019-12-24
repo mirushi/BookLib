@@ -61,7 +61,9 @@ public class BookReadingActivity extends AppCompatActivity
                 .setOnClosedListener(this);
 
         getHighlightsAndSave();
+
         ReadLocator readLocator = getLastReadLocator();
+
         Config config = AppUtil.getSavedConfig(getApplicationContext());
         if (config == null)
             config = new Config();
@@ -69,8 +71,9 @@ public class BookReadingActivity extends AppCompatActivity
 
         folioReader.setReadLocator(readLocator);
         folioReader.setConfig(config, true)
-                .openBook("file:///android_asset/TheSilverChair.epub");
+               .openBook("file:///android_asset/TheSilverChair.epub");
     }
+
 
     private ReadLocator getLastReadLocator() {
 

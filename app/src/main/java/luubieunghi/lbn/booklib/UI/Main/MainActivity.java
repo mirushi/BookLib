@@ -9,15 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
-import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
-import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,7 +23,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_app_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("BookLib");
         toolbar.setSubtitle("Ứng dụng hỗ trợ quản lý ebook toàn diện");
-        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.inflateMenu(R.menu.main_app_menu);
 
         //Đi đến Activities giới thiệu sản phẩm.
         toolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
