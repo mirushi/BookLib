@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BookLib</string>
+    <string name="app_name_mine">BookLib</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Close</string>
     <string name="app_version_no">Phiên bản : 1.0.0</string>

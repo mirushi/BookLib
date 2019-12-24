@@ -1,7 +1,23 @@
-package luubieunghi.lbn.booklib.UI.ReadBook.new_UI;
+package luubieunghi.lbn.booklib.UI.ReadBook.new_UI;/*
+ * Copyright (C) 2016 Pedro Paulo de Amorim
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,7 +35,6 @@ import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadLocatorListener;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,12 +61,7 @@ public class BookReadingActivity extends AppCompatActivity
                 .setOnClosedListener(this);
 
         getHighlightsAndSave();
-        setUpView();
-    }
-
-    private void setUpView() {
         ReadLocator readLocator = getLastReadLocator();
-
         Config config = AppUtil.getSavedConfig(getApplicationContext());
         if (config == null)
             config = new Config();
@@ -60,16 +70,7 @@ public class BookReadingActivity extends AppCompatActivity
         folioReader.setReadLocator(readLocator);
         folioReader.setConfig(config, true)
                 .openBook("file:///android_asset/TheSilverChair.epub");
-//        try {
-//            String fileName = "file:///android_asset/TheSilverChair.epub";
-//            File file = getFileStreamPath(fileName);
-//            folioReader.openBook(file.getAbsolutePath());
-//            Log.e("file: ", "file: " + fileName);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
-
 
     private ReadLocator getLastReadLocator() {
 
@@ -162,4 +163,3 @@ public class BookReadingActivity extends AppCompatActivity
         Log.v(LOG_TAG, "-> onFolioReaderClosed");
     }
 }
-
