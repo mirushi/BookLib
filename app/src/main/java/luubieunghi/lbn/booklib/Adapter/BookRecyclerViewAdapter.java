@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
+import luubieunghi.lbn.booklib.UI.ReadBook.new_UI.BookReadingActivity;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 
@@ -56,7 +56,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             public void onClick(View v) {
                 Integer position = holder.getAdapterPosition();
                 Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ReadBookActivity.class);
+                Intent intent = new Intent(context, BookReadingActivity.class);
                 context.startActivity(intent);
             }
         });
