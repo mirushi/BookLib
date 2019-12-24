@@ -1,13 +1,15 @@
 package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import luubieunghi.lbn.booklib.Model.Book.Book;
 
 public interface BookListingContract {
     interface BookListingMVPView {
         void AddOneBookToView(Book book, BookListingReadProgressFilter filter);
-        void AddMultipleBookToView(ArrayList<Book> books, BookListingReadProgressFilter filter);
+        void AddMultipleBookToView(List<Book> books, BookListingReadProgressFilter filter);
+        void SetLoadingDialog(boolean show);
     }
     interface BookListingMVPPresenter{
         void LoadBookList(BookListingReadProgressFilter filter);

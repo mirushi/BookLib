@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
 
 public class BookListingFragment extends Fragment implements BookListingContract.BookListingMVPView {
@@ -46,6 +48,9 @@ public class BookListingFragment extends Fragment implements BookListingContract
     ArrayList<Book> inProgressBooks = new ArrayList<>();
     ArrayList<Book> finishedBooks = new ArrayList<>();
 
+    //Dialog dùng để chặn người dùng thao tác với màn hình khi sách đang load.
+    BookLoadingAlertDialog dialog;
+
     public static BookListingFragment newInstance(BookFilterType filter)
     {
         BookListingFragment fragment = new BookListingFragment();
@@ -62,6 +67,8 @@ public class BookListingFragment extends Fragment implements BookListingContract
         //Đọc thông điệp được nhận từ Bundle để biết kiểu filter là gì.
         int filterValue = getArguments().getInt("filterValue", 0);
         filter = BookFilterType.getFilterType(filterValue);
+
+        dialog = new BookLoadingAlertDialog(this.getActivity());
 
         //Khởi tạo mới presenter ở đây.
         presenter = new BookListingPresenter(this);
@@ -210,7 +217,7 @@ public class BookListingFragment extends Fragment implements BookListingContract
     }
 
     @Override
-    public void AddMultipleBookToView(ArrayList<Book> books, BookListingReadProgressFilter filter) {
+    public void AddMultipleBookToView(List<Book> books, BookListingReadProgressFilter filter) {
         if (filter == BookListingReadProgressFilter.NEW){
             freshStartBooks.addAll(books);
             freshBookRecyclerViewAdapter.notifyDataSetChanged();
@@ -222,6 +229,16 @@ public class BookListingFragment extends Fragment implements BookListingContract
         else if (filter == BookListingReadProgressFilter.FINISHED){
             finishedBooks.addAll(books);
             finishedBookRecyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void SetLoadingDialog(boolean show) {
+        if (show){
+            dialog.showDialog();
+        }
+        else{
+            dialog.hideDialog();
         }
     }
 }

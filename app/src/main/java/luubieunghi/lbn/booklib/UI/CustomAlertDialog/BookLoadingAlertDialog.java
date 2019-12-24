@@ -19,25 +19,28 @@ public class BookLoadingAlertDialog {
 
     public void showDialog() {
 
-        dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog == null)
+        {
+            dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        //Chỉnh Cancelable = false để nó không thể bị cancel trong lúc chờ load.
-        dialog.setCancelable(false);
+            //Chỉnh Cancelable = false để nó không thể bị cancel trong lúc chờ load.
+            dialog.setCancelable(false);
 
-        dialog.setContentView(R.layout.custom_book_processing_layout);
+            dialog.setContentView(R.layout.custom_book_processing_layout);
 
-        ImageView gifImageView = dialog.findViewById(R.id.custom_book_processing_layout_loading_imageView);
+            ImageView gifImageView = dialog.findViewById(R.id.custom_book_processing_layout_loading_imageView);
 
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(gifImageView);
+            DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(gifImageView);
 
-        //Load image lên bằng Glide.
+            //Load image lên bằng Glide.
 
-        Glide.with(activity)
-                .load(R.drawable.book_loading_dialog_bg)
-                .placeholder(R.drawable.book_loading_dialog_bg)
-                .centerCrop()
-                .into(imageViewTarget);
+            Glide.with(activity)
+                    .load(R.drawable.book_loading_dialog_bg)
+                    .placeholder(R.drawable.book_loading_dialog_bg)
+                    .centerCrop()
+                    .into(imageViewTarget);
+        }
 
         //Hiển thị dialog lên sau khi cấu hình mọi thứ xong.
         dialog.show();
