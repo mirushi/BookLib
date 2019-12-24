@@ -1,11 +1,11 @@
 package luubieunghi.lbn.booklib.Adapter;
 
+import java.util.ArrayList;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import java.util.ArrayList;
 
 public class ListSongAdapter extends FragmentPagerAdapter {
     ArrayList<Fragment> dsFgarment=new ArrayList<>();

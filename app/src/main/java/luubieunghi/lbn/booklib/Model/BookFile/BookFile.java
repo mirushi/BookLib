@@ -32,6 +32,14 @@ public class BookFile {
     @ColumnInfo(name = "bTotal")
     private long bTotal;
 
+    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal) {
+        this.bookID = bookID;
+        this.bFileOrder = bFileOrder;
+        this.bFilePath = bFilePath;
+        this.bRead = bRead;
+        this.bTotal = bTotal;
+    }
+
     public long getBookID() {
         return bookID;
     }

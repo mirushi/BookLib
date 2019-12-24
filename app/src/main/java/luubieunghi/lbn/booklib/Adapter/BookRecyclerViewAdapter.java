@@ -11,15 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
-import luubieunghi.lbn.booklib.R;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 

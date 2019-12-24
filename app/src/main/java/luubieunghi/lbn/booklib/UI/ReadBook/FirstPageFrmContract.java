@@ -1,11 +1,7 @@
 package luubieunghi.lbn.booklib.UI.ReadBook;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.drm.DrmStore;
-import android.view.ActionMode;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;

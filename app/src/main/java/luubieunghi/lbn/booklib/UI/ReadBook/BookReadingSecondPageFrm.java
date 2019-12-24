@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import luubieunghi.lbn.booklib.R;
 
 public class BookReadingSecondPageFrm extends Fragment {

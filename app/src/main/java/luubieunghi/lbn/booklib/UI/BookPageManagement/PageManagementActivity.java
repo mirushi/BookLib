@@ -1,7 +1,6 @@
 package luubieunghi.lbn.booklib.UI.BookPageManagement;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -9,16 +8,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.PageManagementRecyclerViewAdapter;
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
 
 public class PageManagementActivity extends AppCompatActivity implements PageManagementContract.PageManagermentView {

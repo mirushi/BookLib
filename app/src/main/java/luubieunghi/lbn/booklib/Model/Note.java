@@ -1,7 +1,5 @@
 package luubieunghi.lbn.booklib.Model;
 
-import android.graphics.Color;
-
 public class Note {
     String note;
     int color; //1 red 2 yellow 3 blue 4 green

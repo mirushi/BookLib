@@ -8,13 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import java.util.List;
 
-import luubieunghi.lbn.booklib.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.R;
 
 public class AlbumAdapter extends ArrayAdapter {
     private Activity context;

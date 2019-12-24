@@ -2,8 +2,6 @@ package luubieunghi.lbn.booklib.Model.Language;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "language")

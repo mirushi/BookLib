@@ -1,10 +1,5 @@
 package luubieunghi.lbn.booklib.UI.BookPageManagement;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +10,12 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-import luubieunghi.lbn.booklib.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.Adapter.BookPageManagementAdapter;
+import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
 
 public class BookPageManagement extends AppCompatActivity {

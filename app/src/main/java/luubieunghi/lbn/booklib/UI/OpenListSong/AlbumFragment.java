@@ -10,16 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.util.ArrayList;
-
-import luubieunghi.lbn.booklib.UI.OpenAlbum.OpenAlbum;
-import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.AlbumAdapter;
 import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.OpenAlbum.OpenAlbum;
 
 public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickListener, AlbumFragmentContract.IAlbumFragmentView {
 

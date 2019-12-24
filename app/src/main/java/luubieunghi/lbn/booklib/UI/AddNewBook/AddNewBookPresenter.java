@@ -10,15 +10,13 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Author.Author;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookAuthor.BookAuthor;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.Model.BookIdentityNum.BookIdentityNum;
 import luubieunghi.lbn.booklib.Model.BookTag.BookTag;
 import luubieunghi.lbn.booklib.Model.Language.Language;
 import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
 import luubieunghi.lbn.booklib.Model.Tag.Tag;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPresenter {
 
@@ -41,7 +39,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
     public void AddBook() {
         //Thao tác thêm sách vào CSDL.
         //Đầu tiên ta phải lấy thông tin ở View ra.
-        final Uri viewBookUri = view.pathToFile;
+        final ArrayList<Uri> viewBookUri = view.pathToFiles;
         final Uri viewBookCoverUri = view.pathToBookCover;
         final String viewTitle = view.txtBookTitle.getText().toString();
         final String viewAuthor = view.txtAuthor.getText().toString();
@@ -114,7 +112,11 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 }
 
                 //Các files của sách.
-
+                List<BookFile> bookFileList = new ArrayList<>();
+                for (Uri uri : viewBookUri){
+                    BookFile bookFile = new BookFile(bookID, 0, uri.getPath(), 0,0);
+                    bookFileList.add(bookFile);
+                }
 
                 //Các tags của sách.
                 String[] tagsName = viewTags.split(regexDim);
@@ -129,6 +131,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 //Xử lý DB.
                 bookDB.BookIdentityNumDAO().Insert(bookIdentityNums);
                 bookDB.BookAuthorDAO().Insert(bookAuthors);
+                bookDB.BookFileDAO().insertBookFile(bookFileList);
                 bookDB.BookTagDAO().Insert(bookTags);
 
                 //Cái gì đụng tới View là phải để cho Thread chính xử lý.

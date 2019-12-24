@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 
 import java.io.File;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;

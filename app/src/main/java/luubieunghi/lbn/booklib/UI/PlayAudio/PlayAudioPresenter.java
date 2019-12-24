@@ -2,11 +2,8 @@ package luubieunghi.lbn.booklib.UI.PlayAudio;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.audiofx.Equalizer;
 import android.os.CountDownTimer;
 import android.widget.Toast;
-
-import luubieunghi.lbn.booklib.UI.PlayMusic.MyService;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.equalizer;
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.mediaPlayer;

@@ -1,12 +1,10 @@
 package luubieunghi.lbn.booklib.UI.ReadBook;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.BookPageManagement.PageManagementActivity;
 

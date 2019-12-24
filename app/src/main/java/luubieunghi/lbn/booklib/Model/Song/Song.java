@@ -1,12 +1,11 @@
 package luubieunghi.lbn.booklib.Model.Song;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import java.io.Serializable;
 
 //dùng để test cho list view của activity list song
 
