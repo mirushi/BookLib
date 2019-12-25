@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.io.File;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import androidx.core.content.ContextCompat;
@@ -17,6 +19,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.Model.BookType.BookType;
 import luubieunghi.lbn.booklib.Model.Language.Language;
 import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
@@ -29,7 +32,7 @@ import static androidx.room.ForeignKey.CASCADE;
         @ForeignKey(onDelete = CASCADE,entity = Language.class, parentColumns = "langID", childColumns = "langID"),
         @ForeignKey(onDelete = CASCADE,entity = Publisher.class, parentColumns = "publisherID", childColumns = "publisherID"),
         @ForeignKey(onDelete = CASCADE,entity = BookType.class, parentColumns = "bTypeID", childColumns = "bTypeID")})
-public class Book {
+public class Book implements Serializable {
     //Các biến dùng cho RPL.
 
     @PrimaryKey(autoGenerate = true)
@@ -62,7 +65,7 @@ public class Book {
 
     //Biến dùng để lưu giữ hình ảnh cover cho sách.
     @Ignore
-    Bitmap bookImage;
+    transient Bitmap bookImage;
     //Biến lưu giữ context.
     @Ignore
     Context context;
@@ -87,13 +90,14 @@ public class Book {
         //Nếu đường dẫn đến file chứa cover sách hợp lệ.
         if (imgFile != null && imgFile.exists())
             this.bookImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            //Nếu đường dẫn không hợp lệ.
-        else if (context != null)
-        {
-            Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
+        //Nếu đường dẫn không hợp lệ.
+        else{
+            Drawable icon_book = ContextCompat.getDrawable(BookLib.getAppContext(), R.drawable.icon_book);
             this.bookImage = drawableToBitmap(icon_book);
         }
+
         this.bookTitle = bookTitle;
+        Log.d("BOOK_CONSTRUCTOR", "Called !");
     }
 
     //Đây là constructor có bookID.
@@ -154,7 +158,7 @@ public class Book {
             //Nếu đường dẫn không hợp lệ.
         else
         {
-            Drawable icon_book = ContextCompat.getDrawable(context, R.drawable.icon_book);
+            Drawable icon_book = ContextCompat.getDrawable(BookLib.getAppContext(), R.drawable.icon_book);
             bookImage = drawableToBitmap(icon_book);
         }
         bookTitle = _bookTitle;
@@ -185,6 +189,7 @@ public class Book {
 
     public void setBookCoverPath(String bookCoverPath) {
         this.bookCoverPath = bookCoverPath;
+        Log.d("SET_BOOK_COVER_PATH", "Set book cover path called !");
     }
 
     public long getBTypeID() { return bTypeID; }

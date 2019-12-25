@@ -1,11 +1,13 @@
 package luubieunghi.lbn.booklib.UI.AddNewBook;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Author.Author;
 import luubieunghi.lbn.booklib.Model.Book.Book;
@@ -39,8 +41,8 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
     public void AddBook() {
         //Thao tác thêm sách vào CSDL.
         //Đầu tiên ta phải lấy thông tin ở View ra.
-        final ArrayList<Uri> viewBookUri = view.pathToFiles;
-        final Uri viewBookCoverUri = view.pathToBookCover;
+        final ArrayList<String> viewBookFilePath = view.pathToFiles;
+        final String viewBookCoverPath = view.pathToBookCover;
         final String viewTitle = view.txtBookTitle.getText().toString();
         final String viewAuthor = view.txtAuthor.getText().toString();
         final int viewRating = view.ratingView.getRating();
@@ -73,8 +75,8 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 }
                 long publisherID = publisherSearchResult.get(0).getPublisherID();
 
-                String bookCoverPath = viewBookCoverUri.toString();
-                String bookFilePath = viewBookUri.toString();
+                String bookCoverPath = viewBookCoverPath;
+
 
                 Book book = new Book(view, bookCoverPath,
                         viewTitle, viewRating, langID, publisherID, viewPublishDate, viewDescription, 0);
@@ -97,7 +99,6 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                     bookAuthors.add(new BookAuthor(bookID, author.getAuthorID()));
                 }
 
-
                 //Các IDs của sách.
                 String[] ids = viewIds.split(regexDim);
 
@@ -113,8 +114,8 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
                 //Các files của sách.
                 List<BookFile> bookFileList = new ArrayList<>();
-                for (Uri uri : viewBookUri){
-                    BookFile bookFile = new BookFile(bookID, 0, uri.getPath(), 0,0);
+                for (String filePath : viewBookFilePath){
+                    BookFile bookFile = new BookFile(bookID, 0, filePath, 0,0);
                     bookFileList.add(bookFile);
                 }
 

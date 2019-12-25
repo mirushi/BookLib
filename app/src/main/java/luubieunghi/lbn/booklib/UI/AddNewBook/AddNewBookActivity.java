@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.hbisoft.pickit.PickiT;
+import com.hbisoft.pickit.PickiTCallbacks;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,11 +30,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.RatingView;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 
-public class AddNewBookActivity extends AppCompatActivity implements AddNewBookContract.AddNewBookMVPView {
+public class AddNewBookActivity extends AppCompatActivity implements AddNewBookContract.AddNewBookMVPView, PickiTCallbacks {
 
     //Biến định nghĩa requestCode cho việc chọn ảnh bìa của sách.
     final int requestCodeForBookCoverPathSelect = 317;
@@ -55,9 +59,9 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     EditText txtDescription;
 
     //Giữ URI đến file được người dùng chọn.
-    ArrayList<Uri> pathToFiles = new ArrayList<>();
+    ArrayList<String> pathToFiles = new ArrayList<>();
     //Giữ URI đến file ảnh được người dùng chọn làm bìa sách.
-    Uri pathToBookCover;
+    String pathToBookCover;
 
     //Giữ một chuỗi phân biệt xem đây là loại sách gì (Ebook, Audio Book).
     String bookType = "";
@@ -66,6 +70,8 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     private int mYear, mMonth, mDay;
 
     AddNewBookContract.AddNewBookMVPPresenter presenter;
+
+    PickiT pickiT;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -82,11 +88,13 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         //Cài đặt listeners cho các components.
         ConfigListeners();
 
+        pickiT = new PickiT(this, this);
+
         //Test xem URI được truyền đúng chưa.
         //Toast.makeText(this, "URI = " + pathToFile, Toast.LENGTH_SHORT).show();
-        for (Uri pathToFile : pathToFiles){
-            Log.d("PATH_TO_FILE_STRING", pathToFile.toString());
-            Log.d("PATH_TO_FILE_GETPATH", pathToFile.getPath());
+        for (String pathToFile : pathToFiles){
+            Log.d("PATH_TO_FILE_STRING", pathToFile);
+//            Log.d("PATH_TO_FILE_AB_PATH", Environment.getExternalStorageDirectory().getAbsolutePath());
         }
     }
     @Override
@@ -100,9 +108,10 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == requestCodeForBookCoverPathSelect && resultCode == RESULT_OK){
             //Lấy đường dẫn đến ảnh người dùng chọn.
-            pathToBookCover = data.getData();
+            Uri uri = data.getData();
+            pickiT.getPath(uri, Build.VERSION.SDK_INT);
             //Load lại ảnh dựa trên sự lựa chọn của người dùng.
-            Glide.with(this).load(pathToBookCover).fitCenter().into(bookCover);
+            Glide.with(this).load(uri).fitCenter().into(bookCover);
         }
     }
 
@@ -132,7 +141,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         //Gán giá trị từ đường dẫn người dùng chọn file.
         try
         {
-            pathToFiles = getIntent().getExtras().getParcelableArrayList("EXTRA_BOOK_URI");
+            pathToFiles = getIntent().getExtras().getStringArrayList("EXTRA_BOOK_URI");
             bookType = getIntent().getExtras().getParcelable("BOOK_TYPE");
         }catch(NullPointerException npe){
             npe.printStackTrace();
@@ -217,4 +226,18 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     }
 
 
+    @Override
+    public void PickiTonStartListener() {
+
+    }
+
+    @Override
+    public void PickiTonProgressUpdate(int progress) {
+
+    }
+
+    @Override
+    public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
+        pathToBookCover = path;
+    }
 }

@@ -11,16 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
 import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
+import luubieunghi.lbn.booklib.Utility.Others.StringUtils;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
+
+    //Hằng số để chỉnh độ dài tối đa của tựa đề sách khi hiển thị trên RecyclerView.
+    private final int titleSize = 15;
 
     private List<Book> bookList;
     private Context context;
@@ -55,7 +63,17 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             public void onClick(View v) {
                 Integer position = holder.getAdapterPosition();
                 Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ReadBookActivity.class);
+                Intent intent;
+
+                Book selectedBook = bookList.get(position);
+                if (selectedBook.getBTypeID() == BookDatabase.getInstance(context).getEbookId()){
+                    intent = new Intent(context, ReadBookActivity.class);
+                    intent.putExtra("book", selectedBook);
+                }
+                else{
+                    intent = new Intent(context, PlayAudio.class);
+                    intent.putExtra("book", selectedBook);
+                }
                 context.startActivity(intent);
             }
         });
@@ -64,8 +82,9 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull BookRecyclerViewHolder holder, int position) {
-        holder.bookImage.setImageBitmap(bookList.get(position).getBookImage());
-        holder.bookTitle.setText(bookList.get(position).getBookTitle());
+        //holder.bookImage.setImageBitmap(bookList.get(position).getBookImage());
+        Glide.with(context).asBitmap().load(bookList.get(position).getBookImage()).into(holder.bookImage);
+        holder.bookTitle.setText(StringUtils.cropString(bookList.get(position).getBookTitle(), titleSize));
     }
 
     @Override
@@ -78,6 +97,14 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             MenuItem item = menuItems.get(i);
             item.setOnMenuItemClickListener(listener);
         }
+    }
+
+    public void clear(){
+        int size = bookList.size();
+        if (size < 0)
+            return;
+        bookList.clear();
+        notifyItemRangeChanged(0,size);
     }
 
     public class BookRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {

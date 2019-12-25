@@ -24,6 +24,7 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
     public void LoadBookList(BookListingReadProgressFilter filter) {
         view.SetLoadingDialog(true);
         if (filter == BookListingReadProgressFilter.NEW){
+            view.freshBookRecyclerViewAdapter.clear();
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -40,6 +41,7 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
             });
         }
         else if (filter == BookListingReadProgressFilter.READING){
+            view.inProgressBookRecyclerViewAdapter.clear();
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -56,6 +58,7 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
             });
         }
         else if (filter == BookListingReadProgressFilter.FINISHED){
+            view.finishedBookRecyclerViewAdapter.clear();
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {

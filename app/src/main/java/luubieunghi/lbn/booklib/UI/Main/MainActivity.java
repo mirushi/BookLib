@@ -7,12 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
+import com.hbisoft.pickit.PickiT;
+import com.hbisoft.pickit.PickiTCallbacks;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
@@ -37,7 +41,14 @@ import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
+
+    //Request code cho việc nhận thông tin đóng mở file.
+    private final int requestCodeEbook = 311;
+
+    private final int requestCodeAudioBook = 201;
+
+    private boolean storagePermissionGranted = false;
 
     private Toolbar toolbar;
     private FragmentPagerAdapter adapterViewPager;
@@ -46,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    //Request code cho việc nhận thông tin đóng mở file.
-    private final int requestCodeEbook = 311;
+    PickiT pickiT;
 
-    private final int requestCodeAudioBook = 201;
+    //ArrayList giữ các URI khi người dùng lựa chọn.
+    ArrayList<Uri> uriOfChoosenFiles;
+    //ArrayList giữ các String dẫn đến đường dẫn thực khi người dùng chọn file.
+    ArrayList<String> pathOfChoosenFiles;
 
-    private boolean storagePermissionGranted = false;
+    String bookType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         ConfigViewPager();
         ConfigDrawerLayout();
         ConfigGesturesListener();
+        pickiT = new PickiT(this,this);
     }
 
     private void ConfigGesturesListener()
@@ -111,25 +125,24 @@ public class MainActivity extends AppCompatActivity {
             //Xử lý việc chọn file sách.
             case requestCodeEbook:{
                 if (resultCode == RESULT_OK && data != null){
-                    Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
-                    ArrayList<Uri> selectedFiles = new ArrayList<>();
+                    uriOfChoosenFiles = new ArrayList<>();
+                    pathOfChoosenFiles = new ArrayList<>();
 
                     //Nếu người dùng không chọn nhiều file thì chỉ lấy thông tin 1 file duy nhất.
                     if (data.getClipData() == null)
-                        selectedFiles.add(data.getData());
+                        uriOfChoosenFiles.add(data.getData());
                     else{
                         int itemCount = data.getClipData().getItemCount();
                         for (int i =0;i<itemCount;++i){
                             Uri filePath = data.getClipData().getItemAt(i).getUri();
-                            selectedFiles.add(filePath);
+                            uriOfChoosenFiles.add(filePath);
                         }
                     }
+                    bookType = "EBOOK";
+                    for (Uri file : uriOfChoosenFiles){
+                        pickiT.getPath(file, Build.VERSION.SDK_INT);
+                    }
 
-                    //Thêm URI vào nữa chứ.
-                    intentGoToAddNewBook.putParcelableArrayListExtra("EXTRA_BOOK_URI", selectedFiles);
-                    intentGoToAddNewBook.putExtra("BOOK_TYPE", "EBOOK");
-
-                    startActivity(intentGoToAddNewBook);
                 }
                 break;
             }
@@ -137,22 +150,23 @@ public class MainActivity extends AppCompatActivity {
             case requestCodeAudioBook:{
                 if (resultCode == Activity.RESULT_OK && data != null){
                     Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
-                    ArrayList<Uri> selectedFiles = new ArrayList<>();
+                    uriOfChoosenFiles = new ArrayList<>();
+                    pathOfChoosenFiles = new ArrayList<>();
 
                     //Nếu người dùng không chọn nhiều file thì chỉ lấy thông tin 1 file duy nhất.
                     if (data.getClipData() == null)
-                        selectedFiles.add(data.getData());
+                        uriOfChoosenFiles.add(data.getData());
                     else{
                         int itemCount = data.getClipData().getItemCount();
                         for (int i =0;i<itemCount;++i){
                             Uri filePath = data.getClipData().getItemAt(i).getUri();
-                            selectedFiles.add(filePath);
+                            uriOfChoosenFiles.add(filePath);
                         }
                     }
-
-                    intentGoToAddNewBook.putParcelableArrayListExtra("EXTRA_AUDIO_BOOK_URI", selectedFiles);
-                    intentGoToAddNewBook.putExtra("BOOK_TYPE", "AUDIO_BOOK");
-                    startActivity(intentGoToAddNewBook);
+                    bookType = "AUDIO_BOOK";
+                    for (Uri file : uriOfChoosenFiles){
+                        pickiT.getPath(file, Build.VERSION.SDK_INT);
+                    }
                 }
                 break;
             }
@@ -249,5 +263,35 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         drawerToggle.syncState();
+    }
+
+    private synchronized void AddFilePath(String filePath){
+        //Khi đã dịch đủ URI sang RealPath rồi thì ta tiến hành chạy activity.
+        pathOfChoosenFiles.add(filePath);
+        if (pathOfChoosenFiles.size() >= uriOfChoosenFiles.size()){
+            Intent intentGoToAddNewBook = new Intent(MainActivity.this, AddNewBookActivity.class);
+            intentGoToAddNewBook.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //Thêm URI vào nữa chứ.
+            intentGoToAddNewBook.putStringArrayListExtra("EXTRA_BOOK_URI", pathOfChoosenFiles);
+            intentGoToAddNewBook.putExtra("BOOK_TYPE", bookType);
+
+            startActivity(intentGoToAddNewBook);
+        }
+    }
+
+    @Override
+    public void PickiTonStartListener() {
+
+    }
+
+    @Override
+    public void PickiTonProgressUpdate(int progress) {
+
+    }
+
+    @Override
+    public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
+        Log.d("REAL_PATH_FROM_PICKIT", path);
+        AddFilePath(path);
     }
 }

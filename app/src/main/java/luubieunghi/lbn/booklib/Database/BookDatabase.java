@@ -2,6 +2,8 @@ package luubieunghi.lbn.booklib.Database;
 
 import android.content.Context;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -38,6 +40,9 @@ import luubieunghi.lbn.booklib.Utility.TypeConverter.LocalDateConverter;
 public abstract class BookDatabase extends RoomDatabase {
     private static final String DB_NAME = "book_db";
     private static BookDatabase bookDatabaseInstance;
+
+    private static long EBOOK_ID;
+    private static long AUDIO_BOOK_ID;
 
     public static synchronized BookDatabase getInstance(Context context){
         if (bookDatabaseInstance == null){
@@ -107,8 +112,31 @@ public abstract class BookDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
             //Hành động sẽ được thực hiện mỗi khi database được mở.
+            //Chúng ta thực hiện cập nhật lại Ebook ID và Audio Book ID để phân biệt 2 thứ đó.
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    List<BookType> bookTypes = bookDatabaseInstance.BookTypeDAO().getAllBookTypes();
+                    for (BookType type : bookTypes){
+                        if (type.getBTypeName().equals("Ebook")){
+                            EBOOK_ID = type.getBTypeID();
+                        }
+                        else{
+                            AUDIO_BOOK_ID = type.getBTypeID();
+                        }
+                    }
+                }
+            });
         }
     };
+
+    public long getEbookId(){
+        return EBOOK_ID;
+    }
+
+    public long getAudioBookId(){
+        return AUDIO_BOOK_ID;
+    }
 
     public abstract BookDAO BookDAO();
     public abstract BookFileDAO BookFileDAO();
@@ -121,4 +149,5 @@ public abstract class BookDatabase extends RoomDatabase {
     public abstract LanguageDAO LanguageDAO();
     public abstract PublisherDAO PublisherDAO();
     public abstract TagDAO TagDAO();
+
 }
