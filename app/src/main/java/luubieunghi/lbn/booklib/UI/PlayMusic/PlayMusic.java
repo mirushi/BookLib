@@ -2,6 +2,8 @@ package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import androidx.appcompat.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,15 +16,14 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import luubieunghi.lbn.booklib.Database.AudioDatabase;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.Main.AppWideGesturesListener;
 import luubieunghi.lbn.booklib.UI.Main.MainActivity;
-import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.mediaPlayer;
 
@@ -31,13 +32,15 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
 
     LinearLayout layout_Play_Music, lv_img;
     private ImageView img;
-    private TextView txt_TenBaiHat, txt_TenCaSi, txt_CurrentTime, txt_ToTalTime;
-    private SeekBar seekBar_Time;
+    private TextView txt_TenBaiHat, txt_TenCaSi, txt_ToTalTime;
+    private  static  TextView txt_CurrentTime;
+    private static SeekBar seekBar_Time;
     private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
-    private static Button btn_img_Play;
+    public static Button btn_img_Play=null;
     private PlayMusicPresenter presenter;
     public static Song currentSong=null;
     public Song song=null;
+    public static ArrayList<Song> dsBaiHat=null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,38 +52,59 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        song=(Song)getIntent().getSerializableExtra("song");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
-        Intent intent=getIntent();
-        //BUG TO Ở ĐÂY
+        song=(Song)getIntent().getSerializableExtra("song");
         AudioDatabase database=AudioDatabase.getInstance(this);
-        //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
-        List<Song> songs= database.song_dao().getByIDs("BH1");
-        //currentSong =songs.get(0);
-        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
-        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+        dsBaiHat=new ArrayList<Song>();
+        dsBaiHat.addAll(database.song_dao().getAll());
+        //BUG TO Ở ĐÂY
+        //nếu không truyền bài hát vào thì lấy bài hát đầu tiên
+        if(song==null){
+            //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+            List<Song> songs= database.song_dao().getByIDs("BH1");
+            currentSong =songs.get(0);
+            song=currentSong;
+            mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+            System.out.println(Uri.parse(currentSong.getFilePath()));
+        }
+        //nếu đã truyền bài hát vào
+        else {
+            //nếu bài hát hiện tại không null thì so sánh xem bài hát truyền vào có giống bài hát hiện tại không
+            if(!(currentSong==null))
+            {
+                if(currentSong.getSongID().equals(song.getSongID())){
+
+                }
+                else{
+                    currentSong=song;
+                    mediaPlayer.stop();
+                    mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+                    mediaPlayer.start();
+                }
+            }
+            //nếu bài hát hiện tại là null thì tạo mới rồi play luôn
+            else{
+                currentSong=song;
+                mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+                mediaPlayer.start();
+            }
+
+        }
         addControls();
         //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
         txt_ToTalTime.setText(mediaPlayer.getDuration()+"");
         seekBar_Time.setMax(mediaPlayer.getDuration());
+        txt_TenBaiHat.setText(currentSong.getSongName());
+        txt_TenCaSi.setText(currentSong.getArtistNames());
+        //img.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(currentSong.getImagePath())));
         ConfigGesturesListener();
         addEvents();
-        SyncTime syncTime=new SyncTime();
-        new Thread(syncTime).start();
         presenter=new PlayMusicPresenter(this);
     }
 
-
-    class SyncTime implements Runnable {
-        @Override
-        public void run() {
-            while (mediaPlayer.isPlaying()){
-                txt_CurrentTime.setText(mediaPlayer.getCurrentPosition()+"");
-            }
-        }
-    }
 
     @Override
     public void addEvents() {
@@ -129,11 +153,19 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         btn_img_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openListSongIntent();
+                presenter.nextSong();
             }
         });
         updateResourceButtonPlay();
+
+        btn_img_Previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               presenter.previousSong();
+            }
+        });
     }
+
 
     @Override
     public void updateResourceButtonPlay() {
@@ -231,17 +263,16 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
 
     }
 
-    @Override
-    public void openListSongIntent() {
-        Intent intent=new Intent(PlayMusic.this, OpenListSong.class);
-        startActivity(intent);
-    }
-
     public static void setBtn_PlayResource(boolean play){
         if(play==true)
             btn_img_Play.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
         if (play==false)
             btn_img_Play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
+    }
+
+    public static void setSeekBarProgress(int value){
+        seekBar_Time.setProgress(value);
+        txt_CurrentTime.setText(value*seekBar_Time.getMax());
     }
 
 }

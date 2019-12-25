@@ -12,7 +12,5 @@ public class OpenAlbumContract {
     }
 
     interface  IOpenAlbumPresenter{
-        void updateListView();
-        void addSong(Song song);
     }
 }

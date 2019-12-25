@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.UI.OpenAlbum;
+package luubieunghi.lbn.booklib.UI.OpenListSong;
 
 import java.util.ArrayList;
 
@@ -9,10 +9,10 @@ public class SongFragmentContract {
         void updateListView(ArrayList<Song> dsSong);
         void addEvents();
         void setUp();
-
+        ArrayList<Song> getArrayListSong();
+        void resetAdapter();
     }
     interface IBaiHatFragmentPresenter{
 
-        void updateListView();
     }
 }

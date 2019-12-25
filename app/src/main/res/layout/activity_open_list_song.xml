@@ -21,6 +21,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_open_list_song"
                 app:defaultQueryHint="Type text here ..."
                 android:layout_width="37dp"
                 android:layout_height="match_parent"

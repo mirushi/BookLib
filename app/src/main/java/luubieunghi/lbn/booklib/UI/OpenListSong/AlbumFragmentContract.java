@@ -9,6 +9,8 @@ public class AlbumFragmentContract {
         void addEvents();
         void setUp();
         void updateListView(ArrayList<Album> albums);
+        ArrayList<Album> getArrayListAlbum();
+        void resetAdapter();
     }
     interface IAlbumFragmentPresenter{
         void updateListView();

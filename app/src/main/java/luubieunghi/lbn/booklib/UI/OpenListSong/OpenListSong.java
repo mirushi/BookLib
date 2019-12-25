@@ -10,11 +10,16 @@ import android.view.View;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import luubieunghi.lbn.booklib.Adapter.ListSongAdapter;
+
+import java.util.ArrayList;
+import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
-import luubieunghi.lbn.booklib.UI.OpenAlbum.SongFragment;
+import luubieunghi.lbn.booklib.Adapter.ListSongAdapter;
 
 public class OpenListSong extends AppCompatActivity implements OpenListSongContract.IOpenListSongView {
 
@@ -23,6 +28,7 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
     private ViewPager viewPager_ListSong;
     private ListSongAdapter listSongAdapter;
     private OpenListSongPresenter presenter;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,16 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
     }
 
     @Override
+    public void updateListViewSong(ArrayList<Song> dsBaiHat) {
+
+    }
+
+    @Override
+    public void updateListViewAlbum(ArrayList<Album> dsAlbum) {
+
+    }
+
+    @Override
     public void addEvents() {
         toolbar_listsong.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -70,6 +86,80 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
         });
         tabLayout_ListSong.setSelectedTabIndicatorColor(Color.parseColor("#8c2065"));
         tabLayout_ListSong.setTabTextColors(Color.parseColor("#8c2065"), Color.parseColor("#a6771f"));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchViewSubmit(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.equals("")){
+                    reset();
+                }
+                else {
+                    searchViewSubmit(newText);
+                }
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                reset();
+                return false;
+            }
+        });
+    }
+
+    private void reset(){
+        SongFragment songFragment=(SongFragment)(listSongAdapter.getItem(0));
+        songFragment.resetAdapter();
+        AlbumFragment albumFragment=(AlbumFragment)(listSongAdapter.getItem(1));
+        albumFragment.resetAdapter();
+//        switch (tabLayout_ListSong.getSelectedTabPosition()){
+//            case 0:{
+//
+//                break;
+//            }
+//            case 1:{
+//
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+    }
+
+    private void searchViewSubmit(String query){
+        switch (tabLayout_ListSong.getSelectedTabPosition()){
+            case 0:{
+                SongFragment songFragment=(SongFragment)(listSongAdapter.getItem(0));
+                ArrayList<Song> dsBaiHat=songFragment.getArrayListSong();
+                for(Song s:dsBaiHat){
+                    if(!s.getSongName().contains(query)){
+                        dsBaiHat.remove(s);
+                    }
+                }
+                updateListViewSong(dsBaiHat);
+                break;
+            }
+            case 1:{
+                AlbumFragment albumFragment=(AlbumFragment)(listSongAdapter.getItem(1));
+                ArrayList<Album> dsAlbum=albumFragment.getArrayListAlbum();
+                for(Album ab:dsAlbum){
+                    if(!ab.getAlbumName().contains(query)){
+                        dsAlbum.remove(ab);
+                    }
+                }
+                updateListViewAlbum(dsAlbum);
+                break;
+            }
+            default:
+                break;
+        }
     }
 
     @Override
@@ -77,5 +167,6 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
         toolbar_listsong=findViewById(R.id.toolbar_listsong);
         tabLayout_ListSong=findViewById(R.id.tablayout_listsong_type);
         viewPager_ListSong=findViewById(R.id.viewpager_listsong);
+        searchView=findViewById(R.id.sv_open_list_song);
     }
 }
