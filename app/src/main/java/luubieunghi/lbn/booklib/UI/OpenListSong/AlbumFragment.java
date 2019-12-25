@@ -38,11 +38,7 @@ public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_album,container,false);
         lv_DanhSachAlbum=view.findViewById(R.id.lv_danhSachAlbum);
-        dsAlbum=new ArrayList<>();
-        presenter=new AlbumFragmentPresenter(view.getContext(),this);
-        updateListView(dsAlbum);
-        presenter.updateListView();
-        lv_DanhSachAlbum.setOnItemClickListener(this);
+        resetAdapter();
         return view;
     }
 
@@ -69,6 +65,20 @@ public class  AlbumFragment extends Fragment implements AdapterView.OnItemClickL
         dsAlbum=albums;
         adapter=new AlbumAdapter((Activity) context,R.layout.item_album,dsAlbum);
         lv_DanhSachAlbum.setAdapter(adapter);
+    }
+
+    @Override
+    public ArrayList<Album> getArrayListAlbum() {
+        return dsAlbum;
+    }
+
+    @Override
+    public void resetAdapter() {
+        dsAlbum=new ArrayList<>();
+        presenter=new AlbumFragmentPresenter(view.getContext(),this);
+        updateListView(dsAlbum);
+        presenter.updateListView();
+        lv_DanhSachAlbum.setOnItemClickListener(this);
     }
 
 

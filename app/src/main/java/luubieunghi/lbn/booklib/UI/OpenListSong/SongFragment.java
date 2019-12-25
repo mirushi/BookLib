@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.UI.OpenAlbum;
+package luubieunghi.lbn.booklib.UI.OpenListSong;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,10 +40,7 @@ public class SongFragment extends Fragment implements AdapterView.OnItemClickLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_baihat,container,false);
         lv_DanhSachBaiHat=view.findViewById(R.id.lv_danhSachBaiHat);
-        dsSong=new ArrayList<>();
-        dsSong.addAll(AudioDatabase.getInstance(view.getContext()).song_dao().getAll());
-        presenter=new SongFragmentPresenter(context,this,dsSong);
-        lv_DanhSachBaiHat.setOnItemClickListener(this);
+        resetAdapter();
         return view;
     }
 
@@ -70,5 +67,18 @@ public class SongFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void setUp() {
 
+    }
+
+    @Override
+    public ArrayList<Song> getArrayListSong() {
+        return dsSong;
+    }
+
+    @Override
+    public void resetAdapter() {
+        dsSong=new ArrayList<>();
+        dsSong.addAll(AudioDatabase.getInstance(view.getContext()).song_dao().getAll());
+        presenter=new SongFragmentPresenter(context,this,dsSong);
+        lv_DanhSachBaiHat.setOnItemClickListener(this);
     }
 }

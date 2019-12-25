@@ -27,5 +27,9 @@ public class PlayAudioContract {
         void skip_previous_1m();
         void skip_next_10s();
         void skip_next_1m();
+        void play();
+        void next();
+        void previous();
+        void setMediaSpeed(float speed);
     }
 }

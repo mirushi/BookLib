@@ -10,10 +10,9 @@ public class OpenAlbumPresenter implements OpenAlbumContract.IOpenAlbumPresenter
 
     private Context context;
     private OpenAlbumContract.IOpenAlbumView view;
-    public OpenAlbumPresenter(Context context, OpenAlbumContract.IOpenAlbumView view, ArrayList<Song> songs) {
+    public OpenAlbumPresenter(Context context, OpenAlbumContract.IOpenAlbumView view) {
         this.context = context;
         this.view=view;
-        view.updateListView(songs);
     }
     
 

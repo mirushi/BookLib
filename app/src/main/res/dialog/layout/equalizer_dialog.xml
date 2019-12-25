@@ -111,14 +111,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:max="1500"
-                android:min="-1500"
-                android:progress="0"></SeekBar>
+                android:progress="70000"
+                android:max="120000"
+                android:min="30000"
+                ></SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel2"
-                android:progress="0"
-                android:max="1500"
-                android:min="-1500"
+                android:progress="70000"
+                android:max="120000"
+                android:min="30000"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,9 +127,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel3"
-                android:progress="0"
-                android:max="1500"
-                android:min="-1500"
+                android:progress="70000"
+                android:max="120000"
+                android:min="30000"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,9 +137,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel4"
-                android:progress="0"
-                android:max="1500"
-                android:min="-1500"
+                android:progress="70000"
+                android:max="120000"
+                android:min="30000"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,9 +147,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel5"
-                android:progress="0"
-                android:max="1500"
-                android:min="-1500"
+                android:progress="70000"
+                android:max="120000"
+                android:min="30000"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

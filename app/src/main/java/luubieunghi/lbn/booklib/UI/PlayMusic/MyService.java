@@ -23,8 +23,12 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.io.IOException;
 
+import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
 
 public class MyService extends Service {
 
@@ -53,70 +57,95 @@ public class MyService extends Service {
         notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
     }
 
-    private void createEqualizer() {
-
+    public static void createEqualizer() {
         equalizer.setEnabled(true);
-        equalizer.setBandLevel((short)0,equalizer.getBandLevel((short)0));
-        equalizer.setBandLevel((short)1,equalizer.getBandLevel((short)1));
-        equalizer.setBandLevel((short)2,equalizer.getBandLevel((short)2));
-        equalizer.setBandLevel((short)3,equalizer.getBandLevel((short)3));
-        equalizer.setBandLevel((short)4,equalizer.getBandLevel((short)4));
+        equalizer.setBandLevel((short)0,(short)70000);
+        equalizer.setBandLevel((short)1,(short)70000);
+        equalizer.setBandLevel((short)2,(short)70000);
+        equalizer.setBandLevel((short)3,(short)70000);
+        equalizer.setBandLevel((short)4,(short)70000);
     }
-
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
 
         //lấy action của intent để xử lí
         String action=intent.getAction();
         Song song=(Song)intent.getSerializableExtra("song");
+        //xử lí chơi nhạc
         if(song!=null)
         {
             if(!song.getSongID().equals(PlayMusic.currentSong.getSongID()))
             {
-                mediaPlayer=MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
+                mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(song.getFilePath()));
             }
         }
+        else {
+//            xư lí chơi audio books
+//            BookFile bf=(BookFile) intent.getSerializableExtra("book_file");
+//            mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(bf.getBFilePath()));
+        }
+        //tùy theo action mà xử lí
         if(action!=null){
             if(action.equals("Action_Stop")){
-                stop_MyService(intent);
+                stop_MyService();
             }
             else {
                 showNotification();
                 if(action.equals("Action_Play")){
-                    play_MediaPlayer(intent);
+                    play_MediaPlayer();
                 }
                 if(action.equals("Action_Next")){
-                    next_MediaPlayer(intent);
+                    next_MediaPlayer();
                 }
                 if(action.equals("Action_Previous")){
-                    previous_MediaPlayer(intent);
+                    previous_MediaPlayer();
                 }
                 if(action.equals("Action_Shuffle")){
-                    shuffle_MediaPlayer(intent);
+                    shuffle_MediaPlayer();
                 }
                 if(action.equals("Action_Repeat")){
-                    repeat_MediaPlayer(intent);
+                    repeat_MediaPlayer();
                 }
             }
         }
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+//                PlayAudio.currentFile.setBRead(PlayAudio.currentFile.getBTotal());
+//                BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
+//                int order=PlayAudio.currentFile.getBFileOrder()+1;
+//                if(order>=PlayAudio.bfs.size()){
+//                    stop_MyService();
+//                }
+//                else{
+//                    for(BookFile bf:PlayAudio.bfs){
+//                        if(bf.getBFileOrder()==order)
+//                            PlayAudio.currentFile=bf;
+//                    }
+//                    mediaPlayer.stop();
+//                    mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(PlayAudio.currentFile.getBFilePath()));
+//                }
+                stop_MyService();
+            }
+        });
         return START_STICKY;
     }
 
-    private void repeat_MediaPlayer(Intent intent) {
+    private void repeat_MediaPlayer() {
     }
 
-    private void shuffle_MediaPlayer(Intent intent) {
+    private void shuffle_MediaPlayer() {
     }
 
-    private void previous_MediaPlayer(Intent intent) {
+    private void previous_MediaPlayer() {
     }
 
-    private void next_MediaPlayer(Intent intent) {
+    private void next_MediaPlayer() {
 
     }
 
     // bắt đầu phát nhạc
-    private void play_MediaPlayer(Intent intent) {
+    private void play_MediaPlayer() {
         if(mediaPlayer.isPlaying())
         {
             PlayMusic.setBtn_PlayResource(true);
@@ -130,28 +159,13 @@ public class MyService extends Service {
     }
 
     // xóa thông báo và dừng mediaplayer
-    private void stop_MyService(Intent intent) {
+    private void stop_MyService() {
         //đóng notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.cancel(1);
-        //tắt nhạc
-        if(mediaPlayer.isPlaying()){
-            mediaPlayer.pause();
-            PlayMusic.setBtn_PlayResource(true);
-        }
+        mediaPlayer.pause();
+        PlayMusic.setBtn_PlayResource(true);
     }
-
-//    public void dongBoImageResource(){
-//        if(mediaPlayer.isPlaying()){
-//            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_black_24dp);
-//            PlayMusic.setBtn_PlayResource(true);
-//        }
-//        else {
-//            notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_black_24dp);
-//            PlayMusic.setBtn_PlayResource(false);
-//        }
-//
-//    }
 
     //tạo intent sync giữa notification và activity
     private PendingIntent onButtonNotificationClick(@IdRes int id) {
@@ -184,6 +198,7 @@ public class MyService extends Service {
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .build();
+        //thay đổi resource cho nút play
         if(mediaPlayer.isPlaying()){
             notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_play_arrow_white_24dp);
         }
@@ -191,6 +206,7 @@ public class MyService extends Service {
             notificationLayout.setImageViewResource(R.id.btn_play_notification,R.drawable.ic_pause_circle_outline_white_24dp);
         }
 
+        //tạo pending intent cho lúc chơi media
         notificationLayout.setOnClickPendingIntent(R.id.btn_close_notification,
                 onButtonNotificationClick(R.id.btn_close_notification));
         notificationLayout.setOnClickPendingIntent(R.id.btn_play_notification,

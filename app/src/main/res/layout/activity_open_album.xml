@@ -22,6 +22,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchview_open_album"
                 app:defaultQueryHint="Type text here ..."
                 android:layout_width="37dp"
                 android:layout_height="match_parent"

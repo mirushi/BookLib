@@ -1,12 +1,15 @@
 package luubieunghi.lbn.booklib.UI.PlayAudio;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
-
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,25 +24,59 @@ import android.widget.SeekBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
+import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.Model.Album_Song.Album_Song;
+import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
+import luubieunghi.lbn.booklib.Model.CurrentSong.CurrentSong;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.PlayMusic.MyService;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.equalizer;
+import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.mediaPlayer;
 
 public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IPlayAudioView{
 
     private Toolbar toolbar;
     private Button btn_equalizer, btn_timer, btn_play_speed, btn_increase_volume, btn_decrease_volume;
     private Button btn_skip_previous_10s, btn_skip_previous_1m, btn_skip_next_10s,btn_skip_next_1m;
+    private Button btn_play, btn_next, btn_previous;
 
     private PlayAudioPresenter presenter;
 
     private Button []buttons;
     private String playbackSpeed="";
+    public static List<BookFile> bfs=null;
+    public static BookFile currentFile=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_audio);
+        BookDatabase bd=BookDatabase.getInstance(this);
+        ArrayList<Book> bs=new ArrayList<>();
+        bs.addAll(bd.BookDAO().getAllBook());
+        Book b=bs.get(0);
+        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
+        for(BookFile bf:bfs){
+            if(bf.getBRead()==bf.getBTotal())
+                continue;
+            else{
+                currentFile=bf;
+                break;
+            }
+        }
+        AudioDatabase database=AudioDatabase.getInstance(getBaseContext());
+//        database.album_dao().insert(new Album("AB1","Album 1","/sdcard/Download/BH1.png"));
+//        database.album_song_dao().insert(new Album_Song("AB1","BH1"));
+//        database.currentSong_dao().insert(new CurrentSong("BH1",0));
+
+        MyService.createEqualizer();
+        mediaPlayer.stop();
+        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
+        mediaPlayer.start();
         addControls();
         setUp();
         addEvents();
@@ -149,6 +186,27 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
             }
         });
 
+        btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.play();
+            }
+        });
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.next();
+            }
+        });
+
+        btn_previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.previous();
+            }
+        });
+
     }
 
     @Override
@@ -170,7 +228,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         final SeekBar sb4=view.findViewById(R.id.sb_chanel4);
         final SeekBar sb5=view.findViewById(R.id.sb_chanel5);
         sb1.setProgress(equalizer.getBandLevel((short)0));
-        sb2.setProgress(equalizer.getBandLevel((short)1));
+        sb2.setProgress( equalizer.getBandLevel((short)1));
         sb3.setProgress(equalizer.getBandLevel((short)2));
         sb4.setProgress(equalizer.getBandLevel((short)3));
         sb5.setProgress(equalizer.getBandLevel((short)4));
@@ -181,11 +239,11 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
             @Override
             public void onClick(View v) {
                 presenter.resetEqualizer();
-                sb1.setProgress(0);
-                sb2.setProgress(0);
-                sb3.setProgress(0);
-                sb4.setProgress(0);
-                sb5.setProgress(0);
+                sb1.setProgress(70000);
+                sb2.setProgress(70000);
+                sb3.setProgress(70000);
+                sb4.setProgress(70000);
+                sb5.setProgress(70000);
             }
         });
 
@@ -280,16 +338,17 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         }
 
         btn_OK.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 btn_play_speed.setText(text[0]);
+                presenter.setMediaSpeed(Float.parseFloat(playbackSpeed));
                 dialog.dismiss();
             }
         });
 
 
     }
-
 
     @Override
     public void showTimerDialog() {
@@ -339,7 +398,6 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         }
     }
 
-
     @Override
     public void addControls() {
         toolbar=findViewById(R.id.toolbar_listaudio);
@@ -353,6 +411,11 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         btn_skip_previous_1m=findViewById(R.id.btn_skip_previous_1m);
         btn_skip_next_10s=findViewById(R.id.btn_skip_next_10s);
         btn_skip_next_1m=findViewById(R.id.btn_skip_next_1m);
+
+        btn_play=findViewById(R.id.btn_img_play_play_audio);
+        btn_previous=findViewById(R.id.btn_img_previous_play_audio);
+        btn_next=findViewById(R.id.btn_img_next_play_audio);
+
     }
 
 

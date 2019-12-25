@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.UI.OpenAlbum;
+package luubieunghi.lbn.booklib.UI.OpenListSong;
 
 import android.content.Context;
 
@@ -16,4 +16,5 @@ public class SongFragmentPresenter implements SongFragmentContract.IBaiHatFragme
         this.view=view;
         view.updateListView(songs);
     }
+
 }

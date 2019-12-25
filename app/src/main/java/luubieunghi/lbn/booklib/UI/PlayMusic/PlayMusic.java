@@ -1,14 +1,14 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.media.MediaTimestamp;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,14 +63,19 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         setContentView(R.layout.activity_play_music);
         song=(Song)getIntent().getSerializableExtra("song");
         //BUG TO Ở ĐÂY
+        //nếu không truyền bài hát vào thì lấy bài hát đầu tiên
         if(song==null){
             AudioDatabase database=AudioDatabase.getInstance(this);
             //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
             List<Song> songs= database.song_dao().getByIDs("BH1");
             currentSong =songs.get(0);
+            song=currentSong;
             mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
+            System.out.println(Uri.parse(currentSong.getFilePath()));
         }
+        //nếu đã truyền bài hát vào
         else {
+            //nếu bài hát hiện tại không null thì so sánh xem bài hát truyền vào có giống bài hát hiện tại không
             if(!(currentSong==null))
             {
                 if(currentSong.getSongID().equals(song.getSongID())){
@@ -84,6 +89,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
                     mediaPlayer.start();
                 }
             }
+            //nếu bài hát hiện tại là null thì tạo mới rồi play luôn
             else{
                 currentSong=song;
                 mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
@@ -92,17 +98,11 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             }
 
         }
-//        AudioDatabase database=AudioDatabase.getInstance(this);
-//        //database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
-//        List<Song> songs= database.song_dao().getByIDs("BH1");
-//        //currentSong =songs.get(0);
-//        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
-//        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
         addControls();
         //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
         txt_ToTalTime.setText(mediaPlayer.getDuration()+"");
         seekBar_Time.setMax(mediaPlayer.getDuration());
-        img.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(currentSong.getImagePath())));
+        //img.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(currentSong.getImagePath())));
         ConfigGesturesListener();
         addEvents();
         presenter=new PlayMusicPresenter(this);
@@ -160,6 +160,30 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             }
         });
         updateResourceButtonPlay();
+
+        btn_img_Previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
+                chooseFile.setType("text/plain");
+                startActivityForResult(
+                        Intent.createChooser(chooseFile, "Choose a file"), 0
+                );
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        int b=0;
+        if(requestCode==0){
+            Uri u=data.getData();
+            System.out.println(u);
+            System.out.println(u.getPath());
+            int a=1;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
