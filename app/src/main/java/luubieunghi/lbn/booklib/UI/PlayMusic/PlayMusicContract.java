@@ -9,10 +9,10 @@ public class PlayMusicContract {
         void updateResourceButtonPlay();
         void ConfigGesturesListener();
         void showPopupMenu();
-        void openListSongIntent();
     }
     interface IPlayMusicPresenter{
-
+        void nextSong();
+        void previousSong();
         void sendMail();
         void share();
         void playMusicService(Song song);

@@ -176,38 +176,38 @@ public class PlayAudioPresenter implements PlayAudioContract.IPlayAudioPresenter
 
     @Override
     public void next() {
-        int order=PlayAudio.currentFile.getBFileOrder()+1;
-        if(order>=PlayAudio.bfs.size()){
-            Intent it=new Intent(context,MyService.class);
-            it.setAction("Action_Stop");
-            context.startService(it);
-        }
-        else {
-            for(BookFile bf:PlayAudio.bfs){
-                if(bf.getBFileOrder()==order){
-                    PlayAudio.currentFile=bf;
-                    break;
-                }
-            }
-            play();
-        }
+//        int order=PlayAudio.currentFile.getBFileOrder()+1;
+//        if(order>=PlayAudio.bfs.size()){
+//            Intent it=new Intent(context,MyService.class);
+//            it.setAction("Action_Stop");
+//            context.startService(it);
+//        }
+//        else {
+//            for(BookFile bf:PlayAudio.bfs){
+//                if(bf.getBFileOrder()==order){
+//                    PlayAudio.currentFile=bf;
+//                    break;
+//                }
+//            }
+//            play();
+//        }
     }
 
     @Override
     public void previous() {
-        int order=PlayAudio.currentFile.getBFileOrder()-1;
-        if(order<0){
-            PlayAudio.currentFile=PlayAudio.bfs.get(0);
-        }
-        else {
-            for(BookFile bf:PlayAudio.bfs){
-                if(bf.getBFileOrder()==order){
-                    PlayAudio.currentFile=bf;
-                    break;
-                }
-            }
-        }
-        play();
+//        int order=PlayAudio.currentFile.getBFileOrder()-1;
+//        if(order<0){
+//            PlayAudio.currentFile=PlayAudio.bfs.get(0);
+//        }
+//        else {
+//            for(BookFile bf:PlayAudio.bfs){
+//                if(bf.getBFileOrder()==order){
+//                    PlayAudio.currentFile=bf;
+//                    break;
+//                }
+//            }
+//        }
+//        play();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

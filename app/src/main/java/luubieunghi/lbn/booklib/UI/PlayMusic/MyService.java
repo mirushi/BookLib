@@ -70,11 +70,12 @@ public class MyService extends Service {
 
         //lấy action của intent để xử lí
         String action=intent.getAction();
-        Song song=(Song)intent.getSerializableExtra("song");
+        final Song song=(Song)intent.getSerializableExtra("song");
+        final boolean isMusic=intent.getBooleanExtra("isMusic",false);
         //xử lí chơi nhạc
-        if(song!=null)
+        if(isMusic)
         {
-            if(!song.getSongID().equals(PlayMusic.currentSong.getSongID()))
+            if((song!=null)&&(!song.getSongID().equals(PlayMusic.currentSong.getSongID())))
             {
                 mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(song.getFilePath()));
             }
@@ -125,9 +126,23 @@ public class MyService extends Service {
 //                    mediaPlayer.stop();
 //                    mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(PlayAudio.currentFile.getBFilePath()));
 //                }
-                stop_MyService();
+
+                if(isMusic){
+                   next_MediaPlayer();
+                    return;
+                }
+                else{
+
+                }
             }
         });
+        mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+            @Override
+            public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                PlayMusic.setSeekBarProgress(percent);
+            }
+        });
+
         return START_STICKY;
     }
 
@@ -138,21 +153,58 @@ public class MyService extends Service {
     }
 
     private void previous_MediaPlayer() {
+        int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)-1;
+        if(index<0){
+            index=PlayMusic.dsBaiHat.size();
+        }
+        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+        if(mediaPlayer.isPlaying()){
+            MyService.mediaPlayer.stop();
+            MyService.mediaPlayer.release();
+            MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+            play_MediaPlayer();
+        }
+        else {
+            MyService.mediaPlayer.stop();
+            MyService.mediaPlayer.release();
+            MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+        }
     }
 
     private void next_MediaPlayer() {
-
+        int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)+1;
+        if(index>=PlayMusic.dsBaiHat.size()){
+            index=0;
+        }
+        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+        if(mediaPlayer.isPlaying()){
+            MyService.mediaPlayer.stop();
+            MyService.mediaPlayer.release();
+            MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+            play_MediaPlayer();
+        }
+        else {
+            MyService.mediaPlayer.stop();
+            MyService.mediaPlayer.release();
+            MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+        }
     }
 
     // bắt đầu phát nhạc
     private void play_MediaPlayer() {
         if(mediaPlayer.isPlaying())
         {
-            PlayMusic.setBtn_PlayResource(true);
+            if(PlayMusic.btn_img_Play!=null)
+                PlayMusic.setBtn_PlayResource(true);
+            if(PlayAudio.btn_play!=null)
+                PlayAudio.setBtn_Play_Resource(true);
            mediaPlayer.pause();
         }
         else {
-            PlayMusic.setBtn_PlayResource(false);
+            if(PlayMusic.btn_img_Play!=null)
+                PlayMusic.setBtn_PlayResource(false);
+            if(PlayAudio.btn_play!=null)
+                PlayAudio.setBtn_Play_Resource(false);
             mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
            mediaPlayer.start();
         }

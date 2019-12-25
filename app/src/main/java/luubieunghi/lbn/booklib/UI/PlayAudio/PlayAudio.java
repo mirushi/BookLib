@@ -7,8 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +45,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     private Toolbar toolbar;
     private Button btn_equalizer, btn_timer, btn_play_speed, btn_increase_volume, btn_decrease_volume;
     private Button btn_skip_previous_10s, btn_skip_previous_1m, btn_skip_next_10s,btn_skip_next_1m;
-    private Button btn_play, btn_next, btn_previous;
+    private Button btn_next, btn_previous;
+    public static  Button btn_play=null;
 
     private PlayAudioPresenter presenter;
 
@@ -56,27 +60,29 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_audio);
         BookDatabase bd=BookDatabase.getInstance(this);
-        ArrayList<Book> bs=new ArrayList<>();
-        bs.addAll(bd.BookDAO().getAllBook());
-        Book b=bs.get(0);
-        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
-        for(BookFile bf:bfs){
-            if(bf.getBRead()==bf.getBTotal())
-                continue;
-            else{
-                currentFile=bf;
-                break;
-            }
-        }
-        AudioDatabase database=AudioDatabase.getInstance(getBaseContext());
+//        ArrayList<Book> bs=new ArrayList<>();
+//        bs.addAll(bd.BookDAO().getAllBook());
+//        Book b=bs.get(0);
+
+//        Book b=(Book)getIntent().getSerializableExtra("book");
+//        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
+//        for(BookFile bf:bfs){
+//            if(bf.getBRead()==bf.getBTotal())
+//                continue;
+//            else{
+//                currentFile=bf;
+//                break;
+//            }
+//        }
+//        mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentFile.getBFilePath()));
 //        database.album_dao().insert(new Album("AB1","Album 1","/sdcard/Download/BH1.png"));
 //        database.album_song_dao().insert(new Album_Song("AB1","BH1"));
 //        database.currentSong_dao().insert(new CurrentSong("BH1",0));
 
-        MyService.createEqualizer();
         mediaPlayer.stop();
-        mediaPlayer= MediaPlayer.create(getBaseContext(),R.raw.van_su_tuy_duyen);
-        mediaPlayer.start();
+        mediaPlayer= MediaPlayer.create(this,R.raw.van_su_tuy_duyen);
+        MyService.createEqualizer();
+        //mediaPlayer.start();
         addControls();
         setUp();
         addEvents();
@@ -415,8 +421,23 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         btn_play=findViewById(R.id.btn_img_play_play_audio);
         btn_previous=findViewById(R.id.btn_img_previous_play_audio);
         btn_next=findViewById(R.id.btn_img_next_play_audio);
+        updateResourceButtonPlay();
 
     }
 
+    public void updateResourceButtonPlay() {
+        if(mediaPlayer!=null&&mediaPlayer.isPlaying())
+            setBtn_Play_Resource(false);
+        else
+            setBtn_Play_Resource(true);
+    }
+
+    public static void setBtn_Play_Resource(boolean play){
+        if(play==true)
+            btn_play.setBackgroundResource(R.drawable.ic_play_arrow_black_48dp);
+        if (play==false) {
+            btn_play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_48dp);
+        }
+    }
 
 }

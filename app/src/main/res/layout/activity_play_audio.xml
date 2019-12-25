@@ -297,10 +297,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_play_arrow_black_48dp"
-            app:icon="@drawable/ic_play_arrow_black_48dp"
+            android:background="@xml/custome_button"
             app:iconGravity="textStart"
+            app:backgroundTint="#000000"
             app:iconTint="@null"></Button>
 
         <Button

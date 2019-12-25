@@ -2,6 +2,8 @@ package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.widget.Toast;
 
 import luubieunghi.lbn.booklib.Model.Song.Song;
@@ -12,6 +14,23 @@ public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter
     private Context context;
     public PlayMusicPresenter(Context context){
         this.context=context;
+    }
+
+
+    @Override
+    public void nextSong() {
+        Intent it=new Intent(context,MyService.class);
+        it.setAction("Action_Next");
+        it.putExtra("isMusic", true);
+        context.startService(it);
+    }
+
+    @Override
+    public void previousSong() {
+        Intent it=new Intent(context,MyService.class);
+        it.setAction("Action_Previous");
+        it.putExtra("isMusic", true);
+        context.startService(it);
     }
 
     @Override
@@ -52,6 +71,7 @@ public class PlayMusicPresenter implements PlayMusicContract.IPlayMusicPresenter
         else{
             intent.setAction("Action_Play");
         }
+        intent.putExtra("isMusic",true);
         intent.putExtra("song",song);
         context.startService(intent);
     }
