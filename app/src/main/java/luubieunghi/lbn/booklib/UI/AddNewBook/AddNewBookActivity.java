@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.RatingView;
@@ -216,6 +217,9 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         //Hiển thị thông báo sách được thêm thành công.
         Toast.makeText(this, "Book added succcessfully !", Toast.LENGTH_LONG);
         waitDialog.hideDialog();
+        //Khi hoàn thành rồi thì phát tính hiệu để fragment biết mà update lại danh sách các quyển sách.
+        Intent intent = new Intent("book_list_updated");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();
     }
 
@@ -223,6 +227,10 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     public void BookAddedFailure(String reason) {
         //Hiển thị thông báo có lỗi xảy ra khi thêm sách.
         Toast.makeText(this, "Something wrong." + reason, Toast.LENGTH_LONG).show();
+    }
+
+    public String getBookType(){
+        return bookType;
     }
 
 

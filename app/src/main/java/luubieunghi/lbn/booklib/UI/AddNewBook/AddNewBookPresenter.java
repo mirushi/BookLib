@@ -44,6 +44,13 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
         final ArrayList<String> viewBookFilePath = view.pathToFiles;
         final String viewBookCoverPath = view.pathToBookCover;
         final String viewTitle = view.txtBookTitle.getText().toString();
+        final String bookType = view.getBookType();
+        long bTypeID;
+        if (bookType == "EBOOK")
+            bTypeID = BookDatabase.getInstance(view).getEbookId();
+        else
+            bTypeID = BookDatabase.getInstance(view).getAudioBookId();
+
         final String viewAuthor = view.txtAuthor.getText().toString();
         final int viewRating = view.ratingView.getRating();
         final String viewIds = view.txtIDs.getText().toString();
@@ -79,7 +86,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
 
                 Book book = new Book(view, bookCoverPath,
-                        viewTitle, viewRating, langID, publisherID, viewPublishDate, viewDescription, 0);
+                        viewTitle, viewRating, langID, publisherID, viewPublishDate, viewDescription, bTypeID);
 
                 long bookID = bookDB.BookDAO().insertBook(book);
                 //Sau khi thêm sách vào, chúng ta còn phải xử lý IDs, Tags và Authors trong mối quan hệ nhiều nhiều.
@@ -114,8 +121,9 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
                 //Các files của sách.
                 List<BookFile> bookFileList = new ArrayList<>();
-                for (String filePath : viewBookFilePath){
-                    BookFile bookFile = new BookFile(bookID, 0, filePath, 0,0);
+                for (int i=0;i<viewBookFilePath.size();++i){
+                    String filePath = viewBookFilePath.get(i);
+                    BookFile bookFile = new BookFile(bookID, i, filePath, 0,0);
                     bookFileList.add(bookFile);
                 }
 

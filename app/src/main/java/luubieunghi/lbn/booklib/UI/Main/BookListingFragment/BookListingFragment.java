@@ -1,5 +1,9 @@
 package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
@@ -51,6 +56,8 @@ public class BookListingFragment extends Fragment implements BookListingContract
     //Dialog dùng để chặn người dùng thao tác với màn hình khi sách đang load.
     BookLoadingAlertDialog dialog;
 
+    private BroadcastReceiver mMessageReceiver;
+
     public static BookListingFragment newInstance(BookFilterType filter)
     {
         BookListingFragment fragment = new BookListingFragment();
@@ -72,6 +79,16 @@ public class BookListingFragment extends Fragment implements BookListingContract
 
         //Khởi tạo mới presenter ở đây.
         presenter = new BookListingPresenter(this);
+
+        mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                LoadDataForRecyclerView();
+            }
+        };
+        //Ta đăng ký receiver để biết khi nào cần phải cập nhật lại danh sách sách.
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver
+                (mMessageReceiver, new IntentFilter("book_list_updated"));
     }
 
     @Nullable
@@ -81,6 +98,12 @@ public class BookListingFragment extends Fragment implements BookListingContract
         view = inflater.inflate(R.layout.fragment_book_listing, container, false);
         SetupRecyclerView();
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
     }
 
     private void displayMessage(String message){

@@ -10,7 +10,7 @@ import luubieunghi.lbn.booklib.Model.Book.Book;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity (tableName = "bookfile",
-        indices = {@Index(value = {"bookID"}, unique = true)},
+        primaryKeys = {"bookID","bFileOrder"},
         foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Book.class,parentColumns = "bookID", childColumns = "bookID")})
 
 public class BookFile {
@@ -19,7 +19,6 @@ public class BookFile {
     @ColumnInfo(name = "bookID")
     private long bookID;
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "bFileOrder")
     private int bFileOrder = 0;
 

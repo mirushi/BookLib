@@ -2,9 +2,12 @@ package luubieunghi.lbn.booklib.UI.Main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
         ConfigDrawerLayout();
         ConfigGesturesListener();
         pickiT = new PickiT(this,this);
+
     }
 
     private void ConfigGesturesListener()

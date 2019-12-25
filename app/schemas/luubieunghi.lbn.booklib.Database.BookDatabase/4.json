@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3,
-    "identityHash": "3b4f43d50eb51c44d97b0a799c201e56",
+    "version": 4,
+    "identityHash": "c0f671b418ba7bd2b958e2e1e1664a13",
     "entities": [
       {
         "tableName": "book",
@@ -409,7 +409,7 @@
       },
       {
         "tableName": "bookfile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `bFileOrder` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bFilePath` TEXT, `bRead` INTEGER NOT NULL, `bTotal` INTEGER NOT NULL, FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookID` INTEGER NOT NULL, `bFileOrder` INTEGER NOT NULL, `bFilePath` TEXT, `bRead` INTEGER NOT NULL, `bTotal` INTEGER NOT NULL, PRIMARY KEY(`bookID`, `bFileOrder`), FOREIGN KEY(`bookID`) REFERENCES `book`(`bookID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "bookID",
@@ -444,20 +444,12 @@
         ],
         "primaryKey": {
           "columnNames": [
+            "bookID",
             "bFileOrder"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
-        "indices": [
-          {
-            "name": "index_bookfile_bookID",
-            "unique": false,
-            "columnNames": [
-              "bookID"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_bookfile_bookID` ON `${TABLE_NAME}` (`bookID`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": [
           {
             "table": "book",
@@ -502,7 +494,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3b4f43d50eb51c44d97b0a799c201e56')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c0f671b418ba7bd2b958e2e1e1664a13')"
     ]
   }
 }
