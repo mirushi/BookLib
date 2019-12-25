@@ -57,15 +57,14 @@ public class BookReadingActivity extends AppCompatActivity
     private static final String LOG_TAG = BookReadingActivity.class.getSimpleName();
     private FolioReader folioReader;
 
-    List<BookFile>tmp;
-
+    List<BookFile> tmp;
     BookLoadingAlertDialog dialog;
-
     String link = "";
     Book book;
     long book_ID;
-
+    ReadLocator mreadLocator;
     String filePath;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +88,7 @@ public class BookReadingActivity extends AppCompatActivity
                 if (tmp.size() <= 0)
                     return;
                 filePath = tmp.get(0).getBFilePath();
+                mreadLocator = ReadLocator.fromJson(tmp.get(0).getBLocator());
                 dialog.hideDialog();
                 AppExecutors.getInstance().mainThread().execute(new Runnable() {
                     @Override
@@ -108,32 +108,32 @@ public class BookReadingActivity extends AppCompatActivity
 
         getHighlightsAndSave();
 
-        ReadLocator readLocator = getLastReadLocator();
-
         Config config = AppUtil.getSavedConfig(getApplicationContext());
         if (config == null)
             config = new Config();
         config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
 
-        folioReader.setReadLocator(readLocator);
-//        folioReader.setConfig(config, true)
-//                .openBook(Environment.getExternalStorageDirectory().getPath()+"Download/sa ch.epub");
-
+        folioReader.setReadLocator(mreadLocator);
         folioReader.setConfig(config, true)
                 .openBook(filePath);
-    }
-
-
-    private ReadLocator getLastReadLocator() {
-
-        String jsonString = loadAssetTextAsString("Locators/LastReadLocators/last_read_locator_1.json");
-        return ReadLocator.fromJson(jsonString);
     }
 
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         Log.i(LOG_TAG, "-> saveReadLocator -> " + readLocator.toJson());
-        //
+        dialog.showDialog();
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                tmp = BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().getAllFilesOfBook(book_ID);
+                if (tmp.size() <= 0)
+                    return;
+                filePath = tmp.get(0).getBFilePath();
+                dialog.hideDialog();
+                tmp.get(0).setbLocator(readLocator.toJson());
+            }
+        });
     }
 
     /*
