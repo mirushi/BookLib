@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#03a9f5</item>
         <item name="colorPrimaryDark">#03a9f5</item>
         <item name="colorAccent">@android:color/holo_blue_dark</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="EbookTypesSelectorDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert"/>
