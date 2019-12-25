@@ -5,13 +5,13 @@
     <item android:id="@+id/menu_main_item_add_book"
         android:title="Add Book"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_add_black_24dp"
+        android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_main_item_search"
         android:title="Search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
