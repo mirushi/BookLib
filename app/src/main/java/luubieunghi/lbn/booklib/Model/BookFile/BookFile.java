@@ -31,12 +31,24 @@ public class BookFile {
     @ColumnInfo(name = "bTotal")
     private long bTotal;
 
-    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal) {
+    @ColumnInfo(name = "bLocator")
+    private String bLocator;
+
+    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal, String bLocator) {
         this.bookID = bookID;
         this.bFileOrder = bFileOrder;
         this.bFilePath = bFilePath;
         this.bRead = bRead;
         this.bTotal = bTotal;
+        this.bLocator = bLocator;
+    }
+
+    public String getBLocator(){
+        return this.bLocator;
+    }
+
+    public void setbLocator(String bLocator){
+        this.bLocator = bLocator;
     }
 
     public long getBookID() {

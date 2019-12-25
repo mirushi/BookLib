@@ -74,7 +74,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
                 Book selectedBook = bookList.get(position);
                 if (selectedBook.getBTypeID() == BookDatabase.getInstance(context).getEbookId()){
-                    intent = new Intent(context, ReadBookActivity.class);
+                    intent = new Intent(context, BookReadingActivity.class);
                     intent.putExtra("book", selectedBook);
                 }
                 else{

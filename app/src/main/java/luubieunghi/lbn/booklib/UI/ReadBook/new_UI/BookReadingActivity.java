@@ -47,13 +47,19 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.ReadBook.HighlightData.HighlightData;
+import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 public class BookReadingActivity extends AppCompatActivity
         implements OnHighlightListener, ReadLocatorListener, FolioReader.OnClosedListener {
 
     private static final String LOG_TAG = BookReadingActivity.class.getSimpleName();
     private FolioReader folioReader;
+
+    List<BookFile>tmp;
+
+    BookLoadingAlertDialog dialog;
 
     String link = "";
     Book book;
@@ -64,21 +70,34 @@ public class BookReadingActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_reading);
+        dialog = new BookLoadingAlertDialog(this);
 
         receiveData();
-
-        setUpView();
     }
 
     private void receiveData() {
         Intent intent = getIntent();
         book = (Book) intent.getSerializableExtra("book");
         book_ID = book.getBookID();
-        List<BookFile>tmp = BookDatabase.getInstance(this).BookFileDAO().getAllFilesOfBook(book_ID);
-        if (tmp.size() <= 0)
-            return;
-        filePath = tmp.get(0).getBFilePath();
 
+        dialog.showDialog();
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                tmp = BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().getAllFilesOfBook(book_ID);
+                if (tmp.size() <= 0)
+                    return;
+                filePath = tmp.get(0).getBFilePath();
+                dialog.hideDialog();
+                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        setUpView();
+                    }
+                });
+            }
+        });
     }
 
     private void setUpView() {
