@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.util.Util;
 
 import java.util.ArrayList;
@@ -91,7 +94,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull BookRecyclerViewHolder holder, int position) {
         //holder.bookImage.setImageBitmap(bookList.get(position).getBookImage());
-        Glide.with(context).asBitmap().load(bookList.get(position).getBookImage()).override(Utils.fromDPtoPX(80), Utils.fromDPtoPX(100)).centerCrop().into(holder.bookImage);
+        int radius = context.getResources().getDimensionPixelSize(R.dimen.book_cover_corner_radius);
+        Glide.with(context)
+                .asBitmap()
+                .load(bookList.get(position).getBookImage()).override(Utils.fromDPtoPX(80), Utils.fromDPtoPX(100))
+                .transforms(new CenterCrop(),new RoundedCorners(radius))
+                .into(holder.bookImage);
         holder.bookTitle.setText(StringUtils.cropString(bookList.get(position).getBookTitle(), titleSize));
     }
 

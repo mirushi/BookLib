@@ -7,6 +7,7 @@ import java.util.List;
 
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 public class BookListingPresenter implements BookListingContract.BookListingMVPPresenter {
@@ -21,14 +22,21 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
     }
 
     @Override
-    public void LoadBookList(BookListingReadProgressFilter filter) {
+    public void LoadBookList(BookListingReadProgressFilter filter, BookFilterType bookFilterType) {
         view.SetLoadingDialog(true);
         if (filter == BookListingReadProgressFilter.NEW){
             view.freshBookRecyclerViewAdapter.clear();
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    List<Book> newBookList = BookDatabase.getInstance(context).BookDAO().getAllNewBook();
+                    List<Book> newBookList;
+                    if (bookFilterType == BookFilterType.ALL)
+                        newBookList = BookDatabase.getInstance(context).BookDAO().getAllNewBook();
+                    else if (bookFilterType == BookFilterType.EBOOKONLY)
+                        newBookList = BookDatabase.getInstance(context).BookDAO().getAllNewBookWithBookType(BookDatabase.getInstance(context).getEbookId());
+                    else
+                        newBookList = BookDatabase.getInstance(context).BookDAO().getAllNewBookWithBookType(BookDatabase.getInstance(context).getAudioBookId());
+
                     //Đụng tới view là phải để thread chính xử lý.
                     AppExecutors.getInstance().mainThread().execute(new Runnable() {
                         @Override
@@ -45,7 +53,14 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    List<Book> readingBookList = BookDatabase.getInstance(context).BookDAO().getAllInProgressBook();
+                    List<Book> readingBookList;
+                    if (bookFilterType == BookFilterType.ALL)
+                        readingBookList = BookDatabase.getInstance(context).BookDAO().getAllInProgressBook();
+                    else if (bookFilterType == BookFilterType.EBOOKONLY)
+                        readingBookList = BookDatabase.getInstance(context).BookDAO().getAllInProgressBookWithBookType(BookDatabase.getInstance(context).getEbookId());
+                    else
+                        readingBookList = BookDatabase.getInstance(context).BookDAO().getAllInProgressBookWithBookType(BookDatabase.getInstance(context).getAudioBookId());
+
                     //Đụng tới view là phải để thread chính xử lý.
                     AppExecutors.getInstance().mainThread().execute(new Runnable() {
                         @Override
@@ -62,7 +77,14 @@ public class BookListingPresenter implements BookListingContract.BookListingMVPP
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    List<Book> finishedBookList = BookDatabase.getInstance(context).BookDAO().getAllFinishedBook();
+                    List<Book> finishedBookList;
+                    if (bookFilterType == BookFilterType.ALL)
+                        finishedBookList = BookDatabase.getInstance(context).BookDAO().getAllFinishedBook();
+                    else if (bookFilterType == BookFilterType.EBOOKONLY)
+                        finishedBookList = BookDatabase.getInstance(context).BookDAO().getAllFinishedBookWithBookType(BookDatabase.getInstance(context).getEbookId());
+                    else
+                        finishedBookList = BookDatabase.getInstance(context).BookDAO().getAllFinishedBookWithBookType(BookDatabase.getInstance(context).getAudioBookId());
+
                     //Đụng tới view là phải để thread chính xử lý.
                     AppExecutors.getInstance().mainThread().execute(new Runnable() {
                         @Override

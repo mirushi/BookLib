@@ -21,8 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
 import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
@@ -52,6 +54,9 @@ public class BookListingFragment extends Fragment implements BookListingContract
     ArrayList<Book> freshStartBooks = new ArrayList<>();
     ArrayList<Book> inProgressBooks = new ArrayList<>();
     ArrayList<Book> finishedBooks = new ArrayList<>();
+
+    //Biến lưu giữ layout dùng để refresh.
+    SwipeRefreshLayout swipeRefreshLayout;
 
     //Dialog dùng để chặn người dùng thao tác với màn hình khi sách đang load.
     BookLoadingAlertDialog dialog;
@@ -97,7 +102,19 @@ public class BookListingFragment extends Fragment implements BookListingContract
         //return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_book_listing, container, false);
         SetupRecyclerView();
+        SetupSwipeToReloadLayout(view);
         return view;
+    }
+
+    private void SetupSwipeToReloadLayout(View view) {
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.fragment_book_listing_pullToRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LoadDataForRecyclerView();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -213,14 +230,15 @@ public class BookListingFragment extends Fragment implements BookListingContract
 
     private void LoadDataForRecyclerView()
     {
+        //Xét xem filter đang ở chế độ nào.
         //Load dữ liệu cho danh sách sách mới.
-        presenter.LoadBookList(BookListingReadProgressFilter.NEW);
+        presenter.LoadBookList(BookListingReadProgressFilter.NEW, filter);
 
         //Load dữ liệu cho danh sách sách đang đọc.
-        presenter.LoadBookList(BookListingReadProgressFilter.READING);
+        presenter.LoadBookList(BookListingReadProgressFilter.READING, filter);
 
         //Load dữ liệu cho danh sách sách đã đọc xong.
-        presenter.LoadBookList(BookListingReadProgressFilter.FINISHED);
+        presenter.LoadBookList(BookListingReadProgressFilter.FINISHED, filter);
     }
 
     @Override

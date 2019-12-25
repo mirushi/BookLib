@@ -6,28 +6,40 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 @Dao
-public interface LanguageDAO {
+public abstract class LanguageDAO {
     @Insert
-    void Insert(Language language);
+    public abstract long Insert(Language language);
 
     @Delete
-    void Delete(Language language);
+    public abstract void Delete(Language language);
 
     @Update
-    void Update(Language language);
+    public abstract void Update(Language language);
+
+    @Transaction
+    public long InsertIfNotExists(Language language){
+        List<Language> detect = searchForExactLanguageName(language.getLangName());
+        if (detect.size() > 0){
+            return detect.get(0).getLangID();
+        }
+        else{
+            return Insert(language);
+        }
+    }
 
     @Query("Select * from language")
-    List<Language> getAllStoredLanguages();
+    public abstract List<Language> getAllStoredLanguages();
 
     @Query("Select * from language where Language.langName like '%' || :subLangName || '%'")
-    List<Language> searchForLanguages(String subLangName);
+    public abstract List<Language> searchForLanguages(String subLangName);
 
     @Query("Select * from language where Language.langName = :langName")
-    List<Language> searchForExactLanguageName(String langName);
+    public abstract List<Language> searchForExactLanguageName(String langName);
 
     @Query("DELETE FROM LANGUAGE")
-    void nukeTable();
+    public abstract void nukeTable();
 }

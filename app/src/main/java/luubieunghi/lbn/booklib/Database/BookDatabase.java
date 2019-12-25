@@ -88,24 +88,7 @@ public abstract class BookDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            //Hành động sẽ được thực hiện khi database được tạo mới lần đầu.
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    bookDatabaseInstance.runInTransaction(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Chúng ta sẽ thêm vào hai ngôn ngữ mặc định khi DB được tạo (tiếng Anh / tiếng Việt).
-                            bookDatabaseInstance.LanguageDAO().Insert(new Language(0,"English"));
-                            bookDatabaseInstance.LanguageDAO().Insert(new Language(0, "Tiếng Việt"));
 
-                            //Sau đó chúng ta sẽ thêm vào 2 loại sách (Sách Ebook và Sách nói).
-                            bookDatabaseInstance.BookTypeDAO().Insert(new BookType(0, "Ebook"));
-                            bookDatabaseInstance.BookTypeDAO().Insert(new BookType(1, "Audio Book"));
-                        }
-                    });
-                }
-            });
         }
 
         @Override
@@ -125,6 +108,24 @@ public abstract class BookDatabase extends RoomDatabase {
                             AUDIO_BOOK_ID = type.getBTypeID();
                         }
                     }
+                }
+            });
+            //Hành động sẽ được thực hiện khi database được tạo mới lần đầu.
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    bookDatabaseInstance.runInTransaction(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Chúng ta sẽ thêm vào hai ngôn ngữ mặc định khi DB được tạo (tiếng Anh / tiếng Việt).
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0,"English"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
+
+                            //Sau đó chúng ta sẽ thêm vào 2 loại sách (Sách Ebook và Sách nói).
+                            bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(0, "Ebook"));
+                            bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(1, "Audio Book"));
+                        }
+                    });
                 }
             });
         }

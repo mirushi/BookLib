@@ -84,6 +84,28 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
         ConfigGesturesListener();
         pickiT = new PickiT(this,this);
 
+        //Yêu cầu Permission tại đây.
+        final RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.
+                request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted->{
+                    if (granted){
+
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                                .setTitle("Quyền truy cập tập tin bị từ chối")
+                                .setMessage("Xin lỗi, nhưng bạn cần cho phép quyền truy cập tập tin khi sử dụng ứng dụng.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        MainActivity.this.finish();
+                                    }
+                                }).setCancelable(false);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
     }
 
     private void ConfigGesturesListener()
