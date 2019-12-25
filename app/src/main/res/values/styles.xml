@@ -6,7 +6,7 @@
         <item name="colorPrimary">#03a9f5</item>
         <item name="colorPrimaryDark">#03a9f5</item>
         <item name="colorAccent">@android:color/holo_blue_dark</item>
-        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
     </style>
 
     <style name="EbookTypesSelectorDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert"/>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
 import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
 import luubieunghi.lbn.booklib.Utility.Others.StringUtils;
+import luubieunghi.lbn.booklib.Utility.Others.Utils;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 
@@ -83,7 +85,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull BookRecyclerViewHolder holder, int position) {
         //holder.bookImage.setImageBitmap(bookList.get(position).getBookImage());
-        Glide.with(context).asBitmap().load(bookList.get(position).getBookImage()).into(holder.bookImage);
+        Glide.with(context).asBitmap().load(bookList.get(position).getBookImage()).override(Utils.fromDPtoPX(80), Utils.fromDPtoPX(100)).centerCrop().into(holder.bookImage);
         holder.bookTitle.setText(StringUtils.cropString(bookList.get(position).getBookTitle(), titleSize));
     }
 

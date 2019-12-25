@@ -46,7 +46,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
         final String viewTitle = view.txtBookTitle.getText().toString();
         final String bookType = view.getBookType();
         long bTypeID;
-        if (bookType == "EBOOK")
+        if (bookType.equals("EBOOK"))
             bTypeID = BookDatabase.getInstance(view).getEbookId();
         else
             bTypeID = BookDatabase.getInstance(view).getAudioBookId();
