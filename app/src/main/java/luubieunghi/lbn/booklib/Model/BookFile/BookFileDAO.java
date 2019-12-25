@@ -13,7 +13,7 @@ import androidx.room.Update;
 public abstract class BookFileDAO {
 
     @Query("SELECT * FROM bookfile WHERE bookfile.bookID = :bookID")
-    public abstract List<BookFile> getAllFilesOfBook(int bookID);
+    public abstract List<BookFile> getAllFilesOfBook(long bookID);
 
     @Query("DELETE FROM bookfile WHERE bookfile.bookID = :bookID")
     public abstract void removeAllFilesOfBook(long bookID);

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/third_page_layout"
-    tools:context=".UI.ReadBook.BookReadingThirdPageFrm"
+    tools:context=".UI.ReadBook.old_UI.BookReadingThirdPageFrm"
    >
 
     <!-- TODO: Update blank fragment layout -->
