@@ -2,6 +2,9 @@ package luubieunghi.lbn.booklib.UI.CustomAlertDialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -29,17 +32,20 @@ public class BookLoadingAlertDialog {
 
             dialog.setContentView(R.layout.custom_book_processing_layout);
 
-            ImageView gifImageView = dialog.findViewById(R.id.custom_book_processing_layout_loading_imageView);
+            dialog.findViewById(R.id.custom_book_processing_layout_loading).setVisibility(View.VISIBLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-            DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(gifImageView);
-
-            //Load image lên bằng Glide.
-
-            Glide.with(activity)
-                    .load(R.drawable.book_loading_dialog_bg)
-                    .placeholder(R.drawable.book_loading_dialog_bg)
-                    .centerCrop()
-                    .into(imageViewTarget);
+//            ImageView gifImageView = dialog.findViewById(R.id.custom_book_processing_layout_loading_imageView);
+//
+//            DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(gifImageView);
+//
+//            //Load image lên bằng Glide.
+//
+//            Glide.with(activity)
+//                    .load(R.drawable.book_loading_dialog_bg)
+//                    .placeholder(R.drawable.book_loading_dialog_bg)
+//                    .centerCrop()
+//                    .into(imageViewTarget);
         }
 
         //Hiển thị dialog lên sau khi cấu hình mọi thứ xong.
