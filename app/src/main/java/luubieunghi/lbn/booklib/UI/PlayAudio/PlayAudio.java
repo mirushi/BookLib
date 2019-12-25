@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayMusic.MyService;
@@ -55,25 +56,28 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
 //        bs.addAll(bd.BookDAO().getAllBook());
 //        Book b=bs.get(0);
 
-//        Book b=(Book)getIntent().getSerializableExtra("book");
-//        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
-//        for(BookFile bf:bfs){
-//            if(bf.getBRead()==bf.getBTotal())
-//                continue;
-//            else{
-//                currentFile=bf;
-//                break;
-//            }
-//        }
+        Book b=(Book)getIntent().getSerializableExtra("book");
+        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
+        for(BookFile bf:bfs){
+            if(bf.getBRead()==bf.getBTotal())
+                continue;
+            else{
+                currentFile=bf;
+                break;
+            }
+        }
+
+        mediaPlayer.stop();
+        if(currentFile!=null){
+            mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(currentFile.getBFilePath()));
+            mediaPlayer.seekTo((int)currentFile.getBRead());
+        }
 //        mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentFile.getBFilePath()));
 //        database.album_dao().insert(new Album("AB1","Album 1","/sdcard/Download/BH1.png"));
 //        database.album_song_dao().insert(new Album_Song("AB1","BH1"));
 //        database.currentSong_dao().insert(new CurrentSong("BH1",0));
-
-        mediaPlayer.stop();
-        mediaPlayer= MediaPlayer.create(this,R.raw.van_su_tuy_duyen);
+//        mediaPlayer= MediaPlayer.create(this,R.raw.van_su_tuy_duyen);
         MyService.createEqualizer();
-        //mediaPlayer.start();
         addControls();
         setUp();
         addEvents();

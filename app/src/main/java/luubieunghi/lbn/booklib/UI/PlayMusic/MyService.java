@@ -16,6 +16,11 @@ import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import java.util.Random;
+
+import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
@@ -102,27 +107,55 @@ public class MyService extends Service {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-//                PlayAudio.currentFile.setBRead(PlayAudio.currentFile.getBTotal());
-//                BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
-//                int order=PlayAudio.currentFile.getBFileOrder()+1;
-//                if(order>=PlayAudio.bfs.size()){
-//                    stop_MyService();
-//                }
-//                else{
-//                    for(BookFile bf:PlayAudio.bfs){
-//                        if(bf.getBFileOrder()==order)
-//                            PlayAudio.currentFile=bf;
-//                    }
-//                    mediaPlayer.stop();
-//                    mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(PlayAudio.currentFile.getBFilePath()));
-//                }
-
                 if(isMusic){
-                   next_MediaPlayer();
-                    return;
+                    if(PlayMusic.isRepeat){
+                        MyService.mediaPlayer.stop();
+                        MyService.mediaPlayer.release();
+                        MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+                        play_MediaPlayer();
+                        PlayMusic.isRepeat=false;
+                        return;
+                    }
+                    else if(PlayMusic.isShuffle){
+                        int max=PlayMusic.dsBaiHat.size();
+                        Random r=new Random();
+                        int index=r.nextInt(max-1);
+                        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+                        MyService.mediaPlayer.stop();
+                        MyService.mediaPlayer.release();
+                        MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+                        play_MediaPlayer();
+                        return;
+                    }
+                    else {
+                        int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)+1;
+                        if(index>=PlayMusic.dsBaiHat.size()){
+                            index=0;
+                        }
+                        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+                        MyService.mediaPlayer.stop();
+                        MyService.mediaPlayer.release();
+                        MyService.mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+                        play_MediaPlayer();
+                        return;
+                    }
                 }
                 else{
-
+                    PlayAudio.currentFile.setBRead(PlayAudio.currentFile.getBTotal());
+                    BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
+                    int order=PlayAudio.currentFile.getBFileOrder()+1;
+                    if(order>=PlayAudio.bfs.size()){
+                        stop_MyService();
+                    }
+                    else{
+                        for(BookFile bf:PlayAudio.bfs){
+                            if(bf.getBFileOrder()==order)
+                                PlayAudio.currentFile=bf;
+                        }
+                        mediaPlayer.stop();
+                        mediaPlayer=MediaPlayer.create(getBaseContext(),Uri.parse(PlayAudio.currentFile.getBFilePath()));
+                        play_MediaPlayer();
+                    }
                 }
             }
         });
@@ -145,7 +178,7 @@ public class MyService extends Service {
     private void previous_MediaPlayer() {
         int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)-1;
         if(index<0){
-            index=PlayMusic.dsBaiHat.size();
+            index=PlayMusic.dsBaiHat.size()-1;
         }
         PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
         if(mediaPlayer.isPlaying()){

@@ -1,9 +1,14 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.MediaPlayer;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +46,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     public static Song currentSong=null;
     public Song song=null;
     public static ArrayList<Song> dsBaiHat=null;
+    public static boolean isRepeat=false, isShuffle=false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,6 +71,10 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             List<Song> songs= database.song_dao().getByIDs("BH1");
             currentSong =songs.get(0);
             song=currentSong;
+            if(mediaPlayer!=null&&mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+                mediaPlayer.release();
+            }
             mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
             System.out.println(Uri.parse(currentSong.getFilePath()));
         }
@@ -129,8 +139,6 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             }
         });
 
-
-
         seekBar_Time.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -162,6 +170,38 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             @Override
             public void onClick(View v) {
                presenter.previousSong();
+            }
+        });
+
+        btn_img_Repeat.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                isRepeat=!isRepeat;
+                if(isRepeat){
+                    isShuffle=false;
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#80b7cf")));
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+                else {
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+            }
+        });
+
+        btn_img_Shuffle.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                isShuffle=!isShuffle;
+                if(isShuffle){
+                    isRepeat=false;
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#80b7cf")));
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+                else {
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
             }
         });
     }
