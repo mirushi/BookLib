@@ -35,15 +35,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
+
 import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
+
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
+
+
 
 public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
 
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_app_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -185,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("BookLib");
         toolbar.setSubtitle("Ứng dụng hỗ trợ quản lý ebook toàn diện");
-        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.inflateMenu(R.menu.main_app_menu);
 
         //Đi đến Activities giới thiệu sản phẩm.
         toolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {

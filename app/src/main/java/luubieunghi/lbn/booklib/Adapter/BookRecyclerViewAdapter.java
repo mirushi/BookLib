@@ -17,13 +17,17 @@ import com.bumptech.glide.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import luubieunghi.lbn.booklib.UI.ReadBook.new_UI.BookReadingActivity;
+import luubieunghi.lbn.booklib.R;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
-import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
+import luubieunghi.lbn.booklib.UI.ReadBook.old_UI.ReadBookActivity;
 import luubieunghi.lbn.booklib.Utility.Others.StringUtils;
 import luubieunghi.lbn.booklib.Utility.Others.Utils;
 
@@ -65,6 +69,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             public void onClick(View v) {
                 Integer position = holder.getAdapterPosition();
                 Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
+
                 Intent intent;
 
                 Book selectedBook = bookList.get(position);
@@ -76,6 +81,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
                     intent = new Intent(context, PlayAudio.class);
                     intent.putExtra("book", selectedBook);
                 }
+
                 context.startActivity(intent);
             }
         });

@@ -5,7 +5,7 @@
     android:layout_height="220dp"
     android:layout_gravity="bottom"
     android:layout_margin="10dp"
-    tools:context=".UI.ReadBook.ReadBookActivity">
+    tools:context=".UI.ReadBook.old_UI.ReadBookActivity">
 
     <ImageView
         android:layout_width="match_parent"
