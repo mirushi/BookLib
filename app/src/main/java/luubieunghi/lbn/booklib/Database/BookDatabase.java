@@ -95,21 +95,6 @@ public abstract class BookDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
             //Hành động sẽ được thực hiện mỗi khi database được mở.
-            //Chúng ta thực hiện cập nhật lại Ebook ID và Audio Book ID để phân biệt 2 thứ đó.
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    List<BookType> bookTypes = bookDatabaseInstance.BookTypeDAO().getAllBookTypes();
-                    for (BookType type : bookTypes){
-                        if (type.getBTypeName().equals("Ebook")){
-                            EBOOK_ID = type.getBTypeID();
-                        }
-                        else{
-                            AUDIO_BOOK_ID = type.getBTypeID();
-                        }
-                    }
-                }
-            });
             //Hành động sẽ được thực hiện khi database được tạo mới lần đầu.
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
@@ -124,8 +109,27 @@ public abstract class BookDatabase extends RoomDatabase {
                             //Sau đó chúng ta sẽ thêm vào 2 loại sách (Sách Ebook và Sách nói).
                             bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(0, "Ebook"));
                             bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(1, "Audio Book"));
+                            UpdateBookID();
                         }
                     });
+                }
+            });
+        }
+
+        private void UpdateBookID(){
+            //Chúng ta thực hiện cập nhật lại Ebook ID và Audio Book ID để phân biệt 2 thứ đó.
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    List<BookType> bookTypes = bookDatabaseInstance.BookTypeDAO().getAllBookTypes();
+                    for (BookType type : bookTypes){
+                        if (type.getBTypeName().equals("Ebook")){
+                            EBOOK_ID = type.getBTypeID();
+                        }
+                        else{
+                            AUDIO_BOOK_ID = type.getBTypeID();
+                        }
+                    }
                 }
             });
         }
