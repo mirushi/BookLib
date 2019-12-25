@@ -15,7 +15,9 @@ package luubieunghi.lbn.booklib.UI.ReadBook.new_UI;/*
  */
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.ReadBook.HighlightData.HighlightData;
 
@@ -55,6 +58,21 @@ public class BookReadingActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_reading);
 
+        receiveData();
+
+        setUpView();
+    }
+
+    private void receiveData() {
+        Intent intent = getIntent();
+        //get BookID
+        //
+        //BookDatabase.getInstance(this).BookFileDAO().getAllFilesOfBook(BookID);
+        //
+
+    }
+
+    private void setUpView() {
         folioReader = FolioReader.get()
                 .setOnHighlightListener(this)
                 .setReadLocatorListener(this)
@@ -70,8 +88,11 @@ public class BookReadingActivity extends AppCompatActivity
         config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
 
         folioReader.setReadLocator(readLocator);
+//        folioReader.setConfig(config, true)
+//                .openBook(Environment.getExternalStorageDirectory().getPath()+"Download/sa ch.epub");
+
         folioReader.setConfig(config, true)
-               .openBook("file:///android_asset/TheSilverChair.epub");
+                .openBook("/sdcard/Download/TTH.epub");
     }
 
 
@@ -84,6 +105,7 @@ public class BookReadingActivity extends AppCompatActivity
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         Log.i(LOG_TAG, "-> saveReadLocator -> " + readLocator.toJson());
+        //
     }
 
     /*
