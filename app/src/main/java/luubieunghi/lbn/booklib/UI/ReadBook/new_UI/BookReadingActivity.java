@@ -57,12 +57,12 @@ public class BookReadingActivity extends AppCompatActivity
     private static final String LOG_TAG = BookReadingActivity.class.getSimpleName();
     private FolioReader folioReader;
 
-    List<BookFile> tmp;
+    List<BookFile> listBookFile;
     BookLoadingAlertDialog dialog;
     String link = "";
     Book book;
     long book_ID;
-    ReadLocator mreadLocator;
+    ReadLocator _readLocator;
     String filePath;
 
     @Override
@@ -84,12 +84,18 @@ public class BookReadingActivity extends AppCompatActivity
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                tmp = BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().getAllFilesOfBook(book_ID);
-                if (tmp.size() <= 0)
+                listBookFile = BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().getAllFilesOfBook(book_ID);
+                if (listBookFile.size() <= 0)
                     return;
-                filePath = tmp.get(0).getBFilePath();
-                mreadLocator = ReadLocator.fromJson(tmp.get(0).getBLocator());
+                filePath = listBookFile.get(0).getBFilePath();
+
+                if (listBookFile.get(0).getBLocator() != null) {
+                    _readLocator = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
+                    Log.e(LOG_TAG + "_SAVE", " -> getReadLocator -> " + _readLocator.toString());
+                }
+
                 dialog.hideDialog();
+//                Log.e(LOG_TAG + "_SAVE", " -> getReadLocator -> " + mreadLocator.toString());
                 AppExecutors.getInstance().mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -101,6 +107,7 @@ public class BookReadingActivity extends AppCompatActivity
     }
 
     private void setUpView() {
+
         folioReader = FolioReader.get()
                 .setOnHighlightListener(this)
                 .setReadLocatorListener(this)
@@ -112,26 +119,23 @@ public class BookReadingActivity extends AppCompatActivity
         if (config == null)
             config = new Config();
         config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
-
-        folioReader.setReadLocator(mreadLocator);
+        if (_readLocator != null) {
+            folioReader.setReadLocator(_readLocator);
+            Log.i(LOG_TAG + "_SAVE", "-> getReadLocator -> " + listBookFile.get(0).getBLocator());
+        }
         folioReader.setConfig(config, true)
                 .openBook(filePath);
     }
 
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
-        Log.i(LOG_TAG, "-> saveReadLocator -> " + readLocator.toJson());
-        dialog.showDialog();
-
+        listBookFile.get(0).setbLocator(readLocator.toJson());
+        ReadLocator rl = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
+        Log.i(LOG_TAG + "_SAVE", "-> saveReadLocator -> " + listBookFile.get(0).getBLocator());
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                tmp = BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().getAllFilesOfBook(book_ID);
-                if (tmp.size() <= 0)
-                    return;
-                filePath = tmp.get(0).getBFilePath();
-                dialog.hideDialog();
-                tmp.get(0).setbLocator(readLocator.toJson());
+                BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().updateBookFile(listBookFile.get(0));
             }
         });
     }
@@ -214,5 +218,6 @@ public class BookReadingActivity extends AppCompatActivity
     @Override
     public void onFolioReaderClosed() {
         Log.v(LOG_TAG, "-> onFolioReaderClosed");
+        this.finish();
     }
 }
