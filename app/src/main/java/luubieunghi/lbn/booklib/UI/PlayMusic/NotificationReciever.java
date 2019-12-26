@@ -8,11 +8,13 @@ import luubieunghi.lbn.booklib.R;
 
 
 public class NotificationReciever extends BroadcastReceiver {
+    boolean isMusic;
     @Override
     public void onReceive(Context context, Intent intent) {
 
         // lấy id của control để start service theo từng control
         int id=intent.getIntExtra("control_id",-1);
+        isMusic=intent.getBooleanExtra("isMusic", false);
         switch (id){
             case R.id.btn_close_notification:
             {
@@ -45,12 +47,14 @@ public class NotificationReciever extends BroadcastReceiver {
     private void xuLiBtnPlayClicked(Context context, Intent intent) {
         Intent stopIntent=new Intent(context,MyService.class);
         stopIntent.setAction("Action_Play");
+        stopIntent.putExtra("isMusic",true );
         context.startService(stopIntent);
     }
 
     private void xuLiBtnCloseClicked(Context context, Intent intent) {
         Intent stopIntent=new Intent(context, MyService.class);
         stopIntent.setAction("Action_Stop");
+        stopIntent.putExtra("isMusic",true);
         context.startService(stopIntent);
     }
 }

@@ -168,7 +168,7 @@ public class PlayAudioPresenter implements PlayAudioContract.IPlayAudioPresenter
     @Override
     public void play() {
         Intent it=new Intent(context,MyService.class);
-        //it.putExtra("book_file",PlayAudio.currentFile);
+        it.putExtra("book_file",PlayAudio.currentFile);
         it.setAction("Action_Play");
         context.startService(it);
     }
