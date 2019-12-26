@@ -21,11 +21,20 @@ public abstract class BookDAO {
     @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0")
     public abstract List<Book> getAllNewBook();
 
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and book.bTypeID = :typeID")
+    public abstract List<Book> getAllNewBookWithBookType(long typeID);
+
     @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0")
     public abstract List<Book> getAllInProgressBook();
 
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and book.bTypeID = :typeID")
+    public abstract List<Book> getAllInProgressBookWithBookType(long typeID);
+
     @Query("Select distinct book.* from book inner join bookfile on book.bookID = bookfile.bookID where bookfile.bRead = bookfile.bTotal")
     public abstract List<Book> getAllFinishedBook();
+
+    @Query("Select distinct book.* from book inner join bookfile on book.bookID = bookfile.bookID where bookfile.bRead = bookfile.bTotal and book.bTypeID = :typeID")
+    public abstract List<Book> getAllFinishedBookWithBookType(long typeID);
 
     @Query("Select distinct * from book where booktitle like '%'||:subTitle||'%'")
     public abstract List<Book> searchBookTitle(String subTitle);

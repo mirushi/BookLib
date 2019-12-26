@@ -18,7 +18,9 @@
     <dimen name="empty_icon_width">60dp</dimen>
     <dimen name="empty_icon_height">60dp</dimen>
     <dimen name="navigation_header_height">160dp</dimen>
-    <dimen name="navigation_item_height">48dp</dimen>
+    <dimen name="navigation_item_height">48dp</dimen>4
     <dimen name="navigation_item_icon_size">24dp</dimen>
+
+    <dimen name="book_cover_corner_radius">4dp</dimen>
 
 </resources>

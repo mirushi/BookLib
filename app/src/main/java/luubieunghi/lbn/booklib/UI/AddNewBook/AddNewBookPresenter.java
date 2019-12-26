@@ -46,7 +46,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
         final String viewTitle = view.txtBookTitle.getText().toString();
         final String bookType = view.getBookType();
         long bTypeID;
-        if (bookType == "EBOOK")
+        if (bookType.equals("EBOOK"))
             bTypeID = BookDatabase.getInstance(view).getEbookId();
         else
             bTypeID = BookDatabase.getInstance(view).getAudioBookId();
@@ -123,7 +123,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                 List<BookFile> bookFileList = new ArrayList<>();
                 for (int i=0;i<viewBookFilePath.size();++i){
                     String filePath = viewBookFilePath.get(i);
-                    BookFile bookFile = new BookFile(bookID, i, filePath, 0,0);
+                    BookFile bookFile = new BookFile(bookID, i, filePath, 0,0, null);
                     bookFileList.add(bookFile);
                 }
 

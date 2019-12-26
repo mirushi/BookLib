@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/item_book_iv_book_image"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
         android:src="@drawable/icon_book"
         android:layout_gravity="center_horizontal"/>

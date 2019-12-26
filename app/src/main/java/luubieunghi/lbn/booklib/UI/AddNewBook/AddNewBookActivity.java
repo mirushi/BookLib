@@ -143,7 +143,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         try
         {
             pathToFiles = getIntent().getExtras().getStringArrayList("EXTRA_BOOK_URI");
-            bookType = getIntent().getExtras().getParcelable("BOOK_TYPE");
+            bookType = getIntent().getExtras().getString("BOOK_TYPE");
         }catch(NullPointerException npe){
             npe.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package luubieunghi.lbn.booklib.UI.ReadBook;
+package luubieunghi.lbn.booklib.UI.ReadBook.old_UI;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
 import luubieunghi.lbn.booklib.R;
 
 public class BookReadingFirstPageFrm extends Fragment implements FirstPageFrmContract.FirstPageFrmView {

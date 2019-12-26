@@ -35,7 +35,7 @@ import luubieunghi.lbn.booklib.Utility.TypeConverter.LocalDateConverter;
 
 @Database(entities = {Book.class, Author.class, BookAuthor.class,
         BookIdentityNum.class, BookTag.class, Language.class, Publisher.class,Tag.class,
-        BookFile.class, BookType.class}, version = 4)
+        BookFile.class, BookType.class}, version = 5)
 @TypeConverters({LocalDateConverter.class})
 public abstract class BookDatabase extends RoomDatabase {
     private static final String DB_NAME = "book_db";
@@ -88,6 +88,13 @@ public abstract class BookDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+
+        }
+
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            //Hành động sẽ được thực hiện mỗi khi database được mở.
             //Hành động sẽ được thực hiện khi database được tạo mới lần đầu.
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
@@ -96,22 +103,20 @@ public abstract class BookDatabase extends RoomDatabase {
                         @Override
                         public void run() {
                             //Chúng ta sẽ thêm vào hai ngôn ngữ mặc định khi DB được tạo (tiếng Anh / tiếng Việt).
-                            bookDatabaseInstance.LanguageDAO().Insert(new Language(0,"English"));
-                            bookDatabaseInstance.LanguageDAO().Insert(new Language(0, "Tiếng Việt"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0,"English"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
 
                             //Sau đó chúng ta sẽ thêm vào 2 loại sách (Sách Ebook và Sách nói).
-                            bookDatabaseInstance.BookTypeDAO().Insert(new BookType(0, "Ebook"));
-                            bookDatabaseInstance.BookTypeDAO().Insert(new BookType(1, "Audio Book"));
+                            bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(0, "Ebook"));
+                            bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(1, "Audio Book"));
+                            UpdateBookID();
                         }
                     });
                 }
             });
         }
 
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            //Hành động sẽ được thực hiện mỗi khi database được mở.
+        private void UpdateBookID(){
             //Chúng ta thực hiện cập nhật lại Ebook ID và Audio Book ID để phân biệt 2 thứ đó.
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override

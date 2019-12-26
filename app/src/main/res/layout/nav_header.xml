@@ -6,7 +6,7 @@
     android:background="@color/colorAccent"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:theme="@style/ThemeOverlay.AppCompat.Light"
     >
 
 <!--    <ImageButton-->

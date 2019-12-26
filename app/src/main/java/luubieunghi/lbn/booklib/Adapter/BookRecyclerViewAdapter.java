@@ -12,9 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+import luubieunghi.lbn.booklib.UI.ReadBook.new_UI.BookReadingActivity;
+import luubieunghi.lbn.booklib.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,8 +30,9 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
-import luubieunghi.lbn.booklib.UI.ReadBook.ReadBookActivity;
+import luubieunghi.lbn.booklib.UI.ReadBook.old_UI.ReadBookActivity;
 import luubieunghi.lbn.booklib.Utility.Others.StringUtils;
+import luubieunghi.lbn.booklib.Utility.Others.Utils;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
 
@@ -63,17 +72,19 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             public void onClick(View v) {
                 Integer position = holder.getAdapterPosition();
                 Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
+
                 Intent intent;
 
                 Book selectedBook = bookList.get(position);
                 if (selectedBook.getBTypeID() == BookDatabase.getInstance(context).getEbookId()){
-                    intent = new Intent(context, ReadBookActivity.class);
+                    intent = new Intent(context, BookReadingActivity.class);
                     intent.putExtra("book", selectedBook);
                 }
                 else{
                     intent = new Intent(context, PlayAudio.class);
                     intent.putExtra("book", selectedBook);
                 }
+
                 context.startActivity(intent);
             }
         });
@@ -83,7 +94,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull BookRecyclerViewHolder holder, int position) {
         //holder.bookImage.setImageBitmap(bookList.get(position).getBookImage());
-        Glide.with(context).asBitmap().load(bookList.get(position).getBookImage()).into(holder.bookImage);
+        int radius = context.getResources().getDimensionPixelSize(R.dimen.book_cover_corner_radius);
+        Glide.with(context)
+                .asBitmap()
+                .load(bookList.get(position).getBookImage()).override(Utils.fromDPtoPX(80), Utils.fromDPtoPX(100))
+                .transforms(new CenterCrop(),new RoundedCorners(radius))
+                .into(holder.bookImage);
         holder.bookTitle.setText(StringUtils.cropString(bookList.get(position).getBookTitle(), titleSize));
     }
 
