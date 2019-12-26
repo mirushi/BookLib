@@ -31,6 +31,9 @@ public abstract class LanguageDAO {
         }
     }
 
+    @Query("Delete from language where language.langName = :lName")
+    public abstract void deleteExactLanguageName(String lName);
+
     @Query("Select * from language")
     public abstract List<Language> getAllStoredLanguages();
 
