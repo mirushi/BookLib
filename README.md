@@ -9,6 +9,10 @@
 
 ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/main.png)
 
+  ### Thêm và quản lý sách: 
+  
+  ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/addmain.png)
+
 ### Đọc sách:
 
 ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/readbook.png)
