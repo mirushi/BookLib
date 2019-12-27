@@ -46,6 +46,7 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
+import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 import luubieunghi.lbn.booklib.UI.Main.BookListingFragment.BookListingFragment;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
             @Override
             public void SwipeUpFromBottom()
             {
-                 Intent intent = new Intent(MainActivity.this, PlayMusic.class);
+                 Intent intent = new Intent(MainActivity.this, OpenListSong.class);
                  intent.putExtra("ID", "BH1");
                  startActivity(intent);
                  overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_bottom_out);

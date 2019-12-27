@@ -48,6 +48,7 @@ public class SongFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(context, PlayMusic.class);
         Song song=(Song)lv_DanhSachBaiHat.getItemAtPosition(position);
+        intent.putExtra("isMusic",true);
         intent.putExtra("song",song);
         startActivity(intent);
     }
@@ -79,6 +80,6 @@ public class SongFragment extends Fragment implements AdapterView.OnItemClickLis
         dsSong=new ArrayList<>();
         dsSong.addAll(AudioDatabase.getInstance(view.getContext()).song_dao().getAll());
         presenter=new SongFragmentPresenter(context,this,dsSong);
-        lv_DanhSachBaiHat.setOnItemClickListener(this);
+        lv_DanhSachBaiHat.setOnItemClickListener(this::onItemClick);
     }
 }

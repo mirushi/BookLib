@@ -2,6 +2,7 @@ package luubieunghi.lbn.booklib.UI.PlayAudio;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.PlaybackParams;
 import android.os.CountDownTimer;
 import android.widget.Toast;
 
@@ -60,14 +61,12 @@ public class PlayAudioPresenter implements PlayAudioContract.IPlayAudioPresenter
     //set lại giá trị các tần số
     @Override
     public void setEqualizer(int chanel1, int chanel2, int chanel3, int chanel4, int chanel5) {
-        equalizer.setBandLevel((short)0,(short)chanel1);
-        equalizer.setBandLevel((short)1,(short)chanel2);
-        equalizer.setBandLevel((short)2,(short)chanel3);
-        equalizer.setBandLevel((short)3,(short)chanel4);
-        equalizer.setBandLevel((short)4,(short)chanel5);
-        System.out.println(equalizer.getBandFreqRange((short)0)[0]);
-        System.out.println(equalizer.getBandFreqRange((short)0)[1]);
-        int a=1;
+        equalizer.setBandLevel((short)0,(short)(chanel1));
+        equalizer.setBandLevel((short)1,(short)(chanel2));
+        equalizer.setBandLevel((short)2,(short)(chanel3));
+        equalizer.setBandLevel((short)3,(short)(chanel4));
+        equalizer.setBandLevel((short)4,(short)(chanel5));
+
     }
 
     //reset giá trị các tần số về 0
@@ -168,51 +167,64 @@ public class PlayAudioPresenter implements PlayAudioContract.IPlayAudioPresenter
     @Override
     public void play() {
         Intent it=new Intent(context,MyService.class);
-        //it.putExtra("book_file",PlayAudio.currentFile);
-        it.setAction("Action_Play");
+        it.putExtra("book_file",PlayAudio.currentFile);
+        if(mediaPlayer.isPlaying()){
+            it.setAction("Action_Stop");
+        }
+        else {
+            it.setAction("Action_Play");
+        }
         context.startService(it);
     }
 
     @Override
     public void next() {
-//        int order=PlayAudio.currentFile.getBFileOrder()+1;
-//        if(order>=PlayAudio.bfs.size()){
-//            Intent it=new Intent(context,MyService.class);
-//            it.setAction("Action_Stop");
-//            context.startService(it);
-//        }
-//        else {
-//            for(BookFile bf:PlayAudio.bfs){
-//                if(bf.getBFileOrder()==order){
-//                    PlayAudio.currentFile=bf;
-//                    break;
-//                }
-//            }
-//            play();
-//        }
+        int order=PlayAudio.currentFile.getBFileOrder()+1;
+        if(order>=PlayAudio.bfs.size()){
+            Intent it=new Intent(context,MyService.class);
+            it.setAction("Action_Stop");
+            context.startService(it);
+        }
+        else {
+            for(BookFile bf:PlayAudio.bfs){
+                if(bf.getBFileOrder()==order){
+                    PlayAudio.currentFile=bf;
+                    break;
+                }
+            }
+            play();
+        }
     }
 
     @Override
     public void previous() {
-//        int order=PlayAudio.currentFile.getBFileOrder()-1;
-//        if(order<0){
-//            PlayAudio.currentFile=PlayAudio.bfs.get(0);
-//        }
-//        else {
-//            for(BookFile bf:PlayAudio.bfs){
-//                if(bf.getBFileOrder()==order){
-//                    PlayAudio.currentFile=bf;
-//                    break;
-//                }
-//            }
-//        }
-//        play();
+        int order=PlayAudio.currentFile.getBFileOrder()-1;
+        if(order<0){
+            PlayAudio.currentFile=PlayAudio.bfs.get(0);
+        }
+        else {
+            for(BookFile bf:PlayAudio.bfs){
+                if(bf.getBFileOrder()==order){
+                    PlayAudio.currentFile=bf;
+                    break;
+                }
+            }
+        }
+        play();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setMediaSpeed(float speed) {
-        mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(speed));
+        boolean isPause=!mediaPlayer.isPlaying();
+        PlaybackParams playbackParams = new PlaybackParams();
+        playbackParams.setSpeed(speed);
+        playbackParams.setPitch(1);
+        playbackParams.setAudioFallbackMode(
+                PlaybackParams.AUDIO_FALLBACK_MODE_FAIL);
+        mediaPlayer.setPlaybackParams(playbackParams);
+        if(isPause)
+            mediaPlayer.pause();
     }
 
 

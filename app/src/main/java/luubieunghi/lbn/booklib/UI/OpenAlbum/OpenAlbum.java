@@ -126,6 +126,7 @@ public class OpenAlbum extends AppCompatActivity implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent=new Intent(OpenAlbum.this, PlayMusic.class);
         Song s=(Song)lv_DanhSachBaiHat_Album.getItemAtPosition(position);
+        intent.putExtra("isMusic",true);
         intent.putExtra("song",s);
         startActivity(intent);
     }
