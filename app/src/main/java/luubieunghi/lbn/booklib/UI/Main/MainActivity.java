@@ -29,9 +29,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
@@ -44,6 +46,7 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
+import luubieunghi.lbn.booklib.UI.Main.BookListingFragment.BookListingFragment;
 import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
     private boolean storagePermissionGranted = false;
 
     private Toolbar toolbar;
-    private FragmentPagerAdapter adapterViewPager;
+    private BookListingPagerAdapter adapterViewPager;
     private ViewPager viewPager;
     //Các biến liên quan đến Drawer.
     private DrawerLayout drawerLayout;
@@ -138,6 +141,25 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_app_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_main_item_search);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                int position = viewPager.getCurrentItem();
+                BookListingFragment fragment = adapterViewPager.getItem(position);
+                fragment.getFreshBookRecyclerViewAdapter().getFilter().filter(newText);
+                fragment.getInProgressBookRecyclerViewAdapter().getFilter().filter(newText);
+                fragment.getFinishedBookRecyclerViewAdapter().getFilter().filter(newText);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -279,6 +301,24 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
         //Set layout cho ViewPager.
         adapterViewPager = new BookListingPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
+
+        //Setup listener cho nó luôn.
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         //Xâu chuỗi TabLayout với ViewPager.
         TabLayout tabLayout = (TabLayout)findViewById(R.id.activity_main_tab_layout);

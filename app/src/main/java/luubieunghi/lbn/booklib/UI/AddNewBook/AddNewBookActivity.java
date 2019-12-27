@@ -40,6 +40,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Author.Author;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookIdentityNum.BookIdentityNum;
 import luubieunghi.lbn.booklib.Model.Language.Language;
 import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
@@ -84,6 +85,9 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     private int mYear, mMonth, mDay;
 
     AddNewBookContract.AddNewBookMVPPresenter presenter;
+
+    //Biến dùng để giữ lấy quyển sách hiện tại (trong trường hợp người dùng chỉnh sửa thông tin sách).
+    Book existingBook = null;
 
     PickiT pickiT;
 
@@ -190,10 +194,10 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
 
         //Test xem URI được truyền đúng chưa.
         //Toast.makeText(this, "URI = " + pathToFile, Toast.LENGTH_SHORT).show();
-        for (String pathToFile : pathToFiles){
-            Log.d("PATH_TO_FILE_STRING", pathToFile);
-//            Log.d("PATH_TO_FILE_AB_PATH", Environment.getExternalStorageDirectory().getAbsolutePath());
-        }
+//        for (String pathToFile : pathToFiles){
+//            Log.d("PATH_TO_FILE_STRING", pathToFile);
+////            Log.d("PATH_TO_FILE_AB_PATH", Environment.getExternalStorageDirectory().getAbsolutePath());
+//        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -241,6 +245,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         {
             pathToFiles = getIntent().getExtras().getStringArrayList("EXTRA_BOOK_URI");
             bookType = getIntent().getExtras().getString("BOOK_TYPE");
+            existingBook = (Book)getIntent().getExtras().getSerializable("EXISTING_BOOK");
         }catch(NullPointerException npe){
             npe.printStackTrace();
         }
@@ -269,13 +274,16 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
 
                             }
                         });
+                        //Tạo mới Presenter luôn.
+                        presenter = new AddNewBookPresenter(AddNewBookActivity.this);
+
+                        //Load luôn thông tin sách (nếu có).
+                        if (existingBook != null)
+                            presenter.LoadExistingBookDetails();
                     }
                 });
             }
         });
-
-        //Tạo mới Presenter luôn.
-        presenter = new AddNewBookPresenter(this);
     }
 
     private void ConfigToolbar()
@@ -359,6 +367,19 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         return bookType;
     }
 
+    public void setPathToBookCover(String path){
+        this.pathToBookCover = path;
+        if (path != null)
+            Glide.with(this).load(path).fitCenter().into(bookCover);
+    }
+
+    public void setFilePath(ArrayList<String> filePath){
+        this.pathToFiles = new ArrayList<String>(filePath);
+    }
+
+    public void setBookType(String bookType){
+        this.bookType = String.valueOf(bookType);
+    }
 
     @Override
     public void PickiTonStartListener() {
@@ -373,5 +394,9 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     @Override
     public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
         pathToBookCover = path;
+    }
+
+    public Book getExistingBook() {
+        return existingBook;
     }
 }

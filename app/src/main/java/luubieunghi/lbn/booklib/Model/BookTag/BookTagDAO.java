@@ -20,11 +20,11 @@ public abstract class BookTagDAO {
     public abstract void Delete(BookTag bookTag);
 
     @Query("SELECT * from booktag where booktag.bookID = :bookID")
-    public abstract List<BookTag> getAllBookTagsOfBook(int bookID);
+    public abstract List<BookTag> getAllBookTagsOfBook(long bookID);
 
     @Query("SELECT tag.tagID, tag.tagContent from booktag inner join tag " +
             "ON booktag.tagID = tag.tagID WHERE booktag.bookID = :bookID")
-    public abstract List<Tag> getAllTagsOfBook(int bookID);
+    public abstract List<Tag> getAllTagsOfBook(long bookID);
 
     @Query("DELETE FROM booktag")
     public abstract void nukeTable();

@@ -23,7 +23,7 @@ public interface BookIdentityNumDAO {
     void Update(BookIdentityNum bookIdentityNum);
 
     @Query("SELECT * from bookidentitynum where bookidentitynum.bookID = :bookID")
-    List<BookIdentityNum> getBookIDs(int bookID);
+    List<BookIdentityNum> getBookIDs(long bookID);
 
     @Query("SELECT * from bookidentitynum")
     List<BookIdentityNum> getAllBookIDs();

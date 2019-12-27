@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.util.Util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +37,13 @@ import luubieunghi.lbn.booklib.UI.ReadBook.old_UI.ReadBookActivity;
 import luubieunghi.lbn.booklib.Utility.Others.StringUtils;
 import luubieunghi.lbn.booklib.Utility.Others.Utils;
 
-public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> {
+public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.BookRecyclerViewHolder> implements Filterable {
 
     //Hằng số để chỉnh độ dài tối đa của tựa đề sách khi hiển thị trên RecyclerView.
     private final int titleSize = 15;
 
     private List<Book> bookList;
+    private List<Book> bookListFull;
     private Context context;
 
     //Lưu lại danh sách MenuItem để setOnClickListener cho nó.
@@ -55,6 +59,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
 
     public BookRecyclerViewAdapter(List<Book> bookList) {
         this.bookList = bookList;
+        this.bookListFull = new ArrayList<>(bookList);
     }
 
     @NonNull
@@ -120,7 +125,52 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         if (size < 0)
             return;
         bookList.clear();
+        notifyDataSetChanged();
         notifyItemRangeChanged(0,size);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return bookListFilter;
+    }
+
+    private Filter bookListFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Book> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(bookListFull);
+            }
+            else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Book book : bookListFull){
+                    if (book.getBookTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(book);
+                    }
+                    else if (book.getDescription().toLowerCase().contains(filterPattern)){
+                        filteredList.add(book);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            bookList.clear();
+            bookList.addAll((List)results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    public void notifyDataSetChangedAndSetFullList(){
+        notifyDataSetChanged();
+        //Cập nhật lại bookFullList.
+        bookListFull = new ArrayList<>(bookList);
     }
 
     public class BookRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -146,6 +196,5 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             menuItems.add(menu.add(this.getAdapterPosition(), deleteBookID, getAdapterPosition(), "Xoá sách"));
         }
     }
-
 
 }
