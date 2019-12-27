@@ -130,6 +130,7 @@ public class BookReadingActivity extends AppCompatActivity
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         listBookFile.get(0).setbLocator(readLocator.toJson());
+       // listBookFile.get(0).setBRead(sotrang);
         ReadLocator rl = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
         Log.i(LOG_TAG + "_SAVE", "-> saveReadLocator -> " + listBookFile.get(0).getBLocator());
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -217,7 +218,10 @@ public class BookReadingActivity extends AppCompatActivity
 
     @Override
     public void onFolioReaderClosed() {
+
         Log.v(LOG_TAG, "-> onFolioReaderClosed");
         this.finish();
     }
+
+
 }
