@@ -239,7 +239,7 @@ public class MyService extends Service {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer=null;
-            mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+            mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayAudio.currentFile.getBFilePath()));
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
