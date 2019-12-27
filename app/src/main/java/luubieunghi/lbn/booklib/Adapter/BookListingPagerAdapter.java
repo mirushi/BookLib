@@ -27,7 +27,7 @@ public class BookListingPagerAdapter extends FragmentPagerAdapter {
         {
             case 0:{
                 if (allBookFragment == null)
-                    return BookListingFragment.newInstance(BookFilterType.ALL);
+                    allBookFragment = BookListingFragment.newInstance(BookFilterType.ALL);
                 currentPosition = 0;
                 return allBookFragment;
             }

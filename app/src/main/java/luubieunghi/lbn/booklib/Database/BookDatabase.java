@@ -48,7 +48,10 @@ public abstract class BookDatabase extends RoomDatabase {
         if (bookDatabaseInstance == null){
             bookDatabaseInstance = Room.databaseBuilder(context.getApplicationContext(),
                     BookDatabase.class, DB_NAME)
-                    .addCallback(rdc).fallbackToDestructiveMigration().build();
+                    .addCallback(rdc)
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build();
         }
         //nukeAllTable();
         AppExecutors.getInstance().diskIO().execute(new Runnable() {

@@ -16,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
+
+import luubieunghi.lbn.booklib.Database.AudioDatabase;
 import luubieunghi.lbn.booklib.Model.Album.Album;
+import luubieunghi.lbn.booklib.Model.Album_Song.Album_Song;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.Adapter.ListSongAdapter;
@@ -35,6 +38,10 @@ public class OpenListSong extends AppCompatActivity implements OpenListSongContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_list_song);
         addControls();
+//        AudioDatabase database=AudioDatabase.getInstance(this);
+//        database.song_dao().insert(new Song("BH1","Bài hát 1","/sdcard/Download/BH1.mp3",0,"/sdcard/Download/BH1.png","Ca sĩ 1"));
+//        database.album_dao().insert(new Album("AB1","Album 1","/sdcard/Download/BH1.png"));
+//        database.album_song_dao().insert(new Album_Song("AB1","BH1"));
         setUp();
         addEvents();
         presenter=new OpenListSongPresenter(this);

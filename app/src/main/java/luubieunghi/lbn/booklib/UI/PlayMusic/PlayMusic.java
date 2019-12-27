@@ -1,10 +1,14 @@
 package luubieunghi.lbn.booklib.UI.PlayMusic;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,14 +37,17 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     LinearLayout layout_Play_Music, lv_img;
     private ImageView img;
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_ToTalTime;
-    private  static  TextView txt_CurrentTime;
-    private static SeekBar seekBar_Time;
-    private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
-    public static Button btn_img_Play=null;
+    private TextView txt_CurrentTime;
+    private SeekBar seekBar_Time;
+    private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle;
     private PlayMusicPresenter presenter;
-    public static Song currentSong=null;
     public Song song=null;
+    private Handler handler=new Handler();
+
+    public static Song currentSong=null;
+    public static Button btn_img_Play=null,btn_img_Repeat;
     public static ArrayList<Song> dsBaiHat=null;
+    public static boolean isRepeat=false, isShuffle=false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,8 +72,11 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             List<Song> songs= database.song_dao().getByIDs("BH1");
             currentSong =songs.get(0);
             song=currentSong;
-            mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
-            System.out.println(Uri.parse(currentSong.getFilePath()));
+            Intent intent=new Intent(PlayMusic.this,MyService.class);
+            intent.putExtra("song",song);
+            intent.putExtra("isMusic", true);
+            intent.setAction("Action_Play");
+            startService(intent);
         }
         //nếu đã truyền bài hát vào
         else {
@@ -78,42 +88,49 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
                 }
                 else{
                     currentSong=song;
-                    mediaPlayer.stop();
-                    mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
-                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
-                    mediaPlayer.start();
+                    Intent intent=new Intent(PlayMusic.this,MyService.class);
+                    intent.putExtra("song",song);
+                    intent.putExtra("isMusic", true);
+                    intent.setAction("Action_Play");
+                    startService(intent);
                 }
             }
             //nếu bài hát hiện tại là null thì tạo mới rồi play luôn
             else{
                 currentSong=song;
-                mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentSong.getFilePath()));
-                mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
-                mediaPlayer.start();
+                Intent intent=new Intent(PlayMusic.this,MyService.class);
+                intent.putExtra("song",song);
+                intent.putExtra("isMusic", true);
+                intent.setAction("Action_Play");
+                startService(intent);
             }
 
         }
         addControls();
         //txt_CurrentTime.setText(mediaPlayer.getCurrentPosition());
-        txt_ToTalTime.setText(mediaPlayer.getDuration()+"");
-        seekBar_Time.setMax(mediaPlayer.getDuration());
         txt_TenBaiHat.setText(currentSong.getSongName());
         txt_TenCaSi.setText(currentSong.getArtistNames());
         //img.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(currentSong.getImagePath())));
+        PlayMusic.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer!=null&&mediaPlayer.isPlaying()){
+                    seekBar_Time.setMax(mediaPlayer.getDuration());
+                    txt_ToTalTime.setText(intToTime(mediaPlayer.getDuration()));
+                    int percent=mediaPlayer.getCurrentPosition();
+                    setSeekBarProgress(percent);
+                }
+                handler.postDelayed(this,1000);
+            }
+        });
         ConfigGesturesListener();
         addEvents();
-        presenter=new PlayMusicPresenter(this);
+        presenter=new PlayMusicPresenter(PlayMusic.this);
     }
-
 
     @Override
     public void addEvents() {
-        //block swipe navigationbar
-        //drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,GravityCompat.END);
-        //gán context cho navigation
-        //nav_menu.setNavigationItemSelectedListener(this);
 
-        //open navigationbar-->menu setting
         btn_img_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,13 +146,15 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             }
         });
 
-
-
         seekBar_Time.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mediaPlayer.seekTo(seekBar.getProgress());
-                txt_CurrentTime.setText(seekBar.getProgress()+"");
+              if(fromUser){
+                 if(mediaPlayer!=null){
+                     mediaPlayer.seekTo(seekBar.getProgress());
+                     txt_CurrentTime.setText(intToTime(seekBar.getProgress()));
+                 }
+              }
             }
 
             @Override
@@ -153,19 +172,55 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         btn_img_Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seekBar_Time.setProgress(0);
+                txt_CurrentTime.setText("00:00");
                 presenter.nextSong();
             }
         });
+
         updateResourceButtonPlay();
 
         btn_img_Previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seekBar_Time.setProgress(0);
+                txt_CurrentTime.setText("00:00");
                presenter.previousSong();
             }
         });
-    }
 
+        btn_img_Repeat.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                isRepeat=!isRepeat;
+                if(isRepeat){
+                    isShuffle=false;
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#80b7cf")));
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+                else {
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+            }
+        });
+
+        btn_img_Shuffle.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                isShuffle=!isShuffle;
+                if(isShuffle){
+                    isRepeat=false;
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#80b7cf")));
+                    btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+                else {
+                    btn_img_Shuffle.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+                }
+            }
+        });
+    }
 
     @Override
     public void updateResourceButtonPlay() {
@@ -264,15 +319,42 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     }
 
     public static void setBtn_PlayResource(boolean play){
+        if(btn_img_Play==null)
+            return;
         if(play==true)
             btn_img_Play.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
         if (play==false)
             btn_img_Play.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
     }
 
-    public static void setSeekBarProgress(int value){
+    public void setSeekBarProgress(int value){
         seekBar_Time.setProgress(value);
-        txt_CurrentTime.setText(value*seekBar_Time.getMax());
+        String text= intToTime(value);
+        txt_CurrentTime.setText(text);
+    }
+
+    private static String intToTime(int input){
+        String result="";
+        int h=input/60000/60;
+        int m=(input-h*60000*60)/60000;
+        int s=(input-h*60000*60-m*60000)/1000;
+        if(h!=0) {
+            if(h<10)
+                result+="0";
+            result+=h+":";
+        }
+        if(m!=0){
+            if(m<10)
+                result+="0";
+            result+=m+":";
+        }
+        else {
+            result+="00:";
+        }
+        if(s<10)
+            result+="0";
+        result+=s;
+        return result;
     }
 
 }
