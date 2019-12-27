@@ -10,6 +10,7 @@ public interface AddNewBookContract {
         void LoadLanguages();
         void LoadServerList();
         void LoadPublisherList();
+        void LoadExistingBookDetails();
         void AddPublisher(String publisherName);
         void AddLanguage(String langName);
     }

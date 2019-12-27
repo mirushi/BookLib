@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:text="Tác giả : "
                     android:layout_gravity="left|center_vertical"/>
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/activity_add_new_book_edt_author"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:text="Ids : "
                     android:layout_gravity="left|center_vertical"/>
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/activity_add_new_book_edt_ids"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:text="Tags : "
                     android:layout_gravity="left|center_vertical"/>
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/activity_add_new_book_edt_tags"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -135,12 +135,16 @@
                     android:text="Ngôn ngữ : "
                     android:layout_gravity="left|center_vertical"/>
 
-                <Spinner
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                     android:id="@+id/activity_add_new_book_spinner_language"
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:background="@drawable/define_image"
-                    android:entries="@array/language_predefined"/>
+                    android:layout_height="wrap_content"
+                    app:smsp_floatingLabelColor="@color/highlight_blue_blur"
+                    app:smsp_floatingLabelText="Ngôn ngữ"
+                    app:smsp_hint="Chọn ngôn ngữ của sách"
+                    app:smsp_isSearchable="true"
+                    app:smsp_isReSelectable="true"
+                    app:smsp_selectedItemListColor="@color/highlight_blue"/>
 
             </TableRow>
 
@@ -151,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:text="NXB : "
                     android:layout_gravity="left|center_vertical"/>
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/activity_add_new_book_edt_publisher"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"

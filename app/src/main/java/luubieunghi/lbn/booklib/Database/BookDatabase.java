@@ -35,7 +35,7 @@ import luubieunghi.lbn.booklib.Utility.TypeConverter.LocalDateConverter;
 
 @Database(entities = {Book.class, Author.class, BookAuthor.class,
         BookIdentityNum.class, BookTag.class, Language.class, Publisher.class,Tag.class,
-        BookFile.class, BookType.class}, version = 5)
+        BookFile.class, BookType.class}, version = 6)
 @TypeConverters({LocalDateConverter.class})
 public abstract class BookDatabase extends RoomDatabase {
     private static final String DB_NAME = "book_db";
