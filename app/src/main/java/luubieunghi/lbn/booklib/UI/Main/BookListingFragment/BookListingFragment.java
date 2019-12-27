@@ -1,7 +1,9 @@
 package luubieunghi.lbn.booklib.UI.Main.BookListingFragment;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -23,11 +25,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
+import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
-import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
+import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 public class BookListingFragment extends Fragment implements BookListingContract.BookListingMVPView {
 
@@ -142,12 +146,38 @@ public class BookListingFragment extends Fragment implements BookListingContract
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             Integer itemPosition = item.getOrder();
+            RecyclerView selectedRecyclerView;
+            BookRecyclerViewAdapter selectedRecyclerViewAdapter;
+            ArrayList<Book> selectedBookList;
+            Book selectedBook;
+            if (filter == BookListingReadProgressFilter.NEW){
+                selectedRecyclerView = rcvFreshStartBooks;
+                selectedRecyclerViewAdapter = freshBookRecyclerViewAdapter;
+                selectedBookList = freshStartBooks;
+            }
+            else if (filter == BookListingReadProgressFilter.READING){
+                selectedRecyclerView = rcvInProgressBooks;
+                selectedRecyclerViewAdapter = inProgressBookRecyclerViewAdapter;
+                selectedBookList = inProgressBooks;
+            }
+            else {
+                selectedRecyclerView = rcvFinishedBooks;
+                selectedRecyclerViewAdapter = finishedBookRecyclerViewAdapter;
+                selectedBookList = finishedBooks;
+            }
+            selectedBook = selectedBookList.get(itemPosition);
+
             switch (item.getItemId()){
                 case BookRecyclerViewAdapter.loadBookDetailsID:{
+                    Intent intent = new Intent(BookListingFragment.this.getActivity(), AddNewBookActivity.class);
+                    intent.putExtra("EXISTING_BOOK", selectedBook);
+                    startActivity(intent);
+
                     displayMessage(filter.toString() + "Load Book Details Clicked !" + itemPosition.toString());
                     return true;
                 }
                 case BookRecyclerViewAdapter.startReadingBookID:{
+                    selectedRecyclerView.findViewHolderForAdapterPosition(itemPosition).itemView.performClick();
                     displayMessage(filter.toString() + "Start reading book clicked !" + itemPosition.toString());
                     return true;
                 }
@@ -164,6 +194,33 @@ public class BookListingFragment extends Fragment implements BookListingContract
                     return true;
                 }
                 case BookRecyclerViewAdapter.deleteBookID:{
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BookListingFragment.this.getActivity());
+                    builder.setTitle("Xoá sách !!!")
+                            .setMessage("Bạn có chắc muốn xoá \"" + selectedBook.getBookTitle() + "\"" + " ? ")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SetLoadingDialog(true);
+                                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            BookDatabase.getInstance(BookListingFragment.this.getActivity()).BookDAO().deleteBook(selectedBook);
+                                            AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //Refresh lại danh sách sách sau khi xoá.
+                                                    LoadDataForRecyclerView();
+                                                    SetLoadingDialog(false);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_delete)
+                            .show();
+
                     displayMessage(filter.toString() + "Delete book clicked !" + itemPosition.toString());
                     return true;
                 }
@@ -245,15 +302,15 @@ public class BookListingFragment extends Fragment implements BookListingContract
     public void AddOneBookToView(Book book, BookListingReadProgressFilter filter) {
         if (filter == BookListingReadProgressFilter.NEW){
             freshStartBooks.add(book);
-            freshBookRecyclerViewAdapter.notifyDataSetChanged();
+            freshBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
         else if (filter == BookListingReadProgressFilter.READING){
             inProgressBooks.add(book);
-            inProgressBookRecyclerViewAdapter.notifyDataSetChanged();
+            inProgressBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
         else if (filter == BookListingReadProgressFilter.FINISHED){
             finishedBooks.add(book);
-            finishedBookRecyclerViewAdapter.notifyDataSetChanged();
+            finishedBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
     }
 
@@ -261,15 +318,15 @@ public class BookListingFragment extends Fragment implements BookListingContract
     public void AddMultipleBookToView(List<Book> books, BookListingReadProgressFilter filter) {
         if (filter == BookListingReadProgressFilter.NEW){
             freshStartBooks.addAll(books);
-            freshBookRecyclerViewAdapter.notifyDataSetChanged();
+            freshBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
         else if (filter == BookListingReadProgressFilter.READING){
             inProgressBooks.addAll(books);
-            inProgressBookRecyclerViewAdapter.notifyDataSetChanged();
+            inProgressBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
         else if (filter == BookListingReadProgressFilter.FINISHED){
             finishedBooks.addAll(books);
-            finishedBookRecyclerViewAdapter.notifyDataSetChanged();
+            finishedBookRecyclerViewAdapter.notifyDataSetChangedAndSetFullList();
         }
     }
 
@@ -281,6 +338,18 @@ public class BookListingFragment extends Fragment implements BookListingContract
         else{
             dialog.hideDialog();
         }
+    }
+
+    public BookRecyclerViewAdapter getFreshBookRecyclerViewAdapter() {
+        return freshBookRecyclerViewAdapter;
+    }
+
+    public BookRecyclerViewAdapter getInProgressBookRecyclerViewAdapter() {
+        return inProgressBookRecyclerViewAdapter;
+    }
+
+    public BookRecyclerViewAdapter getFinishedBookRecyclerViewAdapter() {
+        return finishedBookRecyclerViewAdapter;
     }
 }
 

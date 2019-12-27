@@ -6,7 +6,9 @@
     android:background="#03a9f5"
     app:titleTextColor="@color/white"
     app:subtitleTextColor="@color/white"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    android:theme="@style/BlueBackgroundWhiteText"
+    app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
 
 </androidx.appcompat.widget.Toolbar>

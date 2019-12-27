@@ -27,12 +27,12 @@ public interface BookAuthorDAO {
     @Query("SELECT author.authorID, author.authorName from author inner join bookAuthor " +
             "ON author.authorID = bookAuthor.authorID " +
             "where bookAuthor.bookID = :bookID")
-    List<Author> getAuthorsOfBook(final int bookID);
+    List<Author> getAuthorsOfBook(final long bookID);
 
-    @Query("Select * from bookAuthor inner join book " +
+    @Query("Select book.* from bookAuthor inner join book " +
             "ON book.bookid = bookauthor.bookID " +
             "WHERE bookAuthor.authorID = :authorID")
-    List<Book> getBooksWrittenByAuthor(final int authorID);
+    List<Book> getBooksWrittenByAuthor(final long authorID);
 
     @Query("DELETE FROM bookAuthor")
     void nukeTable();

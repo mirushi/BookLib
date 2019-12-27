@@ -31,6 +31,9 @@ public interface PublisherDAO {
     @Query("SELECT * FROM publisher WHERE publisher.publisherName = :publisherName")
     List<Publisher> searchForExactPublisher(String publisherName);
 
+    @Query("Select publisher.* from publisher join book on book.bookID = :bookID")
+    Publisher getBookPublisher(long bookID);
+
     @Query("DELETE FROM publisher")
     void nukeTable();
 }

@@ -224,8 +224,7 @@ public class Book implements Serializable {
         return publishDate;
     }
 
-    public void setPublishDate(LocalDate publishDate) {
-        this.publishDate = publishDate;
+    public void setPublishDate(LocalDate publishDate) {this.publishDate = publishDate;
     }
 
     public String getDescription() {

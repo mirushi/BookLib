@@ -24,10 +24,10 @@ public abstract class BookDAO {
     @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and book.bTypeID = :typeID")
     public abstract List<Book> getAllNewBookWithBookType(long typeID);
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and bookfile.bRead <> bookfile.bTotal")
     public abstract List<Book> getAllInProgressBook();
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and book.bTypeID = :typeID")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and bookfile.bRead <> bookfile.bTotal and book.bTypeID = :typeID")
     public abstract List<Book> getAllInProgressBookWithBookType(long typeID);
 
     @Query("Select distinct book.* from book inner join bookfile on book.bookID = bookfile.bookID where bookfile.bRead = bookfile.bTotal")
@@ -38,6 +38,31 @@ public abstract class BookDAO {
 
     @Query("Select distinct * from book where booktitle like '%'||:subTitle||'%'")
     public abstract List<Book> searchBookTitle(String subTitle);
+
+    @Query("Select distinct book.* from book join bookauthor on book.bookID = bookauthor.bookID " +
+            "join author on bookauthor.authorID = author.authorID where author.authorName like '%'||:author||'%'")
+    public abstract List<Book> searchBookFromAuthorName(String author);
+
+    @Query("Select distinct book.* from book join bookidentitynum on book.bookID = bookidentitynum.bookID " +
+            "where bookidentitynum.IDValue like '%'||:ids||'%'")
+    public abstract List<Book> searchBookFromIDs(String ids);
+
+    @Query("Select distinct book.* from book join booktag on book.bookID = booktag.bookID " +
+            "join tag on booktag.tagID = tag.tagID where tag.tagContent like '%'||:tag||'%'")
+    public abstract List<Book> searchBookFromTag(String tag);
+
+    @Transaction
+    public List<Book> searchBookAllPossibleField(String searchString){
+        List<Book> result = new ArrayList<>();
+        //Tìm tất cả các sách có tựa đề trùng khớp.
+        List<Book> matchedTitle = searchBookTitle(searchString);
+        //Tìm tất cả các sách có tác giả trùng khớp.
+        List<Book> matchedAuthor = searchBookFromAuthorName(searchString);
+        //Tìm tất cả các sách có ID trùng khớp.
+        List<Book> matchedIds = searchBookFromIDs(searchString);
+        //
+        return result;
+    }
 
     @Insert
     public abstract long insertBook(Book book);

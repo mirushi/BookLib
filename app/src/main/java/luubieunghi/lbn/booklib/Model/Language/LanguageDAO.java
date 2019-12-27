@@ -31,6 +31,9 @@ public abstract class LanguageDAO {
         }
     }
 
+    @Query("Delete from language where language.langName = :lName")
+    public abstract void deleteExactLanguageName(String lName);
+
     @Query("Select * from language")
     public abstract List<Language> getAllStoredLanguages();
 
@@ -39,6 +42,9 @@ public abstract class LanguageDAO {
 
     @Query("Select * from language where Language.langName = :langName")
     public abstract List<Language> searchForExactLanguageName(String langName);
+
+    @Query("Select language.* from book join language on book.langID = language.langID where book.bookID = :bookID")
+    public abstract Language getBookLanguage(long bookID);
 
     @Query("DELETE FROM LANGUAGE")
     public abstract void nukeTable();
