@@ -132,12 +132,9 @@ public class BookReadingActivity extends AppCompatActivity
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         listBookFile.get(0).setbLocator(readLocator.toJson());
-        if (listBookFile.get(0).getBFileID() == null) {
-            mBFileID = getBFileID(readLocator);
-            mBFileTitle = getTitleFileID(readLocator);
-            listBookFile.get(0).setBFileID(mBFileID);
-        }
-
+        mBFileID = getBFileID(readLocator);
+        mBFileTitle = getTitleFileID(readLocator);
+        listBookFile.get(0).setBFileID(mBFileID);
         // listBookFile.get(0).setBRead(sotrang);
         ReadLocator rl = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
         Log.i(LOG_TAG + "_SAVE", "-> saveReadLocator -> " + listBookFile.get(0).getBLocator());
@@ -157,7 +154,7 @@ public class BookReadingActivity extends AppCompatActivity
     private String getBFileID(ReadLocator readLocator) {
         String[] tmp_parser_1 = readLocator.toJson().split(",");
         String[] tmp_parser_2 = tmp_parser_1[0].split(":");
-        String _bFileID = tmp_parser_2[1].substring(1,tmp_parser_2[1].length()-2);
+        String _bFileID = tmp_parser_2[1].substring(1,tmp_parser_2[1].length()-1);
         return _bFileID;
     }
 

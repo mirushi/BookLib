@@ -17,6 +17,7 @@ import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
+import luubieunghi.lbn.booklib.TestFragment;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
@@ -71,10 +72,13 @@ public class HighlightManagementActivity extends AppCompatActivity {
     }
 
     private void setUpView() {
-        if(mBFileID != null) {
-            HighlightFragment highlightFragment = HighlightFragment.newInstance(mBFileID, mBFileTitle);
+        if (mBFileID != null) {
+            HighlightFragment highlightFragment = HighlightFragment.newInstance(mBFileID, "book");
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.test_layout, highlightFragment);
+            //TestFragment test = new TestFragment();
+          //  FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+          //  ft.replace(R.id.test_layout, test);
             ft.commit();
         }
     }
