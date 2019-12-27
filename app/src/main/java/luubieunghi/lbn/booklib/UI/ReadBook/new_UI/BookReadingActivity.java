@@ -135,6 +135,8 @@ public class BookReadingActivity extends AppCompatActivity
         mBFileID = getBFileID(readLocator);
         mBFileTitle = getTitleFileID(readLocator);
         listBookFile.get(0).setBFileID(mBFileID);
+        listBookFile.get(0).setBRead(1);
+
         // listBookFile.get(0).setBRead(sotrang);
         ReadLocator rl = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
         Log.i(LOG_TAG + "_SAVE", "-> saveReadLocator -> " + listBookFile.get(0).getBLocator());
