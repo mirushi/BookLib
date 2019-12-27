@@ -41,6 +41,7 @@ import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Author.Author;
 import luubieunghi.lbn.booklib.Model.Book.Book;
+import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.Model.BookIdentityNum.BookIdentityNum;
 import luubieunghi.lbn.booklib.Model.Language.Language;
 import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
@@ -75,6 +76,10 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
 
     //Giữ URI đến file được người dùng chọn.
     ArrayList<String> pathToFiles = new ArrayList<>();
+
+    //Giữ BookFile đến file được người dùng chọn.
+    ArrayList<BookFile> bookFileList = new ArrayList<>();
+
     //Giữ URI đến file ảnh được người dùng chọn làm bìa sách.
     String pathToBookCover;
 
@@ -373,8 +378,14 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
             Glide.with(this).load(path).fitCenter().into(bookCover);
     }
 
-    public void setFilePath(ArrayList<String> filePath){
+    public void setFilePath(List<BookFile> bookFileList){
+        this.bookFileList = new ArrayList<BookFile>(bookFileList);
+        ArrayList<String> filePath = new ArrayList<>();
+        for (BookFile bookFile : bookFileList){
+            filePath.add(bookFile.getBFilePath());
+        }
         this.pathToFiles = new ArrayList<String>(filePath);
+
     }
 
     public void setBookType(String bookType){
@@ -398,5 +409,9 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
 
     public Book getExistingBook() {
         return existingBook;
+    }
+
+    public ArrayList<BookFile> getBookFileList() {
+        return bookFileList;
     }
 }

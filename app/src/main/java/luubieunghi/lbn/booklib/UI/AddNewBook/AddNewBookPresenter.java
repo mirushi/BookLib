@@ -1,5 +1,6 @@
 package luubieunghi.lbn.booklib.UI.AddNewBook;
 
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
 
@@ -80,7 +81,6 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-
                 if (bookType.equals("EBOOK"))
                     bTypeID = BookDatabase.getInstance(view).getEbookId();
                 else
@@ -108,10 +108,11 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
                 //Kiểm tra xem nếu sách đã tồn tại, tức là người dùng đang update.
                 //Vì vậy, phải xoá đi sách cũ trước khi thêm sách vào lại.
+
+
                 if (existingBook != null){
                     bookDB.BookDAO().deleteBook(existingBook);
                 }
-
 
                 long bookID = bookDB.BookDAO().insertBook(book);
                 //Sau khi thêm sách vào, chúng ta còn phải xử lý IDs, Tags và Authors trong mối quan hệ nhiều nhiều.
@@ -146,10 +147,34 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
                 //Các files của sách.
                 List<BookFile> bookFileList = new ArrayList<>();
-                for (int i=0;i<viewBookFilePath.size();++i){
-                    String filePath = viewBookFilePath.get(i);
-                    BookFile bookFile = new BookFile(bookID, i, filePath, 0,0, null);
-                    bookFileList.add(bookFile);
+                if (existingBook != null) {
+                    bookFileList = view.getBookFileList();
+                    for (BookFile bookFile : bookFileList){
+                        bookFile.setBookID(bookID);
+                    }
+                } else{
+                    List<Long> bTotalList = new ArrayList<>();
+                    if (bookType.equals("AUDIO_BOOK")){
+                        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
+                        for (int i=0;i<viewBookFilePath.size(); ++i){
+                            String filePath = viewBookFilePath.get(i);
+                            metadataRetriever.setDataSource(filePath);
+                            String out = "";
+                            String duration = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                            Long miliseconds = Long.parseLong(duration);
+                            bTotalList.add(miliseconds);
+                        }
+                        metadataRetriever.release();
+                    }
+                    else{
+                        bTotalList.add(1L);
+                    }
+                    for (int i=0;i<viewBookFilePath.size();++i){
+                        String filePath = viewBookFilePath.get(i);
+                        Long bTotal = bTotalList.get(i);
+                        BookFile bookFile = new BookFile(bookID, i, filePath, 0,bTotal, null);
+                        bookFileList.add(bookFile);
+                    }
                 }
 
                 //Các tags của sách.
@@ -261,10 +286,6 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
 
                 //Load file.
                 final List<BookFile> bookFileList = bookDB.BookFileDAO().getAllFilesOfBook(existingBook.getBookID());
-                ArrayList<String> bookPath = new ArrayList<>();
-                for (BookFile bookfile : bookFileList){
-                    bookPath.add(bookfile.getBFilePath());
-                }
 
                 //Sau khi đã chuẩn bị đủ nguyên liệu, ta tiến hành set view 1 lần trên thread chính.
                 AppExecutors.getInstance().mainThread().execute(new Runnable() {
@@ -291,7 +312,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                                 break;
                             }
                         }
-                        view.setFilePath(bookPath);
+                        view.setFilePath(bookFileList);
                         dialog.hideDialog();
                     }
                 });

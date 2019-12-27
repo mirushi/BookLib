@@ -25,12 +25,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import luubieunghi.lbn.booklib.Adapter.BookRecyclerViewAdapter;
+import luubieunghi.lbn.booklib.BookLib;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
+import luubieunghi.lbn.booklib.UI.ReadBook.new_UI.HighlightManagementActivity;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 public class BookListingFragment extends Fragment implements BookListingContract.BookListingMVPView {
@@ -187,6 +189,13 @@ public class BookListingFragment extends Fragment implements BookListingContract
                 }
                 case BookRecyclerViewAdapter.viewHighlightsID:{
                     displayMessage(filter.toString() + "View highlight clicked !" + itemPosition.toString());
+                    if (selectedBook.getBTypeID() == BookDatabase.getInstance(BookLib.getAppContext()).getEbookId()){
+                        Intent intent = new Intent(BookListingFragment.this.getActivity(), HighlightManagementActivity.class);
+                        intent.putExtra("book", selectedBook);
+                        BookListingFragment.this.startActivity(intent);
+                    }
+                    else
+                        displayMessage("Xin lỗi. Tính năng này chỉ hỗ trợ đối với ebook");
                     return true;
                 }
                 case BookRecyclerViewAdapter.markReadID:{

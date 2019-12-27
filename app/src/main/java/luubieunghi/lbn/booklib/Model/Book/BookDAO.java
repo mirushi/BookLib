@@ -18,10 +18,10 @@ public abstract class BookDAO {
     @Query("Select * from book")
     public abstract List<Book> getAllBook();
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and bookfile.bRead <> bookfile.bTotal")
     public abstract List<Book> getAllNewBook();
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and book.bTypeID = :typeID")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and bookfile.bRead <> bookfile.bTotal and book.bTypeID = :typeID")
     public abstract List<Book> getAllNewBookWithBookType(long typeID);
 
     @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and bookfile.bRead <> bookfile.bTotal")
@@ -50,6 +50,9 @@ public abstract class BookDAO {
     @Query("Select distinct book.* from book join booktag on book.bookID = booktag.bookID " +
             "join tag on booktag.tagID = tag.tagID where tag.tagContent like '%'||:tag||'%'")
     public abstract List<Book> searchBookFromTag(String tag);
+
+    @Query("Update bookfile set bRead = bTotal where bookfile.bookID = :bookID")
+    public abstract void markBookRead(long bookID);
 
     @Transaction
     public List<Book> searchBookAllPossibleField(String searchString){
