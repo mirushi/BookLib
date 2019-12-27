@@ -50,11 +50,17 @@
 - **Twitter**: [**@hebertialmeida**](https://twitter.com/hebertialmeida)
 - **LinkedIn**: [**hebertialmeida**](http://linkedin.com/in/hebertialmeida)
 
-## Các tham khảo khác:
+## Các tham khảo và thư viện khác:
  - FOLIOREADER WIKI
  - [**EPUB CFI**](http://idpf.org/epub/linking/cfi/epub-cfi.html)
  - [**Rangy**](https://github.com/timdown/rangy)
  - [**Room Runtime**](https://developer.android.com/jetpack/androidx/releases/room)
+ - [**File Flicker**](https://github.com/DroidNinja/Android-FilePicker)
+ - [**SmartMterialSpinner**](https://github.com/Chivorns/SmartMaterialSpinner)
+ - [**PickiT**](https://github.com/HBiSoft/PickiT)
+ - [**RxPermissions**](https://github.com/tbruyelle/RxPermissions)
+ - [**MultiLineRadioGroup**](https://github.com/Gavras/MultiLineRadioGroup)
+ 
  - API của Dịch từ của Google: translate.googleapis.com
  - Data từ điển được lấy và convert từ [**UNDERTHESEAPROJECT**](https://github.com/undertheseanlp/underthesea)(Github)
  
