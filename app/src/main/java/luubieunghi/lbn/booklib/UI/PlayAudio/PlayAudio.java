@@ -70,7 +70,10 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         ArrayList<Book> dsb=new ArrayList<>();
         dsb.addAll(bd.BookDAO().getAllBook());
         bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
-        getTime();
+        for(int i=0;i<bfs.size();i++) {
+            BookFile bf = bfs.get(i);
+            max_time+=bf.getBTotal();
+        }
         for(int i=0;i<bfs.size();i++) {
             BookFile bf = bfs.get(i);
             if (((int) bf.getBRead() != (int) bf.getBTotal())) {
@@ -91,6 +94,9 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
                 startService(intent);
                 break;
             }
+            else {
+                current_time+=bf.getBTotal();
+            }
         }
         if(b!=null){
             txt_audio_book_name.setText(b.getBookTitle());
@@ -109,14 +115,6 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         presenter=new PlayAudioPresenter(PlayAudio.this, PlayAudio.this);
     }
 
-    private void getTime() {
-        for(BookFile bookFile:bfs){
-            max_time+=bookFile.getBTotal();
-            if(bookFile.getBRead()==bookFile.getBTotal()){
-                current_time+=bookFile.getBRead();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
