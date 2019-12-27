@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+
 import luubieunghi.lbn.booklib.Model.Book.Book;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -13,7 +16,7 @@ import static androidx.room.ForeignKey.CASCADE;
         primaryKeys = {"bookID","bFileOrder"},
         foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Book.class,parentColumns = "bookID", childColumns = "bookID")})
 
-public class BookFile {
+public class BookFile implements Serializable {
 
     //Các biến dùng cho RSL.
     @ColumnInfo(name = "bookID")

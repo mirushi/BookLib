@@ -3,11 +3,9 @@ package luubieunghi.lbn.booklib.UI.PlayMusic;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +20,6 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +39,13 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     private TextView txt_TenBaiHat, txt_TenCaSi, txt_ToTalTime;
     private TextView txt_CurrentTime;
     private SeekBar seekBar_Time;
-    private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle, btn_img_Repeat;
+    private Button btn_img_Menu, btn_img_Next, btn_img_Previous, btn_img_Shuffle;
     private PlayMusicPresenter presenter;
     public Song song=null;
     private Handler handler=new Handler();
 
     public static Song currentSong=null;
-    public static Button btn_img_Play=null;
+    public static Button btn_img_Play=null,btn_img_Repeat;
     public static ArrayList<Song> dsBaiHat=null;
     public static boolean isRepeat=false, isShuffle=false;
 
@@ -75,9 +72,10 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
             List<Song> songs= database.song_dao().getByIDs("BH1");
             currentSong =songs.get(0);
             song=currentSong;
-            Intent intent=new Intent(getApplicationContext(),MyService.class);
+            Intent intent=new Intent(PlayMusic.this,MyService.class);
             intent.putExtra("song",song);
             intent.putExtra("isMusic", true);
+            intent.setAction("Action_Play");
             startService(intent);
         }
         //nếu đã truyền bài hát vào
@@ -90,18 +88,20 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
                 }
                 else{
                     currentSong=song;
-                    Intent intent=new Intent(getApplicationContext(),MyService.class);
+                    Intent intent=new Intent(PlayMusic.this,MyService.class);
                     intent.putExtra("song",song);
                     intent.putExtra("isMusic", true);
+                    intent.setAction("Action_Play");
                     startService(intent);
                 }
             }
             //nếu bài hát hiện tại là null thì tạo mới rồi play luôn
             else{
                 currentSong=song;
-                Intent intent=new Intent(getApplicationContext(),MyService.class);
+                Intent intent=new Intent(PlayMusic.this,MyService.class);
                 intent.putExtra("song",song);
                 intent.putExtra("isMusic", true);
+                intent.setAction("Action_Play");
                 startService(intent);
             }
 
@@ -125,7 +125,7 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
         });
         ConfigGesturesListener();
         addEvents();
-        presenter=new PlayMusicPresenter(getApplicationContext());
+        presenter=new PlayMusicPresenter(PlayMusic.this);
     }
 
     @Override
@@ -319,6 +319,8 @@ public class PlayMusic extends AppCompatActivity implements  PlayMusicContract.I
     }
 
     public static void setBtn_PlayResource(boolean play){
+        if(btn_img_Play==null)
+            return;
         if(play==true)
             btn_img_Play.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
         if (play==false)

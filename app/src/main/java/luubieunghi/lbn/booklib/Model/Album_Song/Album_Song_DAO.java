@@ -33,4 +33,7 @@ public interface Album_Song_DAO {
     @Delete
     void delete(Album_Song album_song);
 
+    @Query("delete from Album_Song")
+    void deleteAll();
+
 }

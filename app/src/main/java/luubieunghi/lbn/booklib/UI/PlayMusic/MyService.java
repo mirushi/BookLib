@@ -5,13 +5,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
 import android.net.Uri;
 import android.os.IBinder;
+
 import android.widget.RemoteViews;
 
 import androidx.annotation.IdRes;
@@ -19,10 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import java.io.IOException;
 import java.util.Random;
 
 import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
@@ -32,11 +33,13 @@ public class MyService extends Service {
 
     private static final String chanel_ID="MUSIC";
     private static final String chanel_Name="PLAY MUSIC";
-    public   static  float volume=0.5f;
+    public  static  float volume=0.5f;
     public static  MediaPlayer mediaPlayer=new MediaPlayer();
-    public static Equalizer equalizer=new Equalizer(0, mediaPlayer.getAudioSessionId());
+    public static Equalizer equalizer=null;
     public static  RemoteViews notificationLayout;
     boolean isMusic;
+    public static boolean isMono=false;
+    public  static  boolean isLeft=false;
 
     @Nullable
     @Override
@@ -48,29 +51,25 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        //mediaPlayer= MediaPlayer.create(getBaseContext(),);
-        //mediaPlayer=MediaPlayer.create(getBaseContext(), Uri.parse(song.getFilePath()));
+        if(equalizer==null)
+            equalizer=new Equalizer(0, mediaPlayer.getAudioSessionId());
         mediaPlayer.setVolume(volume,volume);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         createEqualizer();
         notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
     }
 
     public static void createEqualizer() {
+        if(equalizer==null)
+            equalizer=new Equalizer(0, mediaPlayer.getAudioSessionId());
         equalizer.setEnabled(true);
-        equalizer.setBandLevel((short)0,(short)70000);
-        equalizer.setBandLevel((short)1,(short)70000);
-        equalizer.setBandLevel((short)2,(short)70000);
-        equalizer.setBandLevel((short)3,(short)70000);
-        equalizer.setBandLevel((short)4,(short)70000);
     }
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
-
-
         //lấy action của intent để xử lí
         String action=intent.getAction();
         final Song song=(Song)intent.getSerializableExtra("song");
+        final BookFile bf=(BookFile) intent.getSerializableExtra("book_file");
+        final Book b=(Book)intent.getSerializableExtra("book");
         isMusic=intent.getBooleanExtra("isMusic",false);
         //xử lí chơi nhạc
         if(isMusic)
@@ -85,15 +84,35 @@ public class MyService extends Service {
                 mediaPlayer=MediaPlayer.create(getApplicationContext(), Uri.parse(song.getFilePath()));
             }
         }
+        //xư lí chơi audio books
         else {
-            //xư lí chơi audio books
-            BookFile bf=(BookFile) intent.getSerializableExtra("book_file");
-            if(mediaPlayer!=null){
-                //mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
+            if(bf!=null){
+                if(PlayAudio.currentFile==null){
+                    if(mediaPlayer!=null){
+                        //mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer=null;
+                    }
+                    System.out.println(bf.getBFilePath());
+                    mediaPlayer=MediaPlayer.create(getApplicationContext(), Uri.parse(bf.getBFilePath()));
+                    PlayAudio.currentFile=bf;
+                }
+                else {
+                    if(bf.getBFilePath().equals(PlayAudio.currentFile.getBFilePath())){
+                        mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
+                    }
+                    else{
+                        if(mediaPlayer!=null){
+                            //mediaPlayer.stop();
+                            mediaPlayer.release();
+                            mediaPlayer=null;
+                        }
+                        System.out.println(bf.getBFilePath());
+                        mediaPlayer=MediaPlayer.create(getApplicationContext(), Uri.parse(bf.getBFilePath()));
+                        PlayAudio.currentFile=bf;
+                    }
+                }
             }
-            mediaPlayer=MediaPlayer.create(getApplicationContext(), Uri.parse(bf.getBFilePath()));
         }
         //tùy theo action mà xử lí
         if(action!=null){
@@ -101,8 +120,20 @@ public class MyService extends Service {
                 stop_MyService();
             }
             else {
-                showNotification();
                 if(action.equals("Action_Play")){
+                    if(isMusic){
+                       if(song!=null){
+                           notificationLayout.setTextViewText(R.id.txt_tenbaihat_notification,song.getSongName());
+                           notificationLayout.setTextViewText(R.id.txt_tencasi_notification,song.getArtistNames());
+                       }
+                    }
+                    else {
+                        if(b!=null){
+                            notificationLayout.setTextViewText(R.id.txt_tenbaihat_notification,b.getBookTitle());
+                            notificationLayout.setTextViewText(R.id.txt_tencasi_notification,b.getDescription());
+                        }
+                    }
+                    showNotification();
                     play_MediaPlayer();
                 }
                 if(action.equals("Action_Next")){
@@ -113,97 +144,139 @@ public class MyService extends Service {
                 }
             }
         }
+        //xử lí chơi hết nhạc
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-               onComplete(mp,isMusic);
+//                if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                    onComplete(mp,isMusic);
+//                }
+                onComplete(mp,isMusic);
             }
         });
+
         return START_STICKY;
     }
 
+    private void xuLiRepeat(){
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer=null;
+        mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+//                if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                    onComplete(mp,isMusic);
+//                }
+                onComplete(mp,isMusic);
+            }
+        });
+        play_MediaPlayer();
+        PlayMusic.isRepeat=false;
+        PlayMusic.btn_img_Repeat.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,255)));
+        return;
+    }
+
+    private void xuLiShuffle(){
+        int max=PlayMusic.dsBaiHat.size();
+        Random r=new Random();
+        int index=r.nextInt(max);
+        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+        MyService.mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer=null;
+        mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+//                if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                    onComplete(mp,isMusic);
+//                }
+                onComplete(mp,isMusic);
+            }
+        });
+        play_MediaPlayer();
+        return;
+    }
+
+    private void xuLiChoiNhacTiep(){
+        int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)+1;
+        if(index>=PlayMusic.dsBaiHat.size()){
+            index=0;
+        }
+        PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
+        MyService.mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer=null;
+        mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+//                if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                    onComplete(mp,isMusic);
+//                }
+                onComplete(mp,isMusic);
+            }
+        });
+        play_MediaPlayer();
+        return;
+    }
+
+    private void xuLiAudio(){
+        BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
+        int order=PlayAudio.currentFile.getBFileOrder()+1;
+        if(order>=PlayAudio.bfs.size()){
+            stop_MyService();
+        }
+        else{
+            for(BookFile bf:PlayAudio.bfs){
+                if(bf.getBFileOrder()==order)
+                    PlayAudio.currentFile=bf;
+            }
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer=null;
+            mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+//                    if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                        onComplete(mp,false);
+//                    }
+                    onComplete(mp,isMusic);
+                }
+            });
+            play_MediaPlayer();
+        }
+        PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
+        PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
+    }
+
     private void onComplete(MediaPlayer mp, boolean isMusic){
+        mediaPlayer.seekTo(0);
         if(isMusic){
             if(PlayMusic.isRepeat){
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
-                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        onComplete(mp,isMusic);
-                    }
-                });
-                play_MediaPlayer();
-                PlayMusic.isRepeat=false;
+                xuLiRepeat();
                 return;
             }
             else if(PlayMusic.isShuffle){
-                int max=PlayMusic.dsBaiHat.size();
-                Random r=new Random();
-                int index=r.nextInt(max-1);
-                PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
-                MyService.mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
-                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        onComplete(mp,isMusic);
-                    }
-                });
-                play_MediaPlayer();
+                xuLiShuffle();
                 return;
             }
             else {
-                int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)+1;
-                if(index>=PlayMusic.dsBaiHat.size()){
-                    index=0;
-                }
-                PlayMusic.currentSong=PlayMusic.dsBaiHat.get(index);
-                MyService.mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
-                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        onComplete(mp,isMusic);
-                    }
-                });
-                play_MediaPlayer();
+                xuLiChoiNhacTiep();
                 return;
             }
         }
         else{
-            PlayAudio.currentFile.setBRead(PlayAudio.currentFile.getBTotal());
-            BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
-            int order=PlayAudio.currentFile.getBFileOrder()+1;
-            if(order>=PlayAudio.bfs.size()){
-                stop_MyService();
-            }
-            else{
-                for(BookFile bf:PlayAudio.bfs){
-                    if(bf.getBFileOrder()==order)
-                        PlayAudio.currentFile=bf;
-                }
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
-                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(PlayMusic.currentSong.getFilePath()));
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        onComplete(mp,isMusic);
-                    }
-                });
-                play_MediaPlayer();
-            }
+            BookDatabase bd=BookDatabase.getInstance(getApplicationContext());
+            PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
+            PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
+            bd.BookFileDAO().updateBookFile(PlayAudio.currentFile);
+            xuLiAudio();
         }
     }
-
 
     private void previous_MediaPlayer() {
         int index=PlayMusic.dsBaiHat.indexOf(PlayMusic.currentSong)-1;
@@ -219,7 +292,10 @@ public class MyService extends Service {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    onComplete(mp,true);
+//                    if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                        onComplete(mp,isMusic);
+//                    }
+                    onComplete(mp,isMusic);
                 }
             });
             play_MediaPlayer();
@@ -232,7 +308,10 @@ public class MyService extends Service {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    onComplete(mp,true);
+//                    if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
+//                        onComplete(mp,isMusic);
+//                    }
+                    onComplete(mp,isMusic);
                 }
             });
         }
@@ -280,10 +359,15 @@ public class MyService extends Service {
     // xóa thông báo và dừng mediaplayer
     private void stop_MyService() {
         //đóng notification
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
         notificationManager.cancel(1);
         mediaPlayer.pause();
-        PlayMusic.setBtn_PlayResource(true);
+        if(isMusic){
+            PlayMusic.setBtn_PlayResource(true);
+        }
+        else {
+            PlayAudio.setBtn_Play_Resource(true);
+        }
     }
 
     //tạo intent sync giữa notification và activity
