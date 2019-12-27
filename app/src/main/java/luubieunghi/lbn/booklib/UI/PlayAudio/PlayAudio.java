@@ -711,7 +711,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         seekBar_current.setProgress(read);
         txt_read.setText("Read "+intToTime((int)current_time+read)+" of "+intToTime((int)max_time));
         txt_left.setText("Left "+intToTime((int)(max_time-current_time-read)));
-        txt_percent.setText((int)(((float)read/(float)max)*100)+"%");
+        txt_percent.setText((int)((((float)current_time + read)/(float)max_time)*100)+"%");
         txt_current_time.setText(intToTime(read));
         txt_total_current_time.setText(intToTime(max));
     }
