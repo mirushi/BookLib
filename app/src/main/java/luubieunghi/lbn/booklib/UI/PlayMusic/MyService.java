@@ -226,6 +226,8 @@ public class MyService extends Service {
     }
 
     private void xuLiAudio(){
+        PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
+        PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
         BookDatabase.getInstance(getBaseContext()).BookFileDAO().updateBookFile(PlayAudio.currentFile);
         int order=PlayAudio.currentFile.getBFileOrder()+1;
         if(order>=PlayAudio.bfs.size()){
@@ -251,8 +253,6 @@ public class MyService extends Service {
             });
             play_MediaPlayer();
         }
-        PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
-        PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
     }
 
     private void onComplete(MediaPlayer mp, boolean isMusic){
