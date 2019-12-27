@@ -54,6 +54,7 @@
  - FOLIOREADER WIKI
  - [**EPUB CFI**](http://idpf.org/epub/linking/cfi/epub-cfi.html)
  - [**Rangy**](https://github.com/timdown/rangy)
+ - [**Room Runtime**](https://developer.android.com/jetpack/androidx/releases/room)
  - API của Dịch từ của Google: translate.googleapis.com
  - Data từ điển được lấy và convert từ [**UNDERTHESEAPROJECT**](https://github.com/undertheseanlp/underthesea)(Github)
  
