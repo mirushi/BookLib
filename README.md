@@ -12,6 +12,10 @@
   ### Thêm và quản lý sách: 
   
   ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/addmain.png)
+  
+  ### Quản lý highlight trong sách: 
+  
+  ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/highlightmain.png)
 
 ### Đọc sách:
 
