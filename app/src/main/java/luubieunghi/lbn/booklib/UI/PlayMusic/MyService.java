@@ -271,8 +271,9 @@ public class MyService extends Service {
         }
         else{
             BookDatabase bd=BookDatabase.getInstance(getApplicationContext());
-            PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
             PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
+            if(PlayAudio.currentFile.getBRead()!=PlayAudio.currentFile.getBTotal())
+                PlayAudio.currentFile.setBRead(mediaPlayer.getDuration());
             bd.BookFileDAO().updateBookFile(PlayAudio.currentFile);
             xuLiAudio();
         }

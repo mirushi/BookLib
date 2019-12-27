@@ -70,7 +70,17 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
         for(int i=0;i<bfs.size();i++) {
             BookFile bf = bfs.get(i);
-            if (((int) bf.getBRead() != (int) bf.getBTotal() || (i == bfs.size() - 1))) {
+            if (((int) bf.getBRead() != (int) bf.getBTotal())) {
+                mediaPlayer.seekTo((int)bf.getBRead());
+                Intent intent = new Intent(PlayAudio.this, MyService.class);
+                intent.putExtra("book_file", bf);
+                intent.putExtra("book", b);
+                intent.setAction("Action_Play");
+                startService(intent);
+                break;
+            }
+            else if(i==bfs.size()-1){
+                bf=bfs.get(0);
                 Intent intent = new Intent(PlayAudio.this, MyService.class);
                 intent.putExtra("book_file", bf);
                 intent.putExtra("book", b);
