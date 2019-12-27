@@ -190,8 +190,6 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
             menuItems.add(menu.add(this.getAdapterPosition(), startReadingBookID, getAdapterPosition(), "Bắt đầu đọc sách"));
             menuItems.add(menu.add(this.getAdapterPosition(), loadBookDetailsID, getAdapterPosition(), "Xem thông tin sách"));
-            menuItems.add(menu.add(this.getAdapterPosition(), viewBookmarksID, getAdapterPosition(), "Hiển thị dấu trang"));
-            menuItems.add(menu.add(this.getAdapterPosition(), viewHighlightsID, getAdapterPosition(), "Hiển thị highlight"));
             menuItems.add(menu.add(this.getAdapterPosition(), markReadID, getAdapterPosition(), "Đánh dấu là đã đọc"));
             menuItems.add(menu.add(this.getAdapterPosition(), deleteBookID, getAdapterPosition(), "Xoá sách"));
         }

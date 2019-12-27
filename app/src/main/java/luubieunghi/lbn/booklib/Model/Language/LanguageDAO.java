@@ -43,7 +43,7 @@ public abstract class LanguageDAO {
     @Query("Select * from language where Language.langName = :langName")
     public abstract List<Language> searchForExactLanguageName(String langName);
 
-    @Query("Select language.* from book join language on book.bookID = :bookID")
+    @Query("Select language.* from book join language on book.langID = language.langID where book.bookID = :bookID")
     public abstract Language getBookLanguage(long bookID);
 
     @Query("DELETE FROM LANGUAGE")
