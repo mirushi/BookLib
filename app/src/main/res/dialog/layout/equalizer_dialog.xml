@@ -87,14 +87,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4 \nkHz">
+                android:text="3.6 \nkHz">
             </TextView>
             <TextView
                 android:textAlignment="center"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="60 \nkHz">
+                android:text="14 \nkHz">
             </TextView>
 
         </LinearLayout>
@@ -111,15 +111,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:progress="70000"
-                android:max="120000"
-                android:min="30000"
+                android:progress="0"
+                android:max="1500"
+                android:min="-1500"
                 ></SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel2"
-                android:progress="70000"
-                android:max="120000"
-                android:min="30000"
+                android:progress="0"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,9 +127,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel3"
-                android:progress="70000"
-                android:max="120000"
-                android:min="30000"
+                android:progress="0"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,9 +137,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel4"
-                android:progress="70000"
-                android:max="120000"
-                android:min="30000"
+                android:progress="0"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,9 +147,9 @@
             </SeekBar>
             <SeekBar
                 android:id="@+id/sb_chanel5"
-                android:progress="70000"
-                android:max="120000"
-                android:min="30000"
+                android:progress="0"
+                android:max="1500"
+                android:min="-1500"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,6 +222,7 @@
             android:text="Balance">
         </TextView>
         <SeekBar
+            android:id="@+id/seek_bar_mono"
             android:min="-1"
             android:max="1"
             android:progress="0"
@@ -230,6 +231,7 @@
             android:layout_weight="4">
         </SeekBar>
         <CheckBox
+            android:id="@+id/chk_mono"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1">

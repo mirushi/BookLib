@@ -44,9 +44,12 @@ public class BaiHatAdapter extends ArrayAdapter {
 //        }
 
 
-        txt_TenBaiHat_Item_Song.setText(song.getSongName());
-        txt_TenCaSi_Item_Song.setText(song.getArtistNames());
-        img_HinhBaiHat_Item_Song.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(song.getImagePath())));
+        if(!(song==null))
+        {
+            txt_TenBaiHat_Item_Song.setText(song.getSongName());
+            txt_TenCaSi_Item_Song.setText(song.getArtistNames());
+            img_HinhBaiHat_Item_Song.setImageBitmap(Bitmap.createBitmap(BitmapFactory.decodeFile(song.getImagePath())));
+        }
         return row;
     }
 

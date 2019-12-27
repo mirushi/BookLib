@@ -38,4 +38,7 @@ public interface Album_DAO {
     @Query("delete from Album where AlbumID like :albumID")
     void deleteByID(String albumID);
 
+    @Query("delete from Album")
+    void deleteAll();
+
 }

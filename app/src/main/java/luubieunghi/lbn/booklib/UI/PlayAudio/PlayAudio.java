@@ -6,29 +6,35 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import luubieunghi.lbn.booklib.Database.BookDatabase;
+import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayMusic.MyService;
 
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.equalizer;
+import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.isLeft;
+import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.isMono;
 import static luubieunghi.lbn.booklib.UI.PlayMusic.MyService.mediaPlayer;
 
 public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IPlayAudioView{
@@ -37,47 +43,79 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     private Button btn_equalizer, btn_timer, btn_play_speed, btn_increase_volume, btn_decrease_volume;
     private Button btn_skip_previous_10s, btn_skip_previous_1m, btn_skip_next_10s,btn_skip_next_1m;
     private Button btn_next, btn_previous;
-    public static  Button btn_play=null;
-
+    private Handler handler=new Handler();
+    private TextView txt_read, txt_percent, txt_left, txt_current_time, txt_total_current_time, txt_audio_book_name;
+    private SeekBar seekBar_current, seekBar_total;
     private PlayAudioPresenter presenter;
-
     private Button []buttons;
     private String playbackSpeed="";
+
+    public static  Button btn_play=null;
     public static List<BookFile> bfs=null;
     public static BookFile currentFile=null;
+    private long current_time=0;
+    private long max_time=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_audio);
-        BookDatabase bd=BookDatabase.getInstance(this);
-//        ArrayList<Book> bs=new ArrayList<>();
-//        bs.addAll(bd.BookDAO().getAllBook());
-//        Book b=bs.get(0);
-
-//        Book b=(Book)getIntent().getSerializableExtra("book");
-//        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
-//        for(BookFile bf:bfs){
-//            if(bf.getBRead()==bf.getBTotal())
-//                continue;
-//            else{
-//                currentFile=bf;
-//                break;
-//            }
-//        }
-//        mediaPlayer= MediaPlayer.create(getBaseContext(), Uri.parse(currentFile.getBFilePath()));
-//        database.album_dao().insert(new Album("AB1","Album 1","/sdcard/Download/BH1.png"));
-//        database.album_song_dao().insert(new Album_Song("AB1","BH1"));
-//        database.currentSong_dao().insert(new CurrentSong("BH1",0));
-
-        mediaPlayer.stop();
-        mediaPlayer= MediaPlayer.create(this,R.raw.van_su_tuy_duyen);
-        MyService.createEqualizer();
-        //mediaPlayer.start();
         addControls();
         setUp();
         addEvents();
-        presenter=new PlayAudioPresenter(this, PlayAudio.this);
+        MyService.createEqualizer();
+        BookDatabase bd=BookDatabase.getInstance(this);
+        Book b=(Book)getIntent().getSerializableExtra("book");
+        ArrayList<Book> dsb=new ArrayList<>();
+        dsb.addAll(bd.BookDAO().getAllBook());
+        bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
+        getTime();
+        for(int i=0;i<bfs.size();i++) {
+            BookFile bf = bfs.get(i);
+            if (((int) bf.getBRead() != (int) bf.getBTotal())) {
+                mediaPlayer.seekTo((int)bf.getBRead());
+                Intent intent = new Intent(PlayAudio.this, MyService.class);
+                intent.putExtra("book_file", bf);
+                intent.putExtra("book", b);
+                intent.setAction("Action_Play");
+                startService(intent);
+                break;
+            }
+            else if(i==bfs.size()-1){
+                bf=bfs.get(0);
+                Intent intent = new Intent(PlayAudio.this, MyService.class);
+                intent.putExtra("book_file", bf);
+                intent.putExtra("book", b);
+                intent.setAction("Action_Play");
+                startService(intent);
+                break;
+            }
+        }
+        if(b!=null){
+            txt_audio_book_name.setText(b.getBookTitle());
+        }
+
+        PlayAudio.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer!=null&&mediaPlayer.isPlaying()){
+                   setReadText();
+                }
+                handler.postDelayed(this,1000);
+            }
+        });
+
+        presenter=new PlayAudioPresenter(PlayAudio.this, PlayAudio.this);
+    }
+
+    private void getTime() {
+        for(BookFile bookFile:bfs){
+            max_time+=bookFile.getBTotal();
+            if(bookFile.getBRead()==bookFile.getBTotal()){
+                current_time+=bookFile.getBRead();
+            }
+        }
     }
 
     @Override
@@ -119,8 +157,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
             }
         });
 
-
         btn_play_speed.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 showPlaySpeedDialog();
@@ -204,6 +242,29 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
             }
         });
 
+        seekBar_current.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser||(!mediaPlayer.isPlaying())){
+                   if(mediaPlayer!=null){
+                       mediaPlayer.seekTo(progress);
+                       setReadText();
+                   }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 
     @Override
@@ -224,23 +285,107 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         final SeekBar sb3=view.findViewById(R.id.sb_chanel3);
         final SeekBar sb4=view.findViewById(R.id.sb_chanel4);
         final SeekBar sb5=view.findViewById(R.id.sb_chanel5);
+
+        sb1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                equalizer.setBandLevel((short)0,(short)(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                equalizer.setBandLevel((short)1,(short)(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                equalizer.setBandLevel((short)2,(short)(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                equalizer.setBandLevel((short)3,(short)(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        sb5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                equalizer.setBandLevel((short)4,(short)(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         sb1.setProgress(equalizer.getBandLevel((short)0));
-        sb2.setProgress( equalizer.getBandLevel((short)1));
+        sb2.setProgress(equalizer.getBandLevel((short)1));
         sb3.setProgress(equalizer.getBandLevel((short)2));
         sb4.setProgress(equalizer.getBandLevel((short)3));
         sb5.setProgress(equalizer.getBandLevel((short)4));
         Button btn_reset_equalizer=view.findViewById((R.id.btn_reset_equalizer));
         Button btn_OK=view.findViewById(R.id.btn_OK_equalizer_dialog);
+        CheckBox chk_mono=view.findViewById(R.id.chk_mono);
+        SeekBar seekBar_mono=view.findViewById(R.id.seek_bar_mono);
 
         btn_reset_equalizer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.resetEqualizer();
-                sb1.setProgress(70000);
-                sb2.setProgress(70000);
-                sb3.setProgress(70000);
-                sb4.setProgress(70000);
-                sb5.setProgress(70000);
+                sb1.setProgress(0);
+                sb2.setProgress(0);
+                sb3.setProgress(0);
+                sb4.setProgress(0);
+                sb5.setProgress(0);
             }
         });
 
@@ -256,10 +401,76 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
                 dialog.dismiss();
             }
         });
+
+
+        chk_mono.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if(seekBar_current.getProgress()==-1){
+                        mediaPlayer.setVolume(MyService.volume,0);
+                    }
+                    else{
+                        mediaPlayer.setVolume(0,MyService.volume);
+                        seekBar_mono.setProgress(1);
+                    }
+                    isMono=true;
+                }
+                else{
+                    mediaPlayer.setVolume(MyService.volume,MyService.volume);
+                    seekBar_mono.setProgress(0);
+                    isMono=false;
+                }
+            }
+        });
+
+        seekBar_mono.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress==1){
+                    mediaPlayer.setVolume(0,MyService.volume);
+                    isMono=true;
+                    isLeft=false;
+                    chk_mono.setChecked(true);
+                }
+                else if(progress==-1) {
+                    mediaPlayer.setVolume(MyService.volume,0);
+                    isMono=true;
+                    isLeft=true;
+                    chk_mono.setChecked(true);
+                }
+                else {
+                    mediaPlayer.setVolume(MyService.volume,MyService.volume);
+                    isMono=false;
+                    isLeft=false;
+                    chk_mono.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        if(isMono){
+            chk_mono.setChecked(true);
+            if(isLeft) {
+                seekBar_mono.setProgress(-1);
+            }
+            else{
+                seekBar_mono.setProgress(1);
+            }
+        }
         dialog.setView(view);
         dialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void showPlaySpeedDialog() {
         final AlertDialog dialog=new AlertDialog.Builder(PlayAudio.this).create();
@@ -272,6 +483,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         dialog.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void configPlaySpeedDialog(View view, final AlertDialog dialog){
         final String[] text = {""};
         Button btn_OK=view.findViewById(R.id.btn_OK_playback_speed_dialog);
@@ -319,6 +531,22 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         btns.add(btn_2_6x);
         btns.add(btn_2_8x);
         btns.add(btn_3_0x);
+        resetButtonColor();
+        try{
+            float s=mediaPlayer.getPlaybackParams().getSpeed();
+            if(s<=2)
+            {
+                btns.get((int)((s-0.5)/0.1)).setTextColor(Color.parseColor("#489494"));
+            }
+            else {
+                btns.get((int)((s/0.2)+5)).setTextColor(Color.parseColor("#489494"));
+            }
+            playbackSpeed=s+"";
+            text[0]=playbackSpeed+"x";
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         for(final Button btn:btns){
             btn.setOnClickListener(new View.OnClickListener() {
@@ -339,11 +567,15 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
             @Override
             public void onClick(View v) {
                 btn_play_speed.setText(text[0]);
-                presenter.setMediaSpeed(Float.parseFloat(playbackSpeed));
+                try{
+                    presenter.setMediaSpeed(Float.parseFloat(playbackSpeed));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
                 dialog.dismiss();
             }
         });
-
 
     }
 
@@ -379,6 +611,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
                 dialog.dismiss();
             }
         });
+
+
         dialog.setView(view);
         dialog.show();
     }
@@ -398,6 +632,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     @Override
     public void addControls() {
         toolbar=findViewById(R.id.toolbar_listaudio);
+
         btn_equalizer=findViewById(R.id.btn_equalizer_play_audio);
         btn_play_speed=findViewById(R.id.btn_play_speed_play_audio);
         btn_timer=findViewById(R.id.btn_timer_play_audio);
@@ -412,8 +647,18 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         btn_play=findViewById(R.id.btn_img_play_play_audio);
         btn_previous=findViewById(R.id.btn_img_previous_play_audio);
         btn_next=findViewById(R.id.btn_img_next_play_audio);
-        updateResourceButtonPlay();
 
+        txt_read=findViewById(R.id.txt_read);
+        txt_percent=findViewById(R.id.txt_percent);
+        txt_left=findViewById(R.id.txt_left);
+        txt_current_time=findViewById(R.id.txt_current_time);
+        txt_total_current_time=findViewById(R.id.txt_total_current_time);
+        txt_audio_book_name=findViewById(R.id.txt_audio_book_name);
+
+        seekBar_current=findViewById(R.id.seek_bar_current_time);
+        seekBar_total=findViewById(R.id.seek_bar_total_time);
+
+        updateResourceButtonPlay();
     }
 
     public void updateResourceButtonPlay() {
@@ -424,6 +669,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     }
 
     public static void setBtn_Play_Resource(boolean play){
+        if(btn_play==null)
+            return;
         if(play==true)
             btn_play.setBackgroundResource(R.drawable.ic_play_arrow_black_48dp);
         if (play==false) {
@@ -431,4 +678,52 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         }
     }
 
+    private static String intToTime(int input){
+        String result="";
+        int h=input/60000/60;
+        int m=(input-h*60000*60)/60000;
+        int s=(input-h*60000*60-m*60000)/1000;
+        if(h!=0) {
+            if(h<10)
+                result+="0";
+            result+=h+":";
+        }
+        if(m!=0){
+            if(m<10)
+                result+="0";
+            result+=m+":";
+        }
+        else {
+            result+="00:";
+        }
+        if(s<10)
+            result+="0";
+        result+=s;
+        return result;
+    }
+
+    private void setReadText(){
+        int read=mediaPlayer.getCurrentPosition();
+        int max=mediaPlayer.getDuration();
+        if(max_time==0)
+            max_time=max;
+        seekBar_total.setMax((int)max_time);
+        seekBar_total.setProgress((int)(current_time+read));
+        seekBar_current.setMax(max);
+        seekBar_current.setProgress(read);
+        txt_read.setText("Read "+intToTime((int)current_time+read)+" of "+intToTime((int)max_time));
+        txt_left.setText("Left "+intToTime((int)(max_time-current_time-read)));
+        txt_percent.setText((int)(((float)read/(float)max)*100)+"%");
+        txt_current_time.setText(intToTime(read));
+        txt_total_current_time.setText(intToTime(max));
+    }
+
+    @Override
+    protected void onDestroy() {
+        BookDatabase bd=BookDatabase.getInstance(this);
+        PlayAudio.currentFile.setBTotal(mediaPlayer.getDuration());
+        PlayAudio.currentFile.setBRead(mediaPlayer.getCurrentPosition());
+        bd.BookFileDAO().updateBookFile(PlayAudio.currentFile);
+        super.onDestroy();
+    }
 }
