@@ -51,6 +51,9 @@ public abstract class BookDAO {
             "join tag on booktag.tagID = tag.tagID where tag.tagContent like '%'||:tag||'%'")
     public abstract List<Book> searchBookFromTag(String tag);
 
+    @Query("Update bookfile set bRead = bTotal where bookfile.bookID = :bookID")
+    public abstract void markBookRead(long bookID);
+
     @Transaction
     public List<Book> searchBookAllPossibleField(String searchString){
         List<Book> result = new ArrayList<>();
