@@ -18,10 +18,10 @@ public abstract class BookDAO {
     @Query("Select * from book")
     public abstract List<Book> getAllBook();
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and bookfile.bRead <> bookfile.bTotal")
     public abstract List<Book> getAllNewBook();
 
-    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and book.bTypeID = :typeID")
+    @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead = 0 and bookfile.bRead <> bookfile.bTotal and book.bTypeID = :typeID")
     public abstract List<Book> getAllNewBookWithBookType(long typeID);
 
     @Query("Select distinct book.* from book inner join bookfile ON book.bookID = bookfile.bookID where bookfile.bRead <> 0 and bookfile.bRead <> bookfile.bTotal")

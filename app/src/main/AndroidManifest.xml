@@ -19,6 +19,9 @@
         <activity android:name=".UI.BookPageManagement.PageManagementActivity"></activity>
 
         <activity android:name=".UI.ReadBook.new_UI.BookReadingActivity"> </activity>
+
+        <activity android:name=".UI.ReadBook.new_UI.HighlightManagementActivity"></activity>
+
         <activity android:name=".UI.Main.MainActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
