@@ -27,7 +27,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/activity_main_layout"
                 android:layout_marginTop="16dp"/>
 
-            <luubieunghi.lbn.booklib.UI.ReadBook.new_UI.EnhancedWrapContentViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
