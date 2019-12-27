@@ -28,7 +28,23 @@
 ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/search.png)
 
 
+## Thư viện hỗ trợ đọc epub là bản mở rộng của Folio Reader hỗ trợ thêm các tính năng liên quan tới tiếng Việt do [**dongnvsince1999**](https://github.com/dongnvsince1999/) thực hiện.
 
+Thông tin về bản mở rộng: [FOLIOREADER_PROJECT](https://github.com/FolioReader/FolioReader-Android)
+Thông tin về Folio Reader có thể tham khảo tại: [FOLIOREADER_PROJECT](https://github.com/FolioReader/FolioReader-Android)
+
+### Tác giả của FolioReader-Android:
+[**Heberti Almeida**](https://github.com/hebertialmeida)
+
+- **Twitter**: [**@hebertialmeida**](https://twitter.com/hebertialmeida)
+- **LinkedIn**: [**hebertialmeida**](http://linkedin.com/in/hebertialmeida)
+
+## Các tham khảo khác:
+ - FOLIOREADER WIKI
+ - [**EPUB CFI**](http://idpf.org/epub/linking/cfi/epub-cfi.html)
+ - [**Rangy**](https://github.com/timdown/rangy)
+ - API của Dịch từ của Google: translate.googleapis.com
+ - Data từ điển được lấy và convert từ [**UNDERTHESEAPROJECT**](https://github.com/undertheseanlp/underthesea)(Github)
  
  
  
