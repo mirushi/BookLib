@@ -30,8 +30,9 @@
 
 ## Thư viện hỗ trợ đọc epub là bản mở rộng của Folio Reader hỗ trợ thêm các tính năng liên quan tới tiếng Việt do [**dongnvsince1999**](https://github.com/dongnvsince1999/) thực hiện.
 
-Thông tin về bản mở rộng: [FOLIOREADER_PROJECT](https://github.com/FolioReader/FolioReader-Android)
-Thông tin về Folio Reader có thể tham khảo tại: [FOLIOREADER_PROJECT](https://github.com/FolioReader/FolioReader-Android)
+- Thông tin về [bản mở rộng](https://github.com/dongnvsince1999/FolioReader-Android)
+
+- Thông tin về Folio Reader có thể tham khảo tại: [FOLIOREADER_PROJECT](https://github.com/FolioReader/FolioReader-Android)
 
 ### Tác giả của FolioReader-Android:
 [**Heberti Almeida**](https://github.com/hebertialmeida)
