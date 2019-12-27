@@ -64,6 +64,8 @@ public class BookReadingActivity extends AppCompatActivity
     long book_ID;
     ReadLocator _readLocator;
     String filePath;
+    String mBFileID;
+    String mBFileTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,15 +132,33 @@ public class BookReadingActivity extends AppCompatActivity
     @Override
     public void saveReadLocator(ReadLocator readLocator) {
         listBookFile.get(0).setbLocator(readLocator.toJson());
-       // listBookFile.get(0).setBRead(sotrang);
+        if (listBookFile.get(0).getBFileID() == null) {
+            mBFileID = getBFileID(readLocator);
+            mBFileTitle = getTitleFileID(readLocator);
+            listBookFile.get(0).setBFileID(mBFileTitle);
+        }
+
+        // listBookFile.get(0).setBRead(sotrang);
         ReadLocator rl = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
         Log.i(LOG_TAG + "_SAVE", "-> saveReadLocator -> " + listBookFile.get(0).getBLocator());
+        Log.i(LOG_TAG + "_SAVE"," -> saveBfileID -> "+ getBFileID(readLocator));
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 BookDatabase.getInstance(BookReadingActivity.this).BookFileDAO().updateBookFile(listBookFile.get(0));
             }
         });
+    }
+
+    private String getTitleFileID(ReadLocator readLocator) {
+        return "";
+    }
+
+    private String getBFileID(ReadLocator readLocator) {
+        String[] tmp_parser_1 = readLocator.toJson().split(",");
+        String[] tmp_parser_2 = tmp_parser_1[0].split(":");
+        String _bFileID = tmp_parser_2[1].substring(1,tmp_parser_2[1].length()-2);
+        return _bFileID;
     }
 
     /*
