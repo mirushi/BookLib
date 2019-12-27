@@ -1,7 +1,7 @@
 # BookLib
  Ứng dụng đọc và quản lý ebook toàn diện
  
- ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/iconlogo.png)
+ ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/iconlogo_.png)
  
 ## Chức năng chính:
  
