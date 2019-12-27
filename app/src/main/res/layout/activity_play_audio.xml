@@ -104,17 +104,17 @@
             app:iconGravity="textStart"
             app:iconTint="@null"></Button>
     </LinearLayout>
+
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Audio"
-        android:textSize="18dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
         android:gravity="center"
-        android:textColor="#000000">
-    </TextView>
+        android:text="Audio"
+        android:textColor="#000000"
+        android:textSize="18dp"></TextView>
     <SeekBar
-        android:id="@+id/seek_bar_total_time_play_audio"
+        android:id="@+id/seek_bar_total_time"
         android:layout_weight="1"
         android:progressDrawable="@xml/seekbar_custome"
         android:layout_width="match_parent"
@@ -273,7 +273,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -283,8 +283,8 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
             android:background="@null"
             android:src="@drawable/ic_skip_previous_black_48dp"
             app:icon="@drawable/ic_skip_previous_black_48dp"
@@ -295,12 +295,12 @@
             android:id="@+id/btn_img_play_play_audio"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="94dp"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@xml/custome_button"
-            app:iconGravity="textStart"
             app:backgroundTint="#000000"
+            app:iconGravity="textStart"
             app:iconTint="@null"></Button>
 
         <Button
@@ -308,8 +308,8 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
             android:background="@null"
             android:src="@drawable/ic_skip_next_black_48dp"
             app:icon="@drawable/ic_skip_next_black_48dp"

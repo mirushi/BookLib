@@ -25,6 +25,7 @@ import java.util.Random;
 import luubieunghi.lbn.booklib.Database.BookDatabase;
 import luubieunghi.lbn.booklib.Model.Book.Book;
 import luubieunghi.lbn.booklib.Model.BookFile.BookFile;
+import luubieunghi.lbn.booklib.Model.Publisher.Publisher;
 import luubieunghi.lbn.booklib.Model.Song.Song;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.PlayAudio.PlayAudio;
@@ -130,7 +131,8 @@ public class MyService extends Service {
                     else {
                         if(b!=null){
                             notificationLayout.setTextViewText(R.id.txt_tenbaihat_notification,b.getBookTitle());
-                            notificationLayout.setTextViewText(R.id.txt_tencasi_notification,b.getDescription());
+                            Publisher p=BookDatabase.getInstance(getApplicationContext()).PublisherDAO().getBookPublisher(b.getBookID());
+                            notificationLayout.setTextViewText(R.id.txt_tencasi_notification,p.getPublisherName());
                         }
                     }
                     showNotification();

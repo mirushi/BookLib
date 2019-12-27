@@ -45,7 +45,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     private Button btn_next, btn_previous;
     private Handler handler=new Handler();
     private TextView txt_read, txt_percent, txt_left, txt_current_time, txt_total_current_time, txt_audio_book_name;
-    private SeekBar seekBar_current;
+    private SeekBar seekBar_current, seekBar_total;
     private PlayAudioPresenter presenter;
     private Button []buttons;
     private String playbackSpeed="";
@@ -53,6 +53,8 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     public static  Button btn_play=null;
     public static List<BookFile> bfs=null;
     public static BookFile currentFile=null;
+    private long current_time=0;
+    private long max_time=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         ArrayList<Book> dsb=new ArrayList<>();
         dsb.addAll(bd.BookDAO().getAllBook());
         bfs= bd.BookFileDAO().getAllFilesOfBook(b.getBookID());
+        getTime();
         for(int i=0;i<bfs.size();i++) {
             BookFile bf = bfs.get(i);
             if (((int) bf.getBRead() != (int) bf.getBTotal())) {
@@ -104,6 +107,15 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         });
 
         presenter=new PlayAudioPresenter(PlayAudio.this, PlayAudio.this);
+    }
+
+    private void getTime() {
+        for(BookFile bookFile:bfs){
+            max_time+=bookFile.getBTotal();
+            if(bookFile.getBRead()==bookFile.getBTotal()){
+                current_time+=bookFile.getBRead();
+            }
+        }
     }
 
     @Override
@@ -644,6 +656,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         txt_audio_book_name=findViewById(R.id.txt_audio_book_name);
 
         seekBar_current=findViewById(R.id.seek_bar_current_time);
+        seekBar_total=findViewById(R.id.seek_bar_total_time);
 
         updateResourceButtonPlay();
     }
@@ -692,10 +705,14 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     private void setReadText(){
         int read=mediaPlayer.getCurrentPosition();
         int max=mediaPlayer.getDuration();
+        if(max_time==0)
+            max_time=max;
+        seekBar_total.setMax((int)max_time);
+        seekBar_total.setProgress((int)(current_time+read));
         seekBar_current.setMax(max);
         seekBar_current.setProgress(read);
-        txt_read.setText("Read "+intToTime(read)+" of "+intToTime(max));
-        txt_left.setText("Left "+intToTime((max-read)));
+        txt_read.setText("Read "+intToTime((int)current_time+read)+" of "+intToTime((int)max_time));
+        txt_left.setText("Left "+intToTime((int)(max_time-current_time-read)));
         txt_percent.setText((int)(((float)read/(float)max)*100)+"%");
         txt_current_time.setText(intToTime(read));
         txt_total_current_time.setText(intToTime(max));
