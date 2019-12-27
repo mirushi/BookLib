@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_square"
         android:label="@string/app_name_mine"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_round_"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name = "luubieunghi.lbn.booklib.BookLib">
