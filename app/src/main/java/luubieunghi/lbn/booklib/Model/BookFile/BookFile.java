@@ -5,6 +5,7 @@ import java.io.Serializable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import luubieunghi.lbn.booklib.Model.Book.Book;
@@ -27,6 +28,15 @@ public class BookFile implements Serializable{
     @ColumnInfo(name = "bFilePath")
     private String bFilePath;
 
+    @ColumnInfo(name = "bFileTitle")
+    private String bFileTitle;
+
+    @ColumnInfo(name = "bFileID")
+    private String bFileID;
+
+    @ColumnInfo(name = "bBookmark")
+    private String bBookmark;
+
     @ColumnInfo(name = "bRead")
     private long bRead;
 
@@ -36,13 +46,47 @@ public class BookFile implements Serializable{
     @ColumnInfo(name = "bLocator")
     private String bLocator;
 
-    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal, String bLocator) {
+    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal, String bLocator,
+                    String bFileTitle, String bFileID, String bBookmark){
         this.bookID = bookID;
         this.bFileOrder = bFileOrder;
         this.bFilePath = bFilePath;
         this.bRead = bRead;
         this.bTotal = bTotal;
         this.bLocator = bLocator;
+        this.bFileTitle = bFileTitle;
+        this.bFileID = bFileID;
+        this.bBookmark = bBookmark;
+    }
+
+    public String getBFileTitle() {
+        return bFileTitle;
+    }
+
+    public void setBFileTitle(String bFileTitle) {
+        this.bFileTitle = bFileTitle;
+    }
+
+    public String getBFileID() {
+        return bFileID;
+    }
+
+    public void setBFileID(String bFileID) {
+        this.bFileID = bFileID;
+    }
+
+    public String getBBookmark() {
+        return bBookmark;
+    }
+
+    public void setBBookmark(String bBookmark) {
+        this.bBookmark = bBookmark;
+    }
+
+    @Ignore
+    public BookFile(long bookID, int bFileOrder, String bFilePath, long bRead, long bTotal, String bLocator) {
+        this(bookID, bFileOrder, bFilePath, bRead, bTotal, bLocator,
+                null, null, null);
     }
 
     public String getBLocator(){
