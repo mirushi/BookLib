@@ -36,6 +36,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import droidninja.filepicker.FilePickerBuilder;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
     private Toolbar toolbar;
     private BookListingPagerAdapter adapterViewPager;
     private ViewPager viewPager;
+    private SwipeRefreshLayout swipeRefreshLayout;
     //Các biến liên quan đến Drawer.
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
 
     private void ConfigGesturesListener()
     {
-        viewPager.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
+        drawerLayout.setOnTouchListener(new AppWideGesturesListener(getApplicationContext()){
             @Override
             public void SwipeUpFromBottom()
             {
