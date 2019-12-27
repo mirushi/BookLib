@@ -93,7 +93,7 @@ public class BookReadingActivity extends AppCompatActivity
 
                 if (listBookFile.get(0).getBLocator() != null) {
                     _readLocator = ReadLocator.fromJson(listBookFile.get(0).getBLocator());
-                    Log.e(LOG_TAG + "_SAVE", " -> getReadLocator -> " + _readLocator.toString());
+                    Log.e(LOG_TAG + "_SAVE", " -> getReadLocator -> " + _readLocator.toJson());
                 }
 
                 dialog.hideDialog();
@@ -135,7 +135,7 @@ public class BookReadingActivity extends AppCompatActivity
         if (listBookFile.get(0).getBFileID() == null) {
             mBFileID = getBFileID(readLocator);
             mBFileTitle = getTitleFileID(readLocator);
-            listBookFile.get(0).setBFileID(mBFileTitle);
+            listBookFile.get(0).setBFileID(mBFileID);
         }
 
         // listBookFile.get(0).setBRead(sotrang);

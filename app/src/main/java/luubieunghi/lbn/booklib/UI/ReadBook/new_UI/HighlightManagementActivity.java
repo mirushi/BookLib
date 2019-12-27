@@ -40,8 +40,6 @@ public class HighlightManagementActivity extends AppCompatActivity {
         dialog = new BookLoadingAlertDialog(this);
 
         receiveData();
-        setUpView();
-
     }
 
     private void receiveData() {
@@ -73,7 +71,7 @@ public class HighlightManagementActivity extends AppCompatActivity {
     }
 
     private void setUpView() {
-        if(mBFileID != null&&mBFileTitle != null) {
+        if(mBFileID != null) {
             HighlightFragment highlightFragment = HighlightFragment.newInstance(mBFileID, mBFileTitle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.test_layout, highlightFragment);
