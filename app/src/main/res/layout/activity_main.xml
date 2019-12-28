@@ -8,34 +8,33 @@
     android:id="@+id/activity_main_drawer_layout">
 
     <!--Main Menu -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/activity_main_layout"
-        tools:context=".UI.Main.MainActivity">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/main_menu_toolbar"/>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/activity_main_tab_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main_layout"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="match_parent"
+            android:id="@+id/activity_main_layout"
+            tools:context=".UI.Main.MainActivity">
 
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/activity_main_viewPager"
-            app:layout_constraintTop_toBottomOf="@+id/activity_main_tab_layout"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main_layout"/>
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/main_menu_toolbar"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/activity_main_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintLeft_toLeftOf="@+id/activity_main_layout"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_main_viewPager"
+                app:layout_constraintTop_toBottomOf="@+id/activity_main_tab_layout"
+                app:layout_constraintLeft_toLeftOf="@+id/activity_main_layout"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--Left Menu -->
 
