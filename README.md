@@ -37,6 +37,12 @@
 
 ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/search.png)
 
+### Nghe và chỉnh audio book:
+
+![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/audiomain.png)
+
+![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/audioconfig.png)
+
 
 ## Thư viện hỗ trợ đọc epub là bản mở rộng của Folio Reader hỗ trợ thêm các tính năng liên quan tới tiếng Việt do [**dongnvsince1999**](https://github.com/dongnvsince1999/) thực hiện.
 
