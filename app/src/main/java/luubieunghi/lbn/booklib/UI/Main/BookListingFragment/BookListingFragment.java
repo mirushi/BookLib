@@ -199,7 +199,34 @@ public class BookListingFragment extends Fragment implements BookListingContract
                     return true;
                 }
                 case BookRecyclerViewAdapter.markReadID:{
+                    if (filter == BookListingReadProgressFilter.FINISHED){
+                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                BookDatabase.getInstance(BookListingFragment.this.getActivity()).BookDAO().markBookUnread(selectedBook.getBookID());
+                                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        LoadDataForRecyclerView();
+                                    }
+                                });
+                            }
+                        });
+                        break;
+                    }
                     displayMessage(filter.toString() + "Mark read clicked !" + itemPosition.toString());
+                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            BookDatabase.getInstance(BookListingFragment.this.getActivity()).BookDAO().markBookRead(selectedBook.getBookID());
+                            AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LoadDataForRecyclerView();
+                                }
+                            });
+                        }
+                    });
                     return true;
                 }
                 case BookRecyclerViewAdapter.deleteBookID:{
