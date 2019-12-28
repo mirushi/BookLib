@@ -53,7 +53,7 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
     public static  Button btn_play=null;
     public static List<BookFile> bfs=null;
     public static BookFile currentFile=null;
-    private long current_time=0;
+    public static long current_time=0;
     private long max_time=0;
 
     @Override

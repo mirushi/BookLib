@@ -248,6 +248,7 @@ public class MyService extends Service {
 //                    if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration()){
 //                        onComplete(mp,false);
 //                    }
+                    PlayAudio.current_time+=mediaPlayer.getDuration();
                     onComplete(mp,isMusic);
                 }
             });
