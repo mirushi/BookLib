@@ -54,6 +54,9 @@ public abstract class BookDAO {
     @Query("Update bookfile set bRead = bTotal where bookfile.bookID = :bookID")
     public abstract void markBookRead(long bookID);
 
+    @Query("Update bookfile set bRead = 0 where bookfile.bookID = :bookID")
+    public abstract void markBookUnread(long bookID);
+
     @Transaction
     public List<Book> searchBookAllPossibleField(String searchString){
         List<Book> result = new ArrayList<>();
