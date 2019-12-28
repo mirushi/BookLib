@@ -167,7 +167,7 @@ public class AddNewBookPresenter implements AddNewBookContract.AddNewBookMVPPres
                         metadataRetriever.release();
                     }
                     else{
-                        bTotalList.add(1L);
+                        bTotalList.add(3L);
                     }
                     for (int i=0;i<viewBookFilePath.size();++i){
                         String filePath = viewBookFilePath.get(i);
