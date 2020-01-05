@@ -22,7 +22,7 @@
 
         <activity android:name=".UI.ReadBook.new_UI.HighlightManagementActivity"></activity>
 
-        <activity android:name=".UI.Main.MainActivity" android:launchMode="singleTask">
+        <activity android:name=".UI.Main.MainActivity" android:launchMode="singleTask" android:theme="@style/splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

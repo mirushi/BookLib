@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_MaterialComponents_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ConfigToolbar();
