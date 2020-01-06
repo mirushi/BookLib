@@ -42,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bắt đầu chuyến phiêu lưu mới"
+                    android:textColor="@android:color/holo_blue_light"
                     app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_start"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginLeft="16dp"/>
@@ -83,6 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tiếp tục cuộc hành trình"
+                        android:textColor="@android:color/holo_blue_light"
                         app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_reading"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="16dp"/>
@@ -126,6 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đọc lại để suy ngẫm sâu sắc thêm"
+                    android:textColor="@android:color/holo_blue_light"
                     app:layout_constraintTop_toBottomOf="@id/fragment_book_listing_txtView_finished"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginLeft="16dp"/>
