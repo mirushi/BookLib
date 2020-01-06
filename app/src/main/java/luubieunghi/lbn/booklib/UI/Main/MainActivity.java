@@ -2,12 +2,8 @@ package luubieunghi.lbn.booklib.UI.Main;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
@@ -23,7 +19,6 @@ import com.hbisoft.pickit.PickiTCallbacks;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,23 +28,16 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import droidninja.filepicker.FilePickerBuilder;
-import droidninja.filepicker.FilePickerConst;
 import luubieunghi.lbn.booklib.Adapter.BookListingPagerAdapter;
-import luubieunghi.lbn.booklib.Database.BookDatabase;
 
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.AboutActivity;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.OpenListSong.OpenListSong;
 import luubieunghi.lbn.booklib.UI.Main.BookListingFragment.BookListingFragment;
-import luubieunghi.lbn.booklib.UI.PlayMusic.PlayMusic;
 import luubieunghi.lbn.booklib.UI.Setting.SettingsActivity;
 
 
@@ -315,7 +303,6 @@ public class MainActivity extends AppCompatActivity implements PickiTCallbacks {
 
             @Override
             public void onPageSelected(int position) {
-
             }
 
             @Override

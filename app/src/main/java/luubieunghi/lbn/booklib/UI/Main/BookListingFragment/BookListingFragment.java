@@ -14,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,7 @@ import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.AddNewBook.AddNewBookActivity;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
 import luubieunghi.lbn.booklib.UI.Main.BookFilterType;
+import luubieunghi.lbn.booklib.UI.Main.EventBus.BookListUpdatedEventBus;
 import luubieunghi.lbn.booklib.UI.ReadBook.new_UI.HighlightManagementActivity;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
@@ -67,7 +72,8 @@ public class BookListingFragment extends Fragment implements BookListingContract
     //Dialog dùng để chặn người dùng thao tác với màn hình khi sách đang load.
     BookLoadingAlertDialog dialog;
 
-    private BroadcastReceiver mMessageReceiver;
+    //Các fragment sẽ được callback để update view của nó khi có sự thay đổi về danh sách.
+    BookListingFragment[] fragmentCallBack;
 
     public static BookListingFragment newInstance(BookFilterType filter)
     {
@@ -90,16 +96,17 @@ public class BookListingFragment extends Fragment implements BookListingContract
 
         //Khởi tạo mới presenter ở đây.
         presenter = new BookListingPresenter(this);
+    }
 
-        mMessageReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                LoadDataForRecyclerView();
-            }
-        };
-        //Ta đăng ký receiver để biết khi nào cần phải cập nhật lại danh sách sách.
-        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver
-                (mMessageReceiver, new IntentFilter("book_list_updated"));
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBookListUpdated(BookListUpdatedEventBus event){
+        LoadDataForRecyclerView();
     }
 
     @Nullable
@@ -124,8 +131,13 @@ public class BookListingFragment extends Fragment implements BookListingContract
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onDestroy() {
-        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
 
@@ -204,12 +216,7 @@ public class BookListingFragment extends Fragment implements BookListingContract
                             @Override
                             public void run() {
                                 BookDatabase.getInstance(BookListingFragment.this.getActivity()).BookDAO().markBookUnread(selectedBook.getBookID());
-                                AppExecutors.getInstance().mainThread().execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        LoadDataForRecyclerView();
-                                    }
-                                });
+                                EventBus.getDefault().post(new BookListUpdatedEventBus());
                             }
                         });
                         break;
@@ -219,12 +226,7 @@ public class BookListingFragment extends Fragment implements BookListingContract
                         @Override
                         public void run() {
                             BookDatabase.getInstance(BookListingFragment.this.getActivity()).BookDAO().markBookRead(selectedBook.getBookID());
-                            AppExecutors.getInstance().mainThread().execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    LoadDataForRecyclerView();
-                                }
-                            });
+                            EventBus.getDefault().post(new BookListUpdatedEventBus());
                         }
                     });
                     return true;
@@ -320,6 +322,8 @@ public class BookListingFragment extends Fragment implements BookListingContract
             }
         });
     }
+
+
 
     private void LoadDataForRecyclerView()
     {

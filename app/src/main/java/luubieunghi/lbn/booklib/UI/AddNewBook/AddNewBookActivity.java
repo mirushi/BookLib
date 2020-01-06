@@ -26,6 +26,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.hbisoft.pickit.PickiT;
 import com.hbisoft.pickit.PickiTCallbacks;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ import luubieunghi.lbn.booklib.Model.Tag.Tag;
 import luubieunghi.lbn.booklib.R;
 import luubieunghi.lbn.booklib.UI.About.RatingView;
 import luubieunghi.lbn.booklib.UI.CustomAlertDialog.BookLoadingAlertDialog;
+import luubieunghi.lbn.booklib.UI.Main.EventBus.BookListUpdatedEventBus;
 import luubieunghi.lbn.booklib.Utility.Others.AppExecutors;
 
 public class AddNewBookActivity extends AppCompatActivity implements AddNewBookContract.AddNewBookMVPView, PickiTCallbacks {
@@ -354,11 +357,10 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
     @Override
     public void BookAddedSuccess() {
         //Hiển thị thông báo sách được thêm thành công.
-        Toast.makeText(this, "Book added succcessfully !", Toast.LENGTH_LONG);
+        Toast.makeText(BookLib.getAppContext(), "Book added succcessfully !", Toast.LENGTH_LONG);
         waitDialog.hideDialog();
         //Khi hoàn thành rồi thì phát tính hiệu để fragment biết mà update lại danh sách các quyển sách.
-        Intent intent = new Intent("book_list_updated");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        EventBus.getDefault().post(new BookListUpdatedEventBus());
         finish();
     }
 
