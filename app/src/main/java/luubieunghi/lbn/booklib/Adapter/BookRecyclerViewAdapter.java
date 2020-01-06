@@ -76,7 +76,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
             @Override
             public void onClick(View v) {
                 Integer position = holder.getAdapterPosition();
-                Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Clicked book number " + position.toString(), Toast.LENGTH_SHORT).show();
 
                 Intent intent;
 

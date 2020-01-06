@@ -187,16 +187,16 @@ public class BookListingFragment extends Fragment implements BookListingContract
                     intent.putExtra("EXISTING_BOOK", selectedBook);
                     startActivity(intent);
 
-                    displayMessage(filter.toString() + "Load Book Details Clicked !" + itemPosition.toString());
+                    //displayMessage(filter.toString() + "Load Book Details Clicked !" + itemPosition.toString());
                     return true;
                 }
                 case BookRecyclerViewAdapter.startReadingBookID:{
                     selectedRecyclerView.findViewHolderForAdapterPosition(itemPosition).itemView.performClick();
-                    displayMessage(filter.toString() + "Start reading book clicked !" + itemPosition.toString());
+                    //displayMessage(filter.toString() + "Start reading book clicked !" + itemPosition.toString());
                     return true;
                 }
                 case BookRecyclerViewAdapter.viewBookmarksID:{
-                    displayMessage(filter.toString() + "View Bookmark clicked !" + itemPosition.toString());
+                    //displayMessage(filter.toString() + "View Bookmark clicked !" + itemPosition.toString());
                     return true;
                 }
                 case BookRecyclerViewAdapter.viewHighlightsID:{
@@ -221,7 +221,7 @@ public class BookListingFragment extends Fragment implements BookListingContract
                         });
                         break;
                     }
-                    displayMessage(filter.toString() + "Mark read clicked !" + itemPosition.toString());
+                    //displayMessage(filter.toString() + "Mark read clicked !" + itemPosition.toString());
                     AppExecutors.getInstance().diskIO().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -259,7 +259,7 @@ public class BookListingFragment extends Fragment implements BookListingContract
                             .setIcon(android.R.drawable.ic_delete)
                             .show();
 
-                    displayMessage(filter.toString() + "Delete book clicked !" + itemPosition.toString());
+                    //displayMessage(filter.toString() + "Delete book clicked !" + itemPosition.toString());
                     return true;
                 }
             }
