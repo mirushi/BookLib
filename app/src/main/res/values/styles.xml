@@ -10,7 +10,7 @@
     </style>
 
     <style name="splashScreen" parent = "Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_port_xxxhdpi</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
     <style name="EbookTypesSelectorDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert"/>
