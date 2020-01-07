@@ -4,6 +4,10 @@
  ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/iconlogo_.png)
  
 ## Chức năng chính:
+
+###Poster:
+
+![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/posterapp.png)
  
 ### Quản lý ebook và audiobook:
 
