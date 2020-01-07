@@ -58,13 +58,11 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_audio);
         addControls();
         setUp();
         addEvents();
-        MyService.createEqualizer();
         BookDatabase bd=BookDatabase.getInstance(this);
         Book b=(Book)getIntent().getSerializableExtra("book");
         ArrayList<Book> dsb=new ArrayList<>();
@@ -77,7 +75,6 @@ public class PlayAudio extends AppCompatActivity implements PlayAudioContract.IP
         for(int i=0;i<bfs.size();i++) {
             BookFile bf = bfs.get(i);
             if (((int) bf.getBRead() != (int) bf.getBTotal())) {
-                mediaPlayer.seekTo((int)bf.getBRead());
                 Intent intent = new Intent(PlayAudio.this, MyService.class);
                 intent.putExtra("book_file", bf);
                 intent.putExtra("book", b);

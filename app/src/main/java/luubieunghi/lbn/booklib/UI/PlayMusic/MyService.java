@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
 import android.net.Uri;
@@ -35,7 +36,7 @@ public class MyService extends Service {
     private static final String chanel_ID="MUSIC";
     private static final String chanel_Name="PLAY MUSIC";
     public  static  float volume=0.5f;
-    public static  MediaPlayer mediaPlayer=new MediaPlayer();
+    public static  MediaPlayer mediaPlayer;
     public static Equalizer equalizer=null;
     public static  RemoteViews notificationLayout;
     boolean isMusic;
@@ -52,10 +53,6 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(equalizer==null)
-            equalizer=new Equalizer(0, mediaPlayer.getAudioSessionId());
-        mediaPlayer.setVolume(volume,volume);
-        createEqualizer();
         notificationLayout=new RemoteViews(getPackageName(), R.layout.custome_notification);
     }
 
@@ -342,6 +339,9 @@ public class MyService extends Service {
 
     // bắt đầu phát nhạc
     private void play_MediaPlayer() {
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setVolume(volume,volume);
+        createEqualizer();
         if(mediaPlayer.isPlaying())
         {
             if(PlayMusic.btn_img_Play!=null)
