@@ -5,7 +5,7 @@
  
 ## Chức năng chính:
 
-###Poster:
+### Poster:
 
 ![alt text](https://raw.githubusercontent.com/dongnvsince1999/FolioReader-Android/master/folioreader/posterapp.png)
  
