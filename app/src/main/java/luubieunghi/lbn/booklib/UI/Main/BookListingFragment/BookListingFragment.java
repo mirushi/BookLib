@@ -104,8 +104,11 @@ public class BookListingFragment extends Fragment implements BookListingContract
         EventBus.getDefault().register(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onBookListUpdated(BookListUpdatedEventBus event){
+        //Kiểm tra nếu cả 3 fragment đều đã nhận được thông điệp yêu cầu cập nhật rồi thì ta xoá khỏi bộ đệm.
+        if (event != null && !event.checkForUpdate())
+            EventBus.getDefault().removeStickyEvent(event);
         LoadDataForRecyclerView();
     }
 
@@ -329,12 +332,18 @@ public class BookListingFragment extends Fragment implements BookListingContract
     {
         //Xét xem filter đang ở chế độ nào.
         //Load dữ liệu cho danh sách sách mới.
+        freshBookRecyclerViewAdapter.clear();
+        freshStartBooks.clear();
         presenter.LoadBookList(BookListingReadProgressFilter.NEW, filter);
 
         //Load dữ liệu cho danh sách sách đang đọc.
+        inProgressBookRecyclerViewAdapter.clear();
+        inProgressBooks.clear();
         presenter.LoadBookList(BookListingReadProgressFilter.READING, filter);
 
         //Load dữ liệu cho danh sách sách đã đọc xong.
+        finishedBookRecyclerViewAdapter.clear();
+        finishedBooks.clear();
         presenter.LoadBookList(BookListingReadProgressFilter.FINISHED, filter);
     }
 

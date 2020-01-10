@@ -335,7 +335,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
                                 mDay = dayOfMonth;
                                 mMonth = monthOfYear;
                                 mYear = year;
-                                ldPublishingDate = LocalDate.of(year, monthOfYear, dayOfMonth);
+                                ldPublishingDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
 
@@ -360,7 +360,7 @@ public class AddNewBookActivity extends AppCompatActivity implements AddNewBookC
         Toast.makeText(BookLib.getAppContext(), "Book added succcessfully !", Toast.LENGTH_LONG);
         waitDialog.hideDialog();
         //Khi hoàn thành rồi thì phát tính hiệu để fragment biết mà update lại danh sách các quyển sách.
-        EventBus.getDefault().post(new BookListUpdatedEventBus());
+        EventBus.getDefault().postSticky(new BookListUpdatedEventBus());
         finish();
     }
 

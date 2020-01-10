@@ -108,6 +108,10 @@ public abstract class BookDatabase extends RoomDatabase {
                             //Chúng ta sẽ thêm vào hai ngôn ngữ mặc định khi DB được tạo (tiếng Anh / tiếng Việt).
                             bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0,"English"));
                             bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
+                            bookDatabaseInstance.LanguageDAO().InsertIfNotExists(new Language(0, "Tiếng Việt"));
+
 
                             //Sau đó chúng ta sẽ thêm vào 2 loại sách (Sách Ebook và Sách nói).
                             bookDatabaseInstance.BookTypeDAO().InsertIfNotExists(new BookType(0, "Ebook"));
